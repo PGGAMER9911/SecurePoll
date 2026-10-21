@@ -77,12 +77,18 @@ $emailPrefs = $emailPreferences ?? [
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.35);
 }
 
-/* Distinct muted appearance when genuinely disabled by master switch */
+/* Distinct muted appearance when genuinely disabled */
 .sp-toggle-input:disabled + .sp-toggle-track,
 .sp-toggle-input[disabled] + .sp-toggle-track,
 .sp-toggle.is-disabled .sp-toggle-track {
-    opacity: 0.5 !important;
+    background-color: #475569 !important; /* Neutral muted slate for disabled controls */
+    opacity: 0.45 !important;
     cursor: not-allowed !important;
+}
+
+.sp-toggle-input:disabled + .sp-toggle-track .sp-toggle-thumb,
+.sp-toggle.is-disabled .sp-toggle-track .sp-toggle-thumb {
+    background-color: #cbd5e1 !important;
 }
 
 .sp-toggle.is-disabled {
@@ -296,9 +302,9 @@ $emailPrefs = $emailPreferences ?? [
             <div id="emailAlert" class="hidden p-4 rounded-xl text-sm font-medium transition-all"></div>
 
             <!-- Coming Soon Explanation Notice -->
-            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 flex items-start gap-3">
+            <div class="p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-start gap-3">
                 <i data-lucide="info" class="w-5 h-5 text-indigo-500 dark:text-indigo-400 shrink-0 mt-0.5"></i>
-                <div class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                <div class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
                     <span class="font-semibold text-slate-900 dark:text-white">Email notifications are not available yet.</span> In-app notifications continue to work normally.
                 </div>
             </div>
@@ -332,7 +338,7 @@ $emailPrefs = $emailPreferences ?? [
                 <h4 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">Notification Categories</h4>
 
                 <!-- 1. Poll Invitations -->
-                <div class="flex items-center justify-between py-2.5">
+                <div class="flex items-center justify-between py-2.5 opacity-60">
                     <div class="pr-4">
                         <label for="pref_invitations" class="text-sm font-medium text-slate-900 dark:text-slate-200 cursor-not-allowed flex items-center gap-2">
                             <i data-lucide="mail-plus" class="w-4 h-4 text-indigo-500"></i> Poll Invitations
@@ -350,7 +356,7 @@ $emailPrefs = $emailPreferences ?? [
                 </div>
 
                 <!-- 2. Poll Reminders -->
-                <div class="flex items-center justify-between py-2.5 border-t border-slate-100 dark:border-slate-800/60">
+                <div class="flex items-center justify-between py-2.5 opacity-60 border-t border-slate-100 dark:border-slate-800/60">
                     <div class="pr-4">
                         <label for="pref_reminders" class="text-sm font-medium text-slate-900 dark:text-slate-200 cursor-not-allowed flex items-center gap-2">
                             <i data-lucide="clock" class="w-4 h-4 text-amber-500"></i> Poll Reminders
@@ -368,7 +374,7 @@ $emailPrefs = $emailPreferences ?? [
                 </div>
 
                 <!-- 3. Poll Updates -->
-                <div class="flex items-center justify-between py-2.5 border-t border-slate-100 dark:border-slate-800/60">
+                <div class="flex items-center justify-between py-2.5 opacity-60 border-t border-slate-100 dark:border-slate-800/60">
                     <div class="pr-4">
                         <label for="pref_updates" class="text-sm font-medium text-slate-900 dark:text-slate-200 cursor-not-allowed flex items-center gap-2">
                             <i data-lucide="edit-3" class="w-4 h-4 text-emerald-500"></i> Poll Updates
@@ -386,7 +392,7 @@ $emailPrefs = $emailPreferences ?? [
                 </div>
 
                 <!-- 4. Results Published -->
-                <div class="flex items-center justify-between py-2.5 border-t border-slate-100 dark:border-slate-800/60">
+                <div class="flex items-center justify-between py-2.5 opacity-60 border-t border-slate-100 dark:border-slate-800/60">
                     <div class="pr-4">
                         <label for="pref_results" class="text-sm font-medium text-slate-900 dark:text-slate-200 cursor-not-allowed flex items-center gap-2">
                             <i data-lucide="flag" class="w-4 h-4 text-purple-500"></i> Results Published
@@ -415,8 +421,8 @@ $emailPrefs = $emailPreferences ?? [
 
             <div class="flex justify-end pt-2">
                 <button type="button" id="emailSubmitBtn" disabled aria-disabled="true" title="Email notifications are not available yet"
-                        class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium text-sm text-white bg-indigo-600 opacity-50 cursor-not-allowed shadow-md shadow-indigo-500/20 transition-all select-none">
-                    <span id="emailBtnText">Save Preferences</span>
+                        class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium text-sm text-slate-400 bg-slate-100 dark:bg-slate-800 opacity-60 cursor-not-allowed select-none border border-slate-200 dark:border-slate-700">
+                    <span id="emailBtnText">Email Notifications Unavailable</span>
                     <i id="emailSpinner" data-lucide="loader-2" class="w-4 h-4 animate-spin hidden"></i>
                 </button>
             </div>

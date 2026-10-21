@@ -32,15 +32,13 @@ ob_start();
                             </div>
                             <span class="text-sm font-medium text-slate-700 dark:text-slate-300 peer-checked:text-indigo-900 dark:peer-checked:text-indigo-100">Personal</span>
                         </label>
-                        <div id="orgAccountOption" role="button" aria-disabled="true" tabindex="0" title="Organization accounts are coming soon." class="relative flex items-center justify-between p-3 rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-100/60 dark:bg-slate-900/40 opacity-70 cursor-not-allowed select-none transition-all">
-                            <div class="flex items-center min-w-0">
-                                <input type="radio" name="account_type" value="organization" id="account_type_org" class="peer sr-only" disabled aria-disabled="true" tabindex="-1">
-                                <div class="w-4 h-4 rounded-full border border-slate-300 dark:border-slate-700 mr-2.5 flex items-center justify-center bg-slate-100 dark:bg-slate-800/60 shrink-0">
-                                    <div class="w-2 h-2 rounded-full bg-slate-400 dark:bg-slate-600 scale-0"></div>
-                                </div>
-                                <span class="text-sm font-medium text-slate-500 dark:text-slate-400 truncate">Organization</span>
+                        <div id="orgAccountOption" role="button" aria-disabled="true" tabindex="0" title="Organization accounts are coming soon." class="relative flex items-center p-3 rounded-xl border border-slate-200/80 dark:border-slate-700/50 bg-slate-50/50 dark:bg-slate-900/40 opacity-60 cursor-not-allowed select-none transition-all">
+                            <input type="radio" name="account_type" value="organization" id="account_type_org" class="peer sr-only" disabled aria-disabled="true" tabindex="-1">
+                            <div class="w-4 h-4 rounded-full border border-slate-400 dark:border-slate-600 mr-2.5 flex items-center justify-center shrink-0">
+                                <div class="w-2 h-2 rounded-full bg-slate-400 scale-0"></div>
                             </div>
-                            <span class="ml-2 inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-semibold tracking-wide bg-slate-200/80 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-300/60 dark:border-slate-700/60 shrink-0">Coming Soon</span>
+                            <span class="text-sm font-medium text-slate-500 dark:text-slate-400 whitespace-nowrap">Organization</span>
+                            <span class="absolute -top-2.5 right-2 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold tracking-wide bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-300 dark:border-slate-700 shadow-sm">Coming Soon</span>
                         </div>
                     </div>
                 </div>

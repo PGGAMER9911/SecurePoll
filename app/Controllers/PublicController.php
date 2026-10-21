@@ -55,6 +55,7 @@ class PublicController extends Controller {
      */
     public function about() {
         Session::init();
+        $basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
 
         // Project creators data based strictly on repository records and verified roles
         $creators = [
@@ -64,7 +65,7 @@ class PublicController extends Controller {
                 'role' => 'Lead Backend & Security Architect',
                 'badge' => 'Core Creator',
                 'avatar' => 'https://github.com/PGGAMER9911.png',
-                'fallback_avatar' => '/SecurePoll/public/images/logo-square.png',
+                'fallback_avatar' => $basePrefix . '/images/logo-square.png',
                 'github' => 'https://github.com/PGGAMER9911',
                 'repo' => 'https://github.com/PGGAMER9911/SecurePoll',
                 'email' => 'gamitparth04@gmail.com',
@@ -75,8 +76,8 @@ class PublicController extends Controller {
                 'handle' => 'SecurePoll Designer',
                 'role' => 'UI/UX & Frontend Design Contributor',
                 'badge' => 'Design & Systems',
-                'avatar' => '/SecurePoll/public/images/avatar-designer.png',
-                'fallback_avatar' => '/SecurePoll/public/images/avatar-designer.png',
+                'avatar' => $basePrefix . '/images/avatar-designer.png',
+                'fallback_avatar' => $basePrefix . '/images/avatar-designer.png',
                 'github' => 'https://github.com/PGGAMER9911/SecurePoll',
                 'repo' => 'https://github.com/PGGAMER9911/SecurePoll',
                 'email' => 'contact@pgdev.in',

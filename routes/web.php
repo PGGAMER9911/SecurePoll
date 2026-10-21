@@ -6,6 +6,15 @@ use app\Controllers\DashboardController;
 use app\Controllers\ProfileController;
 use app\Controllers\SettingsController;
 use app\Controllers\NotificationController;
+use app\Controllers\PublicController;
+
+// Public Website
+Router::get('/', [PublicController::class, 'home']);
+Router::get('/about', [PublicController::class, 'about']);
+Router::get('/docs', [PublicController::class, 'docs']);
+Router::get('/documentation', [PublicController::class, 'docs']);
+Router::get('/pricing', [PublicController::class, 'pricing']);
+Router::get('/contact', [PublicController::class, 'contact']);
 
 // Auth
 Router::get('/login', [AuthController::class, 'showLogin']);
@@ -39,7 +48,6 @@ Router::post('/settings/theme', [SettingsController::class, 'updateTheme']);
 Router::post('/settings/updateTheme', [SettingsController::class, 'updateTheme']);
 
 // Polls
-Router::get('/', [PollController::class, 'index']);
 Router::get('/polls', [PollController::class, 'index']);
 Router::get('/polls/my-polls', [PollController::class, 'myPolls']);
 Router::get('/polls/create', [PollController::class, 'create']);

@@ -1,0 +1,29 @@
+{
+  "name": "securepoll",
+  "version": "1.0.0",
+  "description": "SecurePoll - Modern, secure, and privacy-focused polling and voting web application",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./resources/css/app.css -o ./public/css/app.css --minify",
+    "dev:css": "npx tailwindcss -i ./resources/css/app.css -o ./public/css/app.css --watch"
+  },
+  "keywords": [
+    "securepoll",
+    "voting",
+    "polling",
+    "privacy",
+    "php"
+  ],
+  "author": "Parth Gamit (PGGAMER9911)",
+  "license": "SEE LICENSE IN LICENSE",
+  "type": "commonjs",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "autoprefixer": "^10.5.4",
+    "postcss": "^8.5.26",
+    "tailwindcss": "^4.3.3"
+  }
+}

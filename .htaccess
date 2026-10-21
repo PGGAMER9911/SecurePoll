@@ -1,0 +1,23 @@
+# SecurePoll Root Protection
+<IfModule mod_authz_core.c>
+    <FilesMatch "^(\.env|\.gitignore|composer\.(json|lock)|package(-lock)?\.json|.*\.sql|.*\.log|wipe_users\.php|debug\.php|test.*\.php)$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+    <FilesMatch "^(\.env|\.gitignore|composer\.(json|lock)|package(-lock)?\.json|.*\.sql|.*\.log|wipe_users\.php|debug\.php|test.*\.php)$">
+        Order deny,allow
+        Deny from all
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Prevent direct access to internal application directories
+    RewriteRule ^(app|config|docs|storage|routes|vendor)(/.*)?$ - [F,L]
+
+    # Redirect root /SecurePoll or /SecurePoll/ requests to public/
+    RewriteCond %{REQUEST_URI} ^/SecurePoll/?$ [NC]
+    RewriteRule ^$ public/ [R=301,L]
+</IfModule>

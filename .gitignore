@@ -1,0 +1,41 @@
+# Environment configuration & sensitive credentials
+.env
+.env.backup
+.env.local
+.env.*.local
+
+# Backups and archives (database dumps, archives, personal user exports)
+storage/backups/*
+!storage/backups/.gitkeep
+
+# Cache, session, and rate-limiting files
+storage/cache/*
+!storage/cache/.gitkeep
+
+# Logs, crash reports, and debug outputs
+*.log
+storage/logs/*
+!storage/logs/.gitkeep
+api_debug.txt
+debug.php
+
+# Scratch and temporary directories
+scratch/
+.agents/
+
+# Dependency directories
+vendor/
+node_modules/
+
+# Executable binaries and packages
+composer.phar
+*.phar
+
+# Operating system and editor artifacts
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace

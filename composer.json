@@ -1,0 +1,8 @@
+{
+    "name": "pggamer9911/securepoll",
+    "description": "SecurePoll - Modern, secure, and privacy-focused polling and voting web application",
+    "license": "proprietary",
+    "require": {
+        "phpmailer/phpmailer": "^7.1"
+    }
+}

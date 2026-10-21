@@ -1,80 +1,81 @@
 <?php
 $pageTitle = 'About SecurePoll — Creators & Philosophy';
+$basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
 ob_start();
 ?>
 
-<!-- Header Section -->
-<section class="py-16 md:py-20 border-b border-slate-200/80 dark:border-teal-950/80 bg-white/40 dark:bg-[#071518]/50">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider">Mission & Architecture</span>
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mt-2 mb-4">
-            Democracy without Surveillance
-        </h1>
-        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto">
-            SecurePoll was created to solve a fundamental institutional dilemma: how to conduct verified digital elections without tracking or deanonymizing the voters who cast the ballots.
-        </p>
-    </div>
-</section>
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 space-y-20">
 
-<!-- Purpose & Philosophy Section -->
-<section class="py-16 md:py-20 border-b border-slate-200/80 dark:border-teal-950/80">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="space-y-2">
-                <div class="w-8 h-8 rounded-lg bg-teal-50 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 border border-teal-200 dark:border-teal-800/40 flex items-center justify-center">
-                    <i data-lucide="eye-off" class="w-4 h-4"></i>
-                </div>
-                <h3 class="text-base font-bold text-slate-900 dark:text-white">Privacy by Default</h3>
-                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Voters should never fear retaliation for their ballot choices. SecurePoll decouples user identification records from cast votes using one-way cryptographic tokens.
-                </p>
-            </div>
-
-            <div class="space-y-2">
-                <div class="w-8 h-8 rounded-lg bg-teal-50 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 border border-teal-200 dark:border-teal-800/40 flex items-center justify-center">
-                    <i data-lucide="check-check" class="w-4 h-4"></i>
-                </div>
-                <h3 class="text-base font-bold text-slate-900 dark:text-white">Strict Integrity</h3>
-                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Preventing ballot stuffing and duplicate voting cannot rely on simplistic IP filtering. Our device trust verification enforces strict one-person-one-vote rules across shared networks.
-                </p>
-            </div>
-
-            <div class="space-y-2">
-                <div class="w-8 h-8 rounded-lg bg-teal-50 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 border border-teal-200 dark:border-teal-800/40 flex items-center justify-center">
-                    <i data-lucide="users" class="w-4 h-4"></i>
-                </div>
-                <h3 class="text-base font-bold text-slate-900 dark:text-white">Hierarchical Scopes</h3>
-                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Designed for real-world organizations: university departments, student councils, company teams, and community cohorts all maintain isolated targeting scopes.
-                </p>
-            </div>
+    <!-- Editorial Header: Asymmetric Manifesto Layout -->
+    <header class="border-b border-slate-200 dark:border-teal-950/80 pb-12">
+        <div class="max-w-3xl">
+            <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest block mb-3">
+                Mission & Philosophy &bull; Democracy without Surveillance
+            </span>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6">
+                Institutional Voting Designed for Trust, Not Surveillance
+            </h1>
+            <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+                SecurePoll emerged from a practical problem in academic and democratic organizations: most web polling forms either link respondent identities directly to their ballot answers or depend on vulnerable, easily manipulated IP counters.
+            </p>
         </div>
-    </div>
-</section>
+    </header>
 
-<!-- The Creators Section -->
-<section class="py-16 md:py-24 bg-white/40 dark:bg-[#061214]/60">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center max-w-xl mx-auto mb-14">
-            <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider">The Team</span>
-            <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mt-1 mb-3">
-                Built by Developers, Not Marketers
+    <!-- Core Tenets: Editorial 2-Column Split (Not 3 Generic Centered Cards) -->
+    <section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+        <div class="md:col-span-4">
+            <span class="text-xs font-mono font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider block mb-2">01 / Principles</span>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+                Why We Built SecurePoll Differently
             </h2>
-            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                SecurePoll is actively developed with focus on architectural correctness, cryptographic discipline, and clean responsive interfaces.
+            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                Traditional commercial polling tools optimize for engagement metrics and tracking. SecurePoll was engineered around mathematical isolation.
             </p>
         </div>
 
-        <!-- Creator Profile Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div class="md:col-span-8 space-y-6 text-sm text-slate-600 dark:text-slate-300">
+            <div class="border-l-2 border-teal-500/40 pl-5 space-y-1">
+                <h3 class="font-bold text-slate-900 dark:text-white text-base">Decoupled Ballot Records</h3>
+                <p class="leading-relaxed text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                    Voters must never fear retaliation. When anonymous mode is active, the database record for a cast vote has no relational foreign key to the voter’s account table. Instead, a one-way salted device HMAC prevents duplicate submissions while rendering retrospective attribution computationally infeasible.
+                </p>
+            </div>
+
+            <div class="border-l-2 border-teal-500/40 pl-5 space-y-1">
+                <h3 class="font-bold text-slate-900 dark:text-white text-base">Campus & Office Friendly Integrity</h3>
+                <p class="leading-relaxed text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                    Naïve polling tools block shared IP addresses, preventing students in dorms or staff in university laboratories from voting. SecurePoll uses client entropy tokens to distinguish legitimate independent voters sharing a single institutional gateway.
+                </p>
+            </div>
+
+            <div class="border-l-2 border-teal-500/40 pl-5 space-y-1">
+                <h3 class="font-bold text-slate-900 dark:text-white text-base">Open & Verifiable Codebase</h3>
+                <p class="leading-relaxed text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                    Elections should be auditable. The full source code for SecurePoll is publicly hosted on GitHub under a source-available, non-commercial license so election administrators can independently review the authentication and tabulation logic.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Creators: Distinct, Factual Dossier Presentation -->
+    <section class="space-y-8 pt-8 border-t border-slate-200 dark:border-teal-950/80">
+        <div>
+            <span class="text-xs font-mono font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider block mb-2">02 / Engineering Team</span>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+                Project Creators & Technical Contributors
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
+                SecurePoll is built and maintained by developers focused on architectural correctness, security hygiene, and minimalist user experience.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <?php foreach ($creators as $creator): ?>
-                <div class="rounded-2xl border border-slate-200 dark:border-teal-950 bg-white dark:bg-[#07181b]/80 p-7 flex flex-col justify-between shadow-xs hover:border-teal-500/40 transition-all duration-200">
+                <div class="border border-slate-200 dark:border-teal-950/80 rounded-2xl p-6 sm:p-7 bg-white/70 dark:bg-[#07181b]/70 flex flex-col justify-between">
                     <div>
-                        <!-- Header with Avatar and Role -->
+                        <!-- Avatar & Identity Header -->
                         <div class="flex items-start gap-4 mb-5">
-                            <div class="relative w-16 h-16 rounded-2xl overflow-hidden border border-slate-200 dark:border-teal-800/60 shrink-0 bg-slate-100 dark:bg-slate-900">
+                            <div class="w-16 h-16 rounded-2xl overflow-hidden border border-slate-200 dark:border-teal-800/60 bg-slate-100 dark:bg-slate-900 shrink-0">
                                 <img src="<?php echo htmlspecialchars($creator['avatar']); ?>" 
                                      alt="<?php echo htmlspecialchars($creator['name']); ?>" 
                                      class="w-full h-full object-cover"
@@ -85,7 +86,7 @@ ob_start();
                                     <h3 class="text-lg font-bold text-slate-900 dark:text-white truncate">
                                         <?php echo htmlspecialchars($creator['name']); ?>
                                     </h3>
-                                    <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20 shrink-0">
+                                    <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20">
                                         <?php echo htmlspecialchars($creator['badge']); ?>
                                     </span>
                                 </div>
@@ -98,14 +99,14 @@ ob_start();
                             </div>
                         </div>
 
-                        <!-- Factual Bio -->
+                        <!-- Factual Technical Responsibilities Bio -->
                         <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
                             <?php echo htmlspecialchars($creator['bio']); ?>
                         </p>
                     </div>
 
-                    <!-- Links & Metadata -->
-                    <div class="pt-5 border-t border-slate-100 dark:border-teal-950/80 flex items-center justify-between gap-3 text-xs">
+                    <!-- Direct Technical Repository Links -->
+                    <div class="pt-4 border-t border-slate-100 dark:border-teal-950/80 flex items-center justify-between text-xs">
                         <a href="<?php echo htmlspecialchars($creator['github']); ?>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 font-medium transition-colors">
                             <i data-lucide="github" class="w-4 h-4"></i>
                             <span>GitHub Profile</span>
@@ -119,15 +120,32 @@ ob_start();
                 </div>
             <?php endforeach; ?>
         </div>
+    </section>
 
-        <!-- Note on Collaborator Customization -->
-        <div class="mt-12 text-center">
-            <p class="text-xs text-slate-400 dark:text-slate-500 max-w-md mx-auto">
-                Are you a project collaborator or contributor? Additional profile information can be submitted directly via our repository issue tracker.
-            </p>
+    <!-- Source Availability & Non-Commercial License Section -->
+    <section class="border-t border-slate-200 dark:border-teal-950/80 pt-10">
+        <div class="p-6 sm:p-8 rounded-2xl bg-slate-50/70 dark:bg-[#061214]/80 border border-slate-200 dark:border-teal-950/80 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div class="space-y-1 max-w-xl">
+                <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider block">Governance & Licensing</span>
+                <h3 class="text-base font-bold text-slate-900 dark:text-white">Source-Available for Community Benefit</h3>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    SecurePoll is released under a custom source-available non-commercial license. You are free to inspect, audit, host, and adapt the software for student unions, non-profit institutions, and research endeavors with mandatory author attribution.
+                </p>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+                <a href="<?php echo $basePrefix; ?>/contact" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-teal-600 hover:bg-teal-500 transition-colors shadow-xs">
+                    <span>Contact Team</span>
+                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </a>
+                <a href="https://github.com/PGGAMER9911/SecurePoll" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-teal-950 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    <i data-lucide="github" class="w-3.5 h-3.5"></i>
+                    <span>Repository</span>
+                </a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+
+</div>
 
 <?php
 $content = ob_get_clean();

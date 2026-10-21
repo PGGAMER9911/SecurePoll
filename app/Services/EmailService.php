@@ -39,82 +39,132 @@ class EmailService {
 
             // Content
             $mail->isHTML(true);
-            $mail->Subject = 'Your SecurePoll Verification Code';
+            $mail->Subject = "[SecurePoll] Your Verification Code: {$otpCode}";
             
-            $purposeText = "";
-            $headerText = "Verify your action";
+            $purposeSubject = "Verification Code";
+            $purposeText = "To proceed with your request, please use the 6-digit security code below.";
+            $actionStep = "Enter this code on the verification screen to continue.";
             
             switch ($purpose) {
                 case 'registration':
-                    $headerText = "Verify your email address";
-                    $purposeText = "Thank you for registering with SecurePoll. To complete your sign-up, please use the verification code below.";
+                    $purposeSubject = "Complete Account Registration";
+                    $purposeText = "Thank you for creating an account with SecurePoll. To verify your email address and activate your account, please enter the security code below.";
+                    $actionStep = "Enter this code on the registration verification screen to complete sign-up.";
                     break;
                 case 'new_device':
-                    $headerText = "New device detected";
-                    $purposeText = "We detected a login attempt from a new device. To authorize this login, please enter the verification code below.";
+                    $purposeSubject = "New Device Authorization";
+                    $purposeText = "We detected a login attempt from an unfamiliar browser or device. To confirm that you authorized this session, please use the code below.";
+                    $actionStep = "Enter this code on the sign-in screen to authorize this trusted device.";
                     break;
                 case 'password_reset':
-                    $headerText = "Reset your password";
-                    $purposeText = "We received a request to reset your password. Use the verification code below to proceed.";
+                    $purposeSubject = "Password Reset Request";
+                    $purposeText = "We received a request to reset the password for your SecurePoll account. To proceed with setting a new password, please enter the security code below.";
+                    $actionStep = "Enter this code on the password reset screen to verify your identity.";
                     break;
             }
             
             $appUrl = Env::get('APP_URL', 'http://localhost/SecurePoll/public');
+            $year = date('Y');
             
             $message = "
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                <style>
-                    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 0; }
-                    .wrapper { background-color: #f8fafc; padding: 40px 20px; width: 100%; box-sizing: border-box; }
-                    .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
-                    .logo { font-size: 24px; font-weight: 800; color: #0f172a; margin-bottom: 32px; text-align: center; letter-spacing: -0.5px; }
-                    .logo span { color: #6366f1; }
-                    .header { font-size: 20px; font-weight: 600; color: #0f172a; margin-bottom: 16px; text-align: center; }
-                    .text { font-size: 15px; color: #475569; line-height: 1.6; text-align: center; margin-bottom: 32px; }
-                    .otp-container { background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%); border: 1px solid #c7d2fe; border-radius: 12px; padding: 32px 24px; text-align: center; margin-bottom: 32px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); }
-                    .otp-label { display: block; font-size: 12px; text-transform: uppercase; font-weight: 700; color: #6366f1; margin-bottom: 12px; letter-spacing: 1px; }
-                    .otp-code { font-size: 42px; font-weight: 800; color: #4f46e5; letter-spacing: 12px; margin: 0; display: inline-block; user-select: all; padding-left: 12px; }
-                    .button { display: inline-block; background-color: #4f46e5; color: #ffffff; text-decoration: none; font-weight: 600; padding: 14px 28px; border-radius: 8px; font-size: 14px; text-align: center; transition: background-color 0.3s; }
-                    .footer { text-align: center; margin-top: 40px; font-size: 13px; color: #94a3b8; line-height: 1.5; }
-                </style>
-            </head>
-            <body>
-                <div class='wrapper'>
-                    <div class='container'>
-                        <div class='logo'>Secure<span>Poll</span></div>
-                        
-                        <div class='header'>{$headerText}</div>
-                        
-                        <div class='text'>
-                            {$purposeText}
-                        </div>
-                        
-                        <div class='otp-container'>
-                            <span class='otp-label'>Your Verification Code</span>
-                            <h1 class='otp-code'>{$otpCode}</h1>
-                        </div>
-                        
-                        <div style='text-align: center;'>
-                            <p style='font-size: 14px; color: #64748b; margin-bottom: 24px;'>Double-tap or highlight the code above to copy it.</p>
-                            <a href='{$appUrl}' class='button'>Return to SecurePoll</a>
-                        </div>
-                        
-                        <div class='footer'>
-                            <p>This code will expire in 10 minutes.</p>
-                            <p>If you didn't request this code, you can safely ignore this email.</p>
-                            <p style='margin-top: 24px;'>&copy; " . date('Y') . " SecurePoll. All rights reserved.</p>
-                        </div>
-                    </div>
-                </div>
-            </body>
-            </html>
-            ";
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>SecurePoll Security Code</title>
+</head>
+<body style='margin: 0; padding: 0; background-color: #f5f2eb; font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif; color: #192326; -webkit-font-smoothing: antialiased;'>
+    <table width='100%' cellpadding='0' cellspacing='0' border='0' style='background-color: #f5f2eb; padding: 40px 16px;'>
+        <tr>
+            <td align='center'>
+                <table width='100%' cellpadding='0' cellspacing='0' border='0' style='max-width: 540px; background-color: #ffffff; border: 1px solid #e6dfd3; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(25, 35, 38, 0.05);'>
+                    
+                    <!-- Top Brand Bar -->
+                    <tr>
+                        <td style='padding: 28px 36px 20px 36px; border-bottom: 1px solid #f0eae1;'>
+                            <table width='100%' cellpadding='0' cellspacing='0' border='0'>
+                                <tr>
+                                    <td>
+                                        <span style='font-size: 20px; font-weight: 800; letter-spacing: -0.5px; color: #142529;'>
+                                            Secure<span style='color: #c2593f;'>Poll</span>
+                                        </span>
+                                        <span style='font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #6e7d82; margin-left: 8px; font-weight: 600;'>Institutional Voting</span>
+                                    </td>
+                                    <td align='right'>
+                                        <span style='display: inline-block; padding: 3px 10px; font-size: 11px; font-weight: 600; color: #164e49; background-color: #e6f0ef; border-radius: 6px;'>
+                                            Security Notice
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
 
-            $mail->Body    = $message;
-            $mail->AltBody = "Your SecurePoll Verification Code is: {$otpCode}\n\n{$purposeText}\n\nThis code will expire in 10 minutes.";
+                    <!-- Main Content Body -->
+                    <tr>
+                        <td style='padding: 32px 36px;'>
+                            <h1 style='margin: 0 0 14px 0; font-size: 21px; font-weight: 700; color: #142529; line-height: 1.3;'>
+                                {$purposeSubject}
+                            </h1>
+                            <p style='margin: 0 0 24px 0; font-size: 15px; line-height: 1.6; color: #445459;'>
+                                {$purposeText}
+                            </p>
+
+                            <!-- Dedicated OTP Box -->
+                            <table width='100%' cellpadding='0' cellspacing='0' border='0' style='margin: 24px 0 24px 0;'>
+                                <tr>
+                                    <td align='center' style='background-color: #faf8f5; border: 2px dashed #ded6c5; border-radius: 10px; padding: 24px 20px;'>
+                                        <div style='font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #78878c; margin-bottom: 8px;'>
+                                            Your 6-Digit One-Time Code
+                                        </div>
+                                        <div style='font-family: \"Courier New\", Courier, Consolas, Monaco, monospace; font-size: 38px; font-weight: 800; letter-spacing: 10px; color: #142529; padding-left: 10px; user-select: all;'>
+                                            {$otpCode}
+                                        </div>
+                                        <div style='font-size: 12px; color: #8a989e; margin-top: 8px;'>
+                                            Valid for 10 minutes &bull; Single-use only
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <p style='margin: 0 0 20px 0; font-size: 14px; line-height: 1.5; color: #5a6b70;'>
+                                {$actionStep} If this code expires, you can request a new one from the verification screen.
+                            </p>
+
+                            <!-- Security Advisory Callout -->
+                            <table width='100%' cellpadding='0' cellspacing='0' border='0' style='background-color: #faf9f6; border-left: 3px solid #c2593f; border-radius: 4px; padding: 12px 16px; margin-top: 24px;'>
+                                <tr>
+                                    <td style='font-size: 12px; line-height: 1.5; color: #627277;'>
+                                        <strong style='color: #142529;'>Security Reminder:</strong> Never share this code with anyone. SecurePoll administrators will never ask for your verification passcode. If you did not make this request, you can safely disregard this email.
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style='padding: 20px 36px 28px 36px; border-top: 1px solid #f0eae1; background-color: #faf8f5; text-align: center;'>
+                            <p style='margin: 0 0 6px 0; font-size: 12px; color: #8a989e;'>
+                                SecurePoll &bull; Cryptographically Audited Voting Platform
+                            </p>
+                            <p style='margin: 0; font-size: 11px; color: #a4b0b5;'>
+                                &copy; {$year} SecurePoll. For support: contact@pgdev.in
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+";
+
+            $mail->Body = $message;
+            $mail->AltBody = "SecurePoll — {$purposeSubject}\n\nYour 6-Digit One-Time Code: {$otpCode}\n\n{$purposeText}\n\nThis code will expire in 10 minutes.\n\nSecurity Notice: If you did not request this verification code, no action is needed.\n\nFor support, contact: contact@pgdev.in";
 
             $mail->send();
             return true;

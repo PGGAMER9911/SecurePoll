@@ -86,73 +86,96 @@ ob_start();
     </div>
 </section>
 
-<!-- Product Capabilities Section -->
+<!-- Architectural Integrity & System Tenets (Asymmetric Editorial Layout) -->
 <section class="py-20 md:py-28 border-b border-slate-200/80 dark:border-teal-950/80 bg-white/40 dark:bg-[#061214]/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="max-w-2xl mb-16">
-            <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider">Engineered for Verifiability</span>
-            <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mt-2 mb-3">
-                Built specifically for elections where every ballot counts.
-            </h2>
-            <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-                SecurePoll replaces error-prone paper ballots and insecure generic forms with institutional-grade safeguards.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             
-            <!-- Capability 1 -->
-            <div class="p-6 rounded-2xl border border-slate-200 dark:border-teal-950 bg-white dark:bg-[#07181b]/70 shadow-xs hover:border-teal-500/40 transition-all flex flex-col justify-between">
+            <!-- Left Column: Editorial Narrative (5 cols) -->
+            <div class="lg:col-span-5 space-y-6">
                 <div>
-                    <div class="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 border border-teal-200/60 dark:border-teal-800/40 flex items-center justify-center mb-5">
-                        <i data-lucide="fingerprint" class="w-5 h-5"></i>
-                    </div>
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">Salted Cryptographic Hash</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-                        Instead of raw IP logging—which fails in shared dorms or corporate campuses—SecurePoll generates a device-anchored SHA-256 <code class="text-[11px] font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-teal-700 dark:text-teal-300">voter_hash</code> that guarantees strictly one vote per device while making deanonymization impossible.
-                    </p>
+                    <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider">Engineering Principles</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mt-2 leading-snug">
+                        The distinction between informal surveys and verified elections.
+                    </h2>
                 </div>
-                <div class="pt-4 border-t border-slate-100 dark:border-teal-950 flex items-center gap-1.5 text-xs text-teal-600 dark:text-teal-400 font-medium">
-                    <i data-lucide="check" class="w-3.5 h-3.5"></i>
-                    <span>Enforced at database constraint level</span>
+
+                <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                    Most web polling tools rely on IP address tracking or require users to surrender ballot privacy to prevent duplicate voting. On institutional campuses, university dorms, and enterprise proxies, raw IP logging fails immediately.
+                </p>
+
+                <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                    SecurePoll was designed from the ground up to reconcile two conflicting democratic requirements: <strong class="text-slate-900 dark:text-white font-semibold">absolute voter anonymity</strong> and <strong class="text-slate-900 dark:text-white font-semibold">strict one-person-one-vote enforcement</strong>.
+                </p>
+
+                <div class="pt-4 flex items-center gap-3">
+                    <a href="<?php echo $basePrefix; ?>/about" class="inline-flex items-center gap-1.5 text-xs font-semibold text-teal-700 dark:text-teal-400 hover:underline">
+                        <span>Read our architectural philosophy</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </a>
                 </div>
             </div>
 
-            <!-- Capability 2 -->
-            <div class="p-6 rounded-2xl border border-slate-200 dark:border-teal-950 bg-white dark:bg-[#07181b]/70 shadow-xs hover:border-teal-500/40 transition-all flex flex-col justify-between">
-                <div>
-                    <div class="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 border border-teal-200/60 dark:border-teal-800/40 flex items-center justify-center mb-5">
-                        <i data-lucide="building-2" class="w-5 h-5"></i>
+            <!-- Right Column: Structured Verification Matrix (7 cols) -->
+            <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                <!-- Tenet 1: Salted voter_hash -->
+                <div class="p-5 rounded-xl border border-slate-200 dark:border-teal-950/80 bg-white dark:bg-[#07181b]/80 space-y-3">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0">
+                            <i data-lucide="fingerprint" class="w-4 h-4"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Cryptographic Anonymity</h3>
                     </div>
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">Multi-Tenant Scopes & RBAC</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-                        Structure voting rosters by university colleges, academic departments, semesters, batches, or corporate business units. Role-based permissions segregate creator administration from voter participants.
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Votes are recorded with a one-way salted SHA-256 <code class="text-[11px] font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-teal-700 dark:text-teal-300">voter_hash</code>. Neither system administrators nor database dumps can link an individual voter to their selected candidate or ballot choice.
                     </p>
                 </div>
-                <div class="pt-4 border-t border-slate-100 dark:border-teal-950 flex items-center gap-1.5 text-xs text-teal-600 dark:text-teal-400 font-medium">
-                    <i data-lucide="check" class="w-3.5 h-3.5"></i>
-                    <span>Bulk CSV onboarding & role assignment</span>
+
+                <!-- Tenet 2: Device Trust Anchoring -->
+                <div class="p-5 rounded-xl border border-slate-200 dark:border-teal-950/80 bg-white dark:bg-[#07181b]/80 space-y-3">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0">
+                            <i data-lucide="shield" class="w-4 h-4"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Anti-Stuffing Device Trust</h3>
+                    </div>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Prevents ballot stuffing across shared institutional networks using cryptographically signed device identifiers and browser fingerprint verification.
+                    </p>
                 </div>
+
+                <!-- Tenet 3: Flexible Ballot Rules -->
+                <div class="p-5 rounded-xl border border-slate-200 dark:border-teal-950/80 bg-white dark:bg-[#07181b]/80 space-y-3">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0">
+                            <i data-lucide="sliders" class="w-4 h-4"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Governed Ballot Modes</h3>
+                    </div>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Supports single-choice, multiple-choice, binary Yes/No, and 1–5 star rating scales. Quorum thresholds and scheduled expiration automate poll closing.
+                    </p>
+                </div>
+
+                <!-- Tenet 4: Tamper-Evident Audit Trail -->
+                <div class="p-5 rounded-xl border border-slate-200 dark:border-teal-950/80 bg-white dark:bg-[#07181b]/80 space-y-3">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0">
+                            <i data-lucide="file-check-2" class="w-4 h-4"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Tamper-Evident Audit Log</h3>
+                    </div>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Administrative alterations, option edits, and roster modifications are logged to immutable audit tables with timestamping and actor records.
+                    </p>
+                </div>
+
             </div>
 
-            <!-- Capability 3 -->
-            <div class="p-6 rounded-2xl border border-slate-200 dark:border-teal-950 bg-white dark:bg-[#07181b]/70 shadow-xs hover:border-teal-500/40 transition-all flex flex-col justify-between">
-                <div>
-                    <div class="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 border border-teal-200/60 dark:border-teal-800/40 flex items-center justify-center mb-5">
-                        <i data-lucide="clock" class="w-5 h-5"></i>
-                    </div>
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">Automated Lifecycle & Schedules</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-                        Schedule polls to open at exact calendar moments and automatically conclude when quorum or time thresholds are reached. Background worker (<code class="text-[11px] font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-teal-700 dark:text-teal-300">scheduler.php</code>) manages state transitions and notification queues.
-                    </p>
-                </div>
-                <div class="pt-4 border-t border-slate-100 dark:border-teal-950 flex items-center gap-1.5 text-xs text-teal-600 dark:text-teal-400 font-medium">
-                    <i data-lucide="check" class="w-3.5 h-3.5"></i>
-                    <span>Automatic state transitions & closing</span>
-                </div>
-            </div>
         </div>
+
     </div>
 </section>
 

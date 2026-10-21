@@ -26,6 +26,57 @@
   --color-success: #10b981;
   --color-warning: #f59e0b;
   --color-danger: #ef4444;
+
+  /* SecurePoll Archival Ink & Warm Paper Design Tokens */
+  --color-ink-950: #081012;
+  --color-ink-900: #0c171a;
+  --color-ink-800: #122226;
+  --color-ink-700: #1c3238;
+  --color-ink-600: #28474e;
+
+  --color-paper-50: #faf8f5;
+  --color-paper-100: #f4f0e8;
+  --color-paper-200: #eae4d8;
+  --color-paper-300: #ded6c5;
+
+  --color-terracotta-500: #c2593f;
+  --color-terracotta-600: #ad4c34;
+  --color-terracotta-700: #933d27;
+
+  --color-spruce-500: #1e605a;
+  --color-spruce-600: #164e49;
+  --color-spruce-700: #0f3b37;
+}
+
+/* SecurePoll Semantic Design System Variables */
+:root {
+  --sp-surface-base: #faf8f5;
+  --sp-surface-card: #ffffff;
+  --sp-surface-subtle: #f4f0e8;
+  --sp-border-subtle: #e6dfd3;
+  --sp-border-strong: #d2c8b7;
+  --sp-text-main: #192326;
+  --sp-text-muted: #5e6d72;
+  --sp-text-faint: #8a989e;
+  --sp-accent: #c2593f;
+  --sp-accent-hover: #ad4c34;
+  --sp-accent-subtle: #fbeee9;
+  --sp-spruce: #164e49;
+}
+
+.dark {
+  --sp-surface-base: #081012;
+  --sp-surface-card: #0d1a1d;
+  --sp-surface-subtle: #122327;
+  --sp-border-subtle: #1a3238;
+  --sp-border-strong: #25464e;
+  --sp-text-main: #f0f4f5;
+  --sp-text-muted: #95aab1;
+  --sp-text-faint: #5e737a;
+  --sp-accent: #d97055;
+  --sp-accent-hover: #e2846d;
+  --sp-accent-subtle: #2a1b18;
+  --sp-spruce: #2b7770;
 }
 
 /* Sidebar collapsed width */

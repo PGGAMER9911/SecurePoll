@@ -127,28 +127,33 @@ ob_start();
                 <input type="hidden" name="purpose" value="registration">
                 
                 <div class="text-center mb-6">
-                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 mb-4">
-                        <i data-lucide="shield-check" class="w-8 h-8 text-indigo-500 dark:text-indigo-400"></i>
+                    <div class="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20 flex items-center justify-center mx-auto mb-3">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
                     </div>
-                    <p class="text-sm text-slate-600 dark:text-slate-300">We sent a verification code to</p>
-                    <p id="displayEmail" class="font-medium text-slate-900 dark:text-white mt-1"></p>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Verify Your Email</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">We sent a 6-digit verification passcode to</p>
+                    <div class="inline-flex items-center gap-2 mt-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-teal-950/40 border border-slate-200 dark:border-teal-900/50 text-xs">
+                        <span id="displayEmail" class="font-medium text-slate-800 dark:text-slate-200"></span>
+                        <button type="button" id="editEmailBtn" class="text-teal-600 dark:text-teal-400 hover:underline font-semibold" title="Change email address">Change</button>
+                    </div>
                 </div>
                 
-                <div class="space-y-1.5">
-                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 text-center">Enter Security Code</label>
-                    <input type="text" name="otp" required pattern="[0-9]{6}" maxlength="6" placeholder="000000" 
-                        class="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-4 text-center text-3xl font-mono tracking-[0.5em] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-inner">
+                <div class="space-y-2">
+                    <label for="otpInput" class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 text-center">Enter 6-Digit Passcode</label>
+                    <input type="text" name="otp" id="otpInput" required pattern="[0-9]{6}" maxlength="6" inputmode="numeric" autocomplete="one-time-code" placeholder="000000" 
+                        class="w-full bg-white dark:bg-[#071416] border-2 border-slate-200 dark:border-teal-900/60 rounded-xl px-4 py-3.5 text-center text-3xl font-mono tracking-[0.5em] text-slate-900 dark:text-white placeholder-slate-300 dark:placeholder-slate-700 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all shadow-inner">
+                    <p class="text-[11px] text-center text-slate-400 dark:text-slate-500">Passcode expires in 10 minutes</p>
                 </div>
                 
                 <button type="submit" id="otpSubmitBtn" 
-                    class="w-full relative overflow-hidden bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 disabled:opacity-50 disabled:cursor-not-allowed group">
+                    class="w-full relative overflow-hidden bg-teal-600 hover:bg-teal-500 dark:bg-teal-600 dark:hover:bg-teal-500 text-white font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-sm hover:shadow-teal-500/20 disabled:opacity-50 disabled:cursor-not-allowed group">
 
                     <span id="otpBtnText" class="relative z-10">Verify & Complete</span>
-                    <i data-lucide="loader-2" id="otpSpinner" class="w-5 h-5 animate-spin hidden relative z-10"></i>
+                    <i data-lucide="loader-2" id="otpSpinner" class="w-4 h-4 animate-spin hidden relative z-10"></i>
                 </button>
                 
                 <div class="text-center mt-4">
-                    <button type="button" id="resendOtpBtn" class="inline-flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                    <button type="button" id="resendOtpBtn" class="inline-flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                         <i data-lucide="refresh-cw" id="resendSpinner" class="w-3.5 h-3.5 hidden animate-spin"></i>
                         <span id="resendBtnText">Didn't receive a code? Resend</span>
                     </button>
@@ -388,6 +393,36 @@ document.addEventListener('DOMContentLoaded', () => {
             otpSubmitBtn.querySelectorAll('.animate-spin, #otpSpinner').forEach(el => el.classList.add('hidden'));
         });
     });
+
+    // Edit email / Back to step 1
+    const editEmailBtn = document.getElementById('editEmailBtn');
+    if (editEmailBtn) {
+        editEmailBtn.addEventListener('click', () => {
+            otpForm.classList.add('hidden');
+            registerForm.classList.remove('hidden');
+            hideAlert();
+            const emailInput = document.getElementById('email');
+            if (emailInput) emailInput.focus();
+        });
+    }
+
+    // OTP Input auto-sanitization & paste formatting
+    const otpInput = document.getElementById('otpInput');
+    if (otpInput) {
+        otpInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 6);
+        });
+        otpInput.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const pasteData = (e.clipboardData || window.clipboardData).getData('text');
+            const cleanDigits = pasteData.replace(/[^0-9]/g, '').slice(0, 6);
+            otpInput.value = cleanDigits;
+            if (cleanDigits.length === 6) {
+                // Auto focus submit
+                otpSubmitBtn.focus();
+            }
+        });
+    }
 });
 </script>
 

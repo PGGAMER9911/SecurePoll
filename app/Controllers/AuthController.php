@@ -39,6 +39,11 @@ class AuthController extends Controller {
             return $this->json(['success' => false, 'message' => 'You are already signed in.'], 400);
         }
 
+        $accountType = strtolower(trim($_POST['account_type'] ?? 'personal'));
+        if ($accountType === 'organization') {
+            return $this->json(['success' => false, 'message' => 'Organization accounts are coming soon.'], 400);
+        }
+
         $data = [
             'name' => Security::sanitize($_POST['name'] ?? ''),
             'email' => Security::sanitize($_POST['email'] ?? ''),

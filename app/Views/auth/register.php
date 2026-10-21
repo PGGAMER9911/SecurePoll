@@ -32,13 +32,16 @@ ob_start();
                             </div>
                             <span class="text-sm font-medium text-slate-700 dark:text-slate-300 peer-checked:text-indigo-900 dark:peer-checked:text-indigo-100">Personal</span>
                         </label>
-                        <label class="relative flex items-center p-3 cursor-pointer rounded-xl border border-slate-200 dark:border-slate-700/50 bg-slate-50 dark:bg-slate-900/60 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all has-[:checked]:bg-indigo-50/50 dark:has-[:checked]:bg-indigo-500/10 has-[:checked]:border-indigo-300 dark:has-[:checked]:border-indigo-500/40">
-                            <input type="radio" name="account_type" value="organization" class="peer sr-only">
-                            <div class="w-4 h-4 rounded-full border border-slate-400 dark:border-slate-600 peer-checked:border-indigo-600 dark:peer-checked:border-indigo-500 mr-3 flex items-center justify-center">
-                                <div class="w-2 h-2 rounded-full bg-indigo-600 dark:bg-indigo-500 scale-0 peer-checked:scale-100 transition-transform"></div>
+                        <div id="orgAccountOption" role="button" aria-disabled="true" tabindex="0" title="Organization accounts are coming soon." class="relative flex items-center justify-between p-3 rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-100/60 dark:bg-slate-900/40 opacity-70 cursor-not-allowed select-none transition-all">
+                            <div class="flex items-center min-w-0">
+                                <input type="radio" name="account_type" value="organization" id="account_type_org" class="peer sr-only" disabled aria-disabled="true" tabindex="-1">
+                                <div class="w-4 h-4 rounded-full border border-slate-300 dark:border-slate-700 mr-2.5 flex items-center justify-center bg-slate-100 dark:bg-slate-800/60 shrink-0">
+                                    <div class="w-2 h-2 rounded-full bg-slate-400 dark:bg-slate-600 scale-0"></div>
+                                </div>
+                                <span class="text-sm font-medium text-slate-500 dark:text-slate-400 truncate">Organization</span>
                             </div>
-                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300 peer-checked:text-indigo-900 dark:peer-checked:text-indigo-100">Organization</span>
-                        </label>
+                            <span class="ml-2 inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-semibold tracking-wide bg-slate-200/80 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-300/60 dark:border-slate-700/60 shrink-0">Coming Soon</span>
+                        </div>
                     </div>
                 </div>
 
@@ -275,65 +278,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Toggle fields based on account type
-    const accountTypeRadios = document.querySelectorAll('input[name="account_type"]');
-    const orgFields = document.getElementById('orgFields');
-    const orgNameInput = document.getElementById('org_name');
-    const orgTypeInput = document.getElementById('org_type');
-    const nameLabel = document.getElementById('nameLabel');
-    const emailLabel = document.getElementById('emailLabel');
-
-    accountTypeRadios.forEach(radio => {
-        radio.addEventListener('change', (e) => {
-            if (e.target.value === 'organization') {
-                orgFields.classList.remove('hidden');
-                orgFields.classList.add('animate-fade-in-up');
-                nameLabel.textContent = "Owner's Full Name";
-                emailLabel.textContent = "Organization or Owner's Email";
-                orgNameInput.required = true;
-                orgTypeInput.required = true;
-            } else {
-                orgFields.classList.add('hidden');
-                orgFields.classList.remove('animate-fade-in-up');
-                nameLabel.textContent = "Full Name";
-                emailLabel.textContent = "Email address";
-                orgNameInput.required = false;
-                orgTypeInput.required = false;
+    // Account Type Option Handling
+    const orgAccountOption = document.getElementById('orgAccountOption');
+    if (orgAccountOption) {
+        const notifyOrgComingSoon = (e) => {
+            if (e) e.preventDefault();
+            showAlert('Organization accounts are coming soon.');
+            const personalRadio = document.querySelector('input[name="account_type"][value="personal"]');
+            if (personalRadio) personalRadio.checked = true;
+        };
+        orgAccountOption.addEventListener('click', notifyOrgComingSoon);
+        orgAccountOption.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                notifyOrgComingSoon(e);
             }
         });
-    });
-
-    const orgNameLabel = document.getElementById('orgNameLabel');
-    orgTypeInput.addEventListener('change', (e) => {
-        const type = e.target.value;
-        let label = 'Organization Name';
-        let placeholder = 'Enter organization name';
-        
-        if (type === 'college') {
-            label = 'College / University Name';
-            placeholder = 'Enter college or university name';
-        } else if (type === 'school') {
-            label = 'School Name';
-            placeholder = 'Enter school name';
-        } else if (type === 'company') {
-            label = 'Company Name';
-            placeholder = 'Enter company name';
-        } else if (type === 'community') {
-            label = 'Organization Name';
-            placeholder = 'Enter community or organization name';
-        }
-        
-        orgNameLabel.textContent = label;
-        orgNameInput.placeholder = placeholder;
-    });
+    }
 
     registerForm.addEventListener('submit', (e) => {
         e.preventDefault();
         hideAlert();
         
-        const selectedType = document.querySelector('input[name="account_type"]:checked').value;
+        const selectedType = document.querySelector('input[name="account_type"]:checked')?.value || 'personal';
         if (selectedType === 'organization') {
-            showAlert('Organization registration backend is not yet implemented. Please register a personal account or contact sales for early access.', false);
+            showAlert('Organization accounts are coming soon.', false);
             return;
         }
 

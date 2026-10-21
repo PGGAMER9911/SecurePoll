@@ -281,9 +281,12 @@ $emailPrefs = $emailPreferences ?? [
     <!-- Email Preferences Section -->
     <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm dark:shadow-xl overflow-hidden">
         <div class="p-6 border-b border-slate-200 dark:border-white/5 flex items-center justify-between">
-            <h3 class="text-lg font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                <i data-lucide="mail" class="w-5 h-5 text-indigo-500 dark:text-indigo-400"></i> Email Notifications
-            </h3>
+            <div class="flex items-center gap-2.5">
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i data-lucide="mail" class="w-5 h-5 text-indigo-500 dark:text-indigo-400"></i> Email Notifications
+                </h3>
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wide bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">Coming Soon</span>
+            </div>
             <span class="text-xs text-slate-500 dark:text-slate-400">Delivery preferences</span>
         </div>
         
@@ -292,18 +295,26 @@ $emailPrefs = $emailPreferences ?? [
 
             <div id="emailAlert" class="hidden p-4 rounded-xl text-sm font-medium transition-all"></div>
 
-            <!-- Global ON/OFF Switch -->
-            <div class="flex items-center justify-between pb-6 border-b border-slate-100 dark:border-slate-800">
+            <!-- Coming Soon Explanation Notice -->
+            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 flex items-start gap-3">
+                <i data-lucide="info" class="w-5 h-5 text-indigo-500 dark:text-indigo-400 shrink-0 mt-0.5"></i>
+                <div class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                    <span class="font-semibold text-slate-900 dark:text-white">Email notifications are not available yet.</span> In-app notifications continue to work normally.
+                </div>
+            </div>
+
+            <!-- Global ON/OFF Switch (Disabled State) -->
+            <div class="flex items-center justify-between pb-6 border-b border-slate-100 dark:border-slate-800 opacity-60">
                 <div class="space-y-0.5 pr-4">
-                    <label for="pref_global" class="text-base font-semibold text-slate-900 dark:text-white cursor-pointer">
+                    <label for="pref_global" class="text-base font-semibold text-slate-900 dark:text-white cursor-not-allowed">
                         Email Notifications
                     </label>
                     <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
                         Master switch. When turned off, you will not receive optional notification emails.
                     </p>
                 </div>
-                <label for="pref_global" class="sp-toggle relative inline-flex items-center cursor-pointer shrink-0" aria-label="Toggle all email notifications">
-                    <input type="checkbox" id="pref_global" name="global" value="1" role="switch" aria-checked="<?php echo !empty($emailPrefs['global']) ? 'true' : 'false'; ?>" class="sp-toggle-input" <?php echo !empty($emailPrefs['global']) ? 'checked' : ''; ?>>
+                <label for="pref_global" class="sp-toggle is-disabled relative inline-flex items-center cursor-not-allowed shrink-0" aria-label="Toggle all email notifications (Coming Soon)" title="Email notifications are not available yet.">
+                    <input type="checkbox" id="pref_global" name="global" value="1" role="switch" disabled aria-disabled="true" aria-checked="<?php echo !empty($emailPrefs['global']) ? 'true' : 'false'; ?>" class="sp-toggle-input" <?php echo !empty($emailPrefs['global']) ? 'checked' : ''; ?>>
                     <span class="sp-toggle-track">
                         <span class="sp-toggle-thumb"></span>
                     </span>
@@ -316,22 +327,22 @@ $emailPrefs = $emailPreferences ?? [
                 <span>Email notifications are currently paused. Category settings below are preserved but inactive until enabled.</span>
             </div>
 
-            <!-- Category Specific Switches -->
+            <!-- Category Specific Switches (Disabled State) -->
             <div id="categoryContainer" class="space-y-4 transition-opacity duration-200 <?php echo empty($emailPrefs['global']) ? 'opacity-40 pointer-events-none' : ''; ?>">
                 <h4 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">Notification Categories</h4>
 
                 <!-- 1. Poll Invitations -->
                 <div class="flex items-center justify-between py-2.5">
                     <div class="pr-4">
-                        <label for="pref_invitations" class="text-sm font-medium text-slate-900 dark:text-slate-200 cursor-pointer flex items-center gap-2">
+                        <label for="pref_invitations" class="text-sm font-medium text-slate-900 dark:text-slate-200 cursor-not-allowed flex items-center gap-2">
                             <i data-lucide="mail-plus" class="w-4 h-4 text-indigo-500"></i> Poll Invitations
                         </label>
                         <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                             When someone invites you to participate in a private or restricted poll.
                         </p>
                     </div>
-                    <label for="pref_invitations" class="sp-toggle relative inline-flex items-center cursor-pointer shrink-0" aria-label="Toggle poll invitations emails">
-                        <input type="checkbox" id="pref_invitations" name="invitations" value="1" role="switch" aria-checked="<?php echo !empty($emailPrefs['invitations']) ? 'true' : 'false'; ?>" class="sp-toggle-input category-toggle" <?php echo !empty($emailPrefs['invitations']) ? 'checked' : ''; ?>>
+                    <label for="pref_invitations" class="sp-toggle is-disabled relative inline-flex items-center cursor-not-allowed shrink-0" aria-label="Toggle poll invitations emails (Coming Soon)" title="Email notifications are not available yet.">
+                        <input type="checkbox" id="pref_invitations" name="invitations" value="1" role="switch" disabled aria-disabled="true" aria-checked="<?php echo !empty($emailPrefs['invitations']) ? 'true' : 'false'; ?>" class="sp-toggle-input category-toggle" <?php echo !empty($emailPrefs['invitations']) ? 'checked' : ''; ?>>
                         <span class="sp-toggle-track">
                             <span class="sp-toggle-thumb"></span>
                         </span>
@@ -341,15 +352,15 @@ $emailPrefs = $emailPreferences ?? [
                 <!-- 2. Poll Reminders -->
                 <div class="flex items-center justify-between py-2.5 border-t border-slate-100 dark:border-slate-800/60">
                     <div class="pr-4">
-                        <label for="pref_reminders" class="text-sm font-medium text-slate-900 dark:text-slate-200 cursor-pointer flex items-center gap-2">
+                        <label for="pref_reminders" class="text-sm font-medium text-slate-900 dark:text-slate-200 cursor-not-allowed flex items-center gap-2">
                             <i data-lucide="clock" class="w-4 h-4 text-amber-500"></i> Poll Reminders
                         </label>
                         <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                             Reminders for polls you are invited to or participating in before they close.
                         </p>
                     </div>
-                    <label for="pref_reminders" class="sp-toggle relative inline-flex items-center cursor-pointer shrink-0" aria-label="Toggle poll reminders emails">
-                        <input type="checkbox" id="pref_reminders" name="reminders" value="1" role="switch" aria-checked="<?php echo !empty($emailPrefs['reminders']) ? 'true' : 'false'; ?>" class="sp-toggle-input category-toggle" <?php echo !empty($emailPrefs['reminders']) ? 'checked' : ''; ?>>
+                    <label for="pref_reminders" class="sp-toggle is-disabled relative inline-flex items-center cursor-not-allowed shrink-0" aria-label="Toggle poll reminders emails (Coming Soon)" title="Email notifications are not available yet.">
+                        <input type="checkbox" id="pref_reminders" name="reminders" value="1" role="switch" disabled aria-disabled="true" aria-checked="<?php echo !empty($emailPrefs['reminders']) ? 'true' : 'false'; ?>" class="sp-toggle-input category-toggle" <?php echo !empty($emailPrefs['reminders']) ? 'checked' : ''; ?>>
                         <span class="sp-toggle-track">
                             <span class="sp-toggle-thumb"></span>
                         </span>
@@ -359,15 +370,15 @@ $emailPrefs = $emailPreferences ?? [
                 <!-- 3. Poll Updates -->
                 <div class="flex items-center justify-between py-2.5 border-t border-slate-100 dark:border-slate-800/60">
                     <div class="pr-4">
-                        <label for="pref_updates" class="text-sm font-medium text-slate-900 dark:text-slate-200 cursor-pointer flex items-center gap-2">
+                        <label for="pref_updates" class="text-sm font-medium text-slate-900 dark:text-slate-200 cursor-not-allowed flex items-center gap-2">
                             <i data-lucide="edit-3" class="w-4 h-4 text-emerald-500"></i> Poll Updates
                         </label>
                         <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                             Important changes, schedule notices, and start announcements for relevant polls.
                         </p>
                     </div>
-                    <label for="pref_updates" class="sp-toggle relative inline-flex items-center cursor-pointer shrink-0" aria-label="Toggle poll updates emails">
-                        <input type="checkbox" id="pref_updates" name="updates" value="1" role="switch" aria-checked="<?php echo !empty($emailPrefs['updates']) ? 'true' : 'false'; ?>" class="sp-toggle-input category-toggle" <?php echo !empty($emailPrefs['updates']) ? 'checked' : ''; ?>>
+                    <label for="pref_updates" class="sp-toggle is-disabled relative inline-flex items-center cursor-not-allowed shrink-0" aria-label="Toggle poll updates emails (Coming Soon)" title="Email notifications are not available yet.">
+                        <input type="checkbox" id="pref_updates" name="updates" value="1" role="switch" disabled aria-disabled="true" aria-checked="<?php echo !empty($emailPrefs['updates']) ? 'true' : 'false'; ?>" class="sp-toggle-input category-toggle" <?php echo !empty($emailPrefs['updates']) ? 'checked' : ''; ?>>
                         <span class="sp-toggle-track">
                             <span class="sp-toggle-thumb"></span>
                         </span>
@@ -377,15 +388,15 @@ $emailPrefs = $emailPreferences ?? [
                 <!-- 4. Results Published -->
                 <div class="flex items-center justify-between py-2.5 border-t border-slate-100 dark:border-slate-800/60">
                     <div class="pr-4">
-                        <label for="pref_results" class="text-sm font-medium text-slate-900 dark:text-slate-200 cursor-pointer flex items-center gap-2">
+                        <label for="pref_results" class="text-sm font-medium text-slate-900 dark:text-slate-200 cursor-not-allowed flex items-center gap-2">
                             <i data-lucide="flag" class="w-4 h-4 text-purple-500"></i> Results Published
                         </label>
                         <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                             Notifications when polls end and voting results become available to view.
                         </p>
                     </div>
-                    <label for="pref_results" class="sp-toggle relative inline-flex items-center cursor-pointer shrink-0" aria-label="Toggle results published emails">
-                        <input type="checkbox" id="pref_results" name="results" value="1" role="switch" aria-checked="<?php echo !empty($emailPrefs['results']) ? 'true' : 'false'; ?>" class="sp-toggle-input category-toggle" <?php echo !empty($emailPrefs['results']) ? 'checked' : ''; ?>>
+                    <label for="pref_results" class="sp-toggle is-disabled relative inline-flex items-center cursor-not-allowed shrink-0" aria-label="Toggle results published emails (Coming Soon)" title="Email notifications are not available yet.">
+                        <input type="checkbox" id="pref_results" name="results" value="1" role="switch" disabled aria-disabled="true" aria-checked="<?php echo !empty($emailPrefs['results']) ? 'true' : 'false'; ?>" class="sp-toggle-input category-toggle" <?php echo !empty($emailPrefs['results']) ? 'checked' : ''; ?>>
                         <span class="sp-toggle-track">
                             <span class="sp-toggle-thumb"></span>
                         </span>
@@ -403,8 +414,8 @@ $emailPrefs = $emailPreferences ?? [
             </div>
 
             <div class="flex justify-end pt-2">
-                <button type="submit" id="emailSubmitBtn"
-                        class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium text-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-md shadow-indigo-500/20 transition-all">
+                <button type="button" id="emailSubmitBtn" disabled aria-disabled="true" title="Email notifications are not available yet"
+                        class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium text-sm text-white bg-indigo-600 opacity-50 cursor-not-allowed shadow-md shadow-indigo-500/20 transition-all select-none">
                     <span id="emailBtnText">Save Preferences</span>
                     <i id="emailSpinner" data-lucide="loader-2" class="w-4 h-4 animate-spin hidden"></i>
                 </button>
@@ -635,51 +646,13 @@ categoryInputs.forEach(input => {
 
 globalToggle?.addEventListener('change', syncGlobalEmailUI);
 
-document.getElementById('emailPreferencesForm')?.addEventListener('submit', async function(e) {
+document.getElementById('emailPreferencesForm')?.addEventListener('submit', function(e) {
     e.preventDefault();
     const alertBox = document.getElementById('emailAlert');
-    const submitBtn = document.getElementById('emailSubmitBtn');
-    const btnText = document.getElementById('emailBtnText');
-    const spinner = document.getElementById('emailSpinner');
-
-    alertBox.className = 'hidden';
-    submitBtn.disabled = true;
-    spinner.classList.remove('hidden');
-    btnText.textContent = 'Saving...';
-
-    const formData = new FormData(this);
-    formData.set('global', document.getElementById('pref_global')?.checked ? '1' : '0');
-    formData.set('invitations', document.getElementById('pref_invitations')?.checked ? '1' : '0');
-    formData.set('reminders', document.getElementById('pref_reminders')?.checked ? '1' : '0');
-    formData.set('updates', document.getElementById('pref_updates')?.checked ? '1' : '0');
-    formData.set('results', document.getElementById('pref_results')?.checked ? '1' : '0');
-
-    try {
-        const response = await fetch('/SecurePoll/public/settings/email-preferences', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.success) {
-            alertBox.className = 'p-4 rounded-xl text-sm font-medium bg-emerald-50 text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20';
-            alertBox.textContent = data.message || 'Email preferences saved successfully.';
-        } else {
-            alertBox.className = 'p-4 rounded-xl text-sm font-medium bg-rose-50 text-rose-800 dark:bg-rose-500/10 dark:text-rose-400 border border-rose-200 dark:border-rose-500/20';
-            alertBox.textContent = data.message || 'Failed to save email preferences.';
-        }
-    } catch (err) {
-        alertBox.className = 'p-4 rounded-xl text-sm font-medium bg-rose-50 text-rose-800 dark:bg-rose-500/10 dark:text-rose-400 border border-rose-200 dark:border-rose-500/20';
-        alertBox.textContent = 'A network error occurred. Please try again.';
-    } finally {
-        submitBtn.disabled = false;
-        spinner.classList.add('hidden');
-        btnText.textContent = 'Save Preferences';
-        if (window.lucide) window.lucide.createIcons();
+    if (alertBox) {
+        alertBox.className = 'p-4 rounded-xl text-sm font-medium bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-400 border border-amber-200 dark:border-amber-500/20';
+        alertBox.textContent = 'Email notifications are not available yet. In-app notifications continue to work normally.';
+        alertBox.classList.remove('hidden');
     }
 });
 </script>

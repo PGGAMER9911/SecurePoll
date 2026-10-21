@@ -197,32 +197,10 @@ class SettingsController extends Controller {
         $this->requireAuthApi();
         $this->requireCsrfApi();
 
-        $userId = Session::get('user_id');
-        $prefService = new \app\Services\NotificationPreferenceService();
-
-        $global = isset($_POST['global']) && ($_POST['global'] === '1' || $_POST['global'] === 'true' || $_POST['global'] === 'on');
-        $invitations = isset($_POST['invitations']) && ($_POST['invitations'] === '1' || $_POST['invitations'] === 'true' || $_POST['invitations'] === 'on');
-        $reminders = isset($_POST['reminders']) && ($_POST['reminders'] === '1' || $_POST['reminders'] === 'true' || $_POST['reminders'] === 'on');
-        $updates = isset($_POST['updates']) && ($_POST['updates'] === '1' || $_POST['updates'] === 'true' || $_POST['updates'] === 'on');
-        $results = isset($_POST['results']) && ($_POST['results'] === '1' || $_POST['results'] === 'true' || $_POST['results'] === 'on');
-
-        $success = $prefService->updateEmailPreferences($userId, [
-            'global' => $global,
-            'invitations' => $invitations,
-            'reminders' => $reminders,
-            'updates' => $updates,
-            'results' => $results,
-        ]);
-
-        if (!$success) {
-            return $this->json(['success' => false, 'message' => 'Failed to save email preferences.'], 500);
-        }
-
         return $this->json([
-            'success' => true,
-            'message' => 'Email preferences saved successfully.',
-            'preferences' => $prefService->getEmailPreferences($userId)
-        ]);
+            'success' => false,
+            'message' => 'Email notifications are not available yet. In-app notifications continue to work normally.'
+        ], 400);
     }
 }
 

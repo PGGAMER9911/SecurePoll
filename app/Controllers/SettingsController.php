@@ -20,8 +20,19 @@ class SettingsController extends Controller {
             $theme = 'system';
         }
         
-        $prefService = new \app\Services\NotificationPreferenceService();
-        $emailPreferences = $prefService->getEmailPreferences(Session::get('user_id'));
+        $emailPreferences = [
+            'global' => true,
+            'invitations' => true,
+            'reminders' => true,
+            'updates' => true,
+            'results' => true
+        ];
+        try {
+            $prefService = new \app\Services\NotificationPreferenceService();
+            $emailPreferences = $prefService->getEmailPreferences(Session::get('user_id'));
+        } catch (\Throwable $e) {
+            error_log("SettingsController::index failed to load email preferences: " . $e->getMessage());
+        }
         
         return $this->view('settings/index', [
             'theme' => $theme,

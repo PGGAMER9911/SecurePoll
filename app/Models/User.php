@@ -83,8 +83,13 @@ class User extends Model {
     }
 
     public function updateTheme($id, $theme) {
-        $stmt = $this->db->prepare("UPDATE users SET theme = :theme WHERE id = :id");
-        return $stmt->execute(['theme' => $theme, 'id' => $id]);
+        try {
+            $stmt = $this->db->prepare("UPDATE users SET theme = :theme WHERE id = :id");
+            return $stmt->execute(['theme' => $theme, 'id' => $id]);
+        } catch (\PDOException $e) {
+            error_log("User::updateTheme error: " . $e->getMessage());
+            return false;
+        }
     }
 }
 

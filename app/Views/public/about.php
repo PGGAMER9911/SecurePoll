@@ -109,7 +109,7 @@ ob_start();
                     <!-- Direct Technical Repository Links -->
                     <div class="pt-4 border-t border-slate-100 dark:border-teal-950/80 flex items-center justify-between text-xs">
                         <a href="<?php echo htmlspecialchars($creator['github']); ?>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 font-medium transition-colors min-h-[44px]">
-                            <i data-lucide="github" class="w-4 h-4"></i>
+                            <i data-lucide="code-2" class="w-4 h-4"></i>
                             <span>GitHub Profile</span>
                         </a>
 
@@ -127,7 +127,7 @@ ob_start();
     <section class="border-t border-slate-200 dark:border-teal-950/80 pt-10">
         <div class="p-6 sm:p-8 rounded-2xl bg-slate-50/70 dark:bg-[#061214]/80 border border-slate-200 dark:border-teal-950/80 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div class="space-y-1 max-w-xl">
-                <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider block">Governance & Licensing</span>
+                <div class="flex items-center gap-1.5 mb-1"><i data-lucide="scale" class="w-4 h-4 text-teal-600 dark:text-teal-400"></i><span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider">Governance & Licensing</span></div>
                 <h3 class="text-base font-bold text-slate-900 dark:text-white">Source-Available for Community Benefit</h3>
                 <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                     SecurePoll is released under a custom source-available non-commercial license. You are free to inspect, audit, host, and adapt the software for student unions, non-profit institutions, and research endeavors with mandatory author attribution.
@@ -139,7 +139,7 @@ ob_start();
                     <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                 </a>
                 <a href="https://github.com/PGGAMER9911/SecurePoll" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-teal-950 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors min-h-[44px]">
-                    <i data-lucide="github" class="w-3.5 h-3.5"></i>
+                    <i data-lucide="code-2" class="w-3.5 h-3.5"></i>
                     <span>Repository</span>
                 </a>
             </div>

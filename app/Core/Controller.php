@@ -34,6 +34,10 @@ class Controller {
     }
 
     protected function view($view, $data = []) {
+        $basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
+        if (!isset($data['basePrefix'])) {
+            $data['basePrefix'] = $basePrefix;
+        }
         extract($data);
         $viewFile = __DIR__ . '/../Views/' . $view . '.php';
         if (file_exists($viewFile)) {
@@ -51,7 +55,8 @@ class Controller {
     }
 
     protected function redirect($url) {
-        header('Location: /SecurePoll/public' . $url);
+        $basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
+        header('Location: ' . $basePrefix . $url);
         exit;
     }
 }

@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Pricing & Availability — SecurePoll';
+$pageDescription = 'Transparent availability and open source-available licensing for academic, institutional, and democratic community polling.';
 $basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
 ob_start();
 ?>
@@ -10,6 +11,7 @@ ob_start();
     <header class="border-b border-slate-200 dark:border-teal-950/80 pb-10 max-w-2xl">
         <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md text-xs font-semibold bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20 mb-4">
             <span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span>
+            <i data-lucide="scale" class="w-3.5 h-3.5"></i>
             <span>Licensing & Availability</span>
         </div>
         <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
@@ -50,7 +52,7 @@ ob_start();
                 </div>
                 <div class="flex items-start gap-2.5">
                     <i data-lucide="check" class="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0 mt-0.5"></i>
-                    <span><strong>Cryptographic Anonymity:</strong> Salted SHA-256 HMAC decoupling completely isolates voter accounts from ballots.</span>
+                    <span><strong>Cryptographic Anonymity:</strong> Salted SHA-256 HMAC decoupling completely isolates voter accounts from cast votes.</span>
                 </div>
                 <div class="flex items-start gap-2.5">
                     <i data-lucide="check" class="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0 mt-0.5"></i>
@@ -77,7 +79,7 @@ ob_start();
                 Ready to launch your institutional election? Sign up takes 30 seconds.
             </span>
             <a href="<?php echo $basePrefix; ?>/polls/create" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-teal-600 hover:bg-teal-500 transition-colors shadow-xs min-h-[44px]">
-                <span>Create a Ballot Now</span>
+                <span>Create a Poll Now</span>
                 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
             </a>
         </div>

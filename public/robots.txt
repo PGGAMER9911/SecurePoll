@@ -1,0 +1,36 @@
+User-agent: *
+# Public Indexable Endpoints
+Allow: /$
+Allow: /about$
+Allow: /docs$
+Allow: /pricing$
+Allow: /contact$
+Allow: /polls$
+Allow: /css/
+Allow: /js/
+Allow: /images/
+
+# Disallow Private Application Routes & Auth Operations
+Disallow: /dashboard
+Disallow: /settings
+Disallow: /notifications
+Disallow: /profile
+Disallow: /invitations
+Disallow: /polls/create
+Disallow: /polls/manage
+Disallow: /polls/vote
+Disallow: /polls/delete
+Disallow: /polls/update
+Disallow: /polls/importCsv
+Disallow: /polls/inviteUser
+Disallow: /polls/revokeInvitation
+Disallow: /polls/getInvitations
+Disallow: /polls/searchUsers
+Disallow: /polls/voterActivity
+Disallow: /login
+Disallow: /register
+Disallow: /verify-otp
+Disallow: /resend-otp
+Disallow: /logout
+
+Sitemap: https://securepoll.pgdev.in/sitemap.xml

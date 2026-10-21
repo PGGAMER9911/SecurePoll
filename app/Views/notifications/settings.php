@@ -1,9 +1,11 @@
 <?php 
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 $pageTitle = 'Notification Settings'; 
 $currentPreset = $preferences['preset'] ?? 'Standard';
 $isAdvanced = in_array(strtolower((string)$currentPreset), ['custom', 'advanced'], true);
 ?>
-<?php ob_start(); ?>
+<?php $basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
+ob_start(); ?>
 
 <div class="max-w-3xl mx-auto space-y-6">
     <div>
@@ -104,7 +106,7 @@ $isAdvanced = in_array(strtolower((string)$currentPreset), ['custom', 'advanced'
 
 <script>
     function setPreset(preset) {
-        fetch('/SecurePoll/public/notifications/settings/preset', {
+        fetch((window.SecurePollBase || '') + '/notifications/settings/preset', {
             method: 'POST',
             headers: {'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/x-www-form-urlencoded'},
             body: 'preset=' + preset + '&csrf_token=<?= $_SESSION['csrf_token'] ?? '' ?>'
@@ -116,7 +118,7 @@ $isAdvanced = in_array(strtolower((string)$currentPreset), ['custom', 'advanced'
     }
 
     function updatePref(type, channel, value) {
-        fetch('/SecurePoll/public/notifications/settings/update', {
+        fetch((window.SecurePollBase || '') + '/notifications/settings/update', {
             method: 'POST',
             headers: {'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/x-www-form-urlencoded'},
             body: 'type=' + type + '&channel=' + channel + '&value=' + (value ? 1 : 0) + '&csrf_token=<?= $_SESSION['csrf_token'] ?? '' ?>'
@@ -130,6 +132,7 @@ $isAdvanced = in_array(strtolower((string)$currentPreset), ['custom', 'advanced'
 </script>
 
 <?php 
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 $content = ob_get_clean(); 
 require_once __DIR__ . '/../layouts/app.php'; 
 ?>

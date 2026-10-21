@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
             payload.append('email', email);
             payload.append('purpose', 'registration');
 
-            fetch('/SecurePoll/public/resend-otp', {
+            fetch((window.SecurePollBase || '') + '/resend-otp', {
                 method: 'POST',
                 body: payload
             })
@@ -369,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const formData = new FormData(otpForm);
         
-        fetch('/SecurePoll/public/verify-otp', {
+        fetch((window.SecurePollBase || '') + '/verify-otp', {
             method: 'POST',
             body: formData
         })

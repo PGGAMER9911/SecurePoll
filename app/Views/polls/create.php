@@ -1,4 +1,5 @@
 <?php
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 use app\Helpers\Security;
 
 $pageTitle = 'Create Poll - SecurePoll';
@@ -718,7 +719,7 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.set('voting_type', choiceMode); // overrides Custom with Single/Multiple for backend processing
         }
         
-        fetch('/SecurePoll/public/polls/store', {
+        fetch((window.SecurePollBase || '') + '/polls/store', {
             method: 'POST',
             body: formData,
             headers: {
@@ -737,7 +738,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.success) {
                 showAlert('Poll created successfully! Redirecting...', false);
                 setTimeout(() => {
-                    window.location.href = data.redirect_url || `/SecurePoll/public/polls/manage?id=${data.poll_id}`;
+                    window.location.href = data.redirect_url || `${window.SecurePollBase || ""}/polls/manage?id=${data.poll_id}`;
                 }, 1500);
             } else {
                 showAlert(data.message);
@@ -759,6 +760,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <?php
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 $content = ob_get_clean();
 require_once __DIR__ . '/../layouts/app.php';
 ?>

@@ -1,6 +1,7 @@
 <?php
 use app\Helpers\Session;
 
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 $pageTitle = 'Polls - SecurePoll';
 $pageHeader = 'Active Polls';
 ob_start();
@@ -12,7 +13,7 @@ ob_start();
         <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Discover and participate in active community polls.</p>
     </div>
     <?php if (Session::get('user_id')): ?>
-        <a href="/SecurePoll/public/polls/create" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 px-5 rounded-xl transition-all shadow-sm hover:-translate-y-[1px] active:translate-y-[1px] dark:shadow-lg dark:shadow-indigo-500/25 dark:hover:shadow-indigo-500/40 border border-transparent">
+        <a href="<?php echo $basePrefix; ?>/polls/create" class="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-500 text-white font-medium py-2.5 px-5 rounded-xl transition-all shadow-sm hover:-translate-y-[1px] active:translate-y-[1px] dark:shadow-lg dark:shadow-teal-500/25 dark:hover:shadow-teal-500/40 border border-transparent">
             <i data-lucide="plus-circle" class="w-4 h-4"></i> Create Poll
         </a>
     <?php endif; ?>
@@ -21,8 +22,8 @@ ob_start();
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
     <?php if (empty($polls)): ?>
         <div class="col-span-full py-20 flex flex-col items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-700/50 rounded-xl bg-white dark:bg-slate-900/30 backdrop-blur-sm shadow-sm dark:shadow-none">
-            <div class="bg-indigo-50 dark:bg-indigo-500/10 p-5 rounded-full mb-5 border border-indigo-100 dark:border-indigo-500/20 shadow-sm dark:shadow-inner">
-                <i data-lucide="inbox" class="w-12 h-12 text-indigo-500 dark:text-indigo-400"></i>
+            <div class="bg-teal-50 dark:bg-teal-500/10 p-5 rounded-full mb-5 border border-teal-100 dark:border-teal-500/20 shadow-sm dark:shadow-inner">
+                <i data-lucide="inbox" class="w-12 h-12 text-teal-500 dark:text-teal-400"></i>
             </div>
             <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">No active polls found</h4>
             <p class="text-slate-500 dark:text-slate-400 text-sm text-center max-w-sm">There are currently no public polls available to vote on. Check back later or create your own.</p>
@@ -30,13 +31,13 @@ ob_start();
     <?php else: ?>
         <?php foreach ($polls as $poll): ?>
             <?php $pollStatus = \app\Services\PollService::getLifecycleStatus($poll); ?>
-            <div class="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-xl overflow-hidden shadow dark:shadow-lg hover:shadow-md hover:-translate-y-1 hover:border-indigo-200 dark:hover:shadow-2xl dark:hover:shadow-indigo-500/10 dark:hover:border-indigo-500/30 transition-all duration-300 flex flex-col">
+            <div class="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-xl overflow-hidden shadow dark:shadow-lg hover:shadow-md hover:-translate-y-1 hover:border-teal-200 dark:hover:shadow-2xl dark:hover:shadow-teal-500/10 dark:hover:border-teal-500/30 transition-all duration-300 flex flex-col">
                 <!-- Subtle gradient overlay on hover -->
-                <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                 
                 <div class="p-6 flex-1 flex flex-col relative z-10">
                     <div class="flex justify-between items-start mb-4 gap-3">
-                        <h5 class="font-bold text-slate-900 dark:text-white text-lg leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-300 transition-colors line-clamp-2" title="<?php echo htmlspecialchars($poll['title']); ?>">
+                        <h5 class="font-bold text-slate-900 dark:text-white text-lg leading-snug group-hover:text-teal-600 dark:group-hover:text-teal-300 transition-colors line-clamp-2" title="<?php echo htmlspecialchars($poll['title']); ?>">
                             <?php echo htmlspecialchars($poll['title']); ?>
                         </h5>
                         <div class="flex items-center gap-2">
@@ -68,27 +69,27 @@ ob_start();
                             <span class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
                                 <i data-lucide="user" class="w-4 h-4 text-slate-400"></i>
                                 Created by 
-                                <a href="/SecurePoll/public/profile?id=<?php echo $poll['creator_id']; ?>" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors font-bold truncate max-w-[100px]" title="<?php echo htmlspecialchars($poll['creator_name'] ?? 'Unknown'); ?>">
+                                <a href="<?php echo $basePrefix; ?>/profile?id=<?php echo $poll['creator_id']; ?>" class="text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 transition-colors font-bold truncate max-w-[100px]" title="<?php echo htmlspecialchars($poll['creator_name'] ?? 'Unknown'); ?>">
                                     <?php echo htmlspecialchars($poll['creator_name'] ?? 'Unknown'); ?>
                                 </a>
                             </span>
                         </div>
                         <?php if (Session::get('user_id') && $poll['creator_id'] == Session::get('user_id')): ?>
-                            <a href="/SecurePoll/public/polls/manage?id=<?php echo $poll['id']; ?>" class="inline-flex shrink-0 items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-bold bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-500/20 hover:bg-indigo-100 dark:hover:bg-indigo-500 hover:text-indigo-800 dark:hover:text-white hover:border-indigo-300 dark:hover:border-indigo-500 transition-all shadow-sm dark:shadow-none hover:shadow-sm dark:hover:shadow-lg dark:hover:shadow-indigo-500/25">
+                            <a href="<?php echo $basePrefix; ?>/polls/manage?id=<?php echo $poll['id']; ?>" class="inline-flex shrink-0 items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-bold bg-teal-50 dark:bg-teal-500/10 text-teal-500 dark:text-teal-400 border border-teal-200 dark:border-teal-500/20 hover:bg-teal-100 dark:hover:bg-teal-500 hover:text-teal-700 dark:hover:text-white hover:border-teal-300 dark:hover:border-teal-500 transition-all shadow-sm dark:shadow-none hover:shadow-sm dark:hover:shadow-lg dark:hover:shadow-teal-500/25">
                                 <i data-lucide="settings" class="w-4 h-4"></i> Manage
                             </a>
                         <?php else: ?>
 
                             <?php if ($pollStatus === 'Upcoming'): ?>
-                                <a href="/SecurePoll/public/polls/show?id=<?php echo $poll['id']; ?>" class="inline-flex shrink-0 items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 transition-all shadow-sm">
+                                <a href="<?php echo $basePrefix; ?>/polls/show?id=<?php echo $poll['id']; ?>" class="inline-flex shrink-0 items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 transition-all shadow-sm">
                                     <i data-lucide="clock" class="w-4 h-4"></i> Scheduled
                                 </a>
                             <?php elseif ($pollStatus === 'Closed' || $pollStatus === 'Ended'): ?>
-                                <a href="/SecurePoll/public/polls/show?id=<?php echo $poll['id']; ?>" class="inline-flex shrink-0 items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 transition-all shadow-sm">
+                                <a href="<?php echo $basePrefix; ?>/polls/show?id=<?php echo $poll['id']; ?>" class="inline-flex shrink-0 items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 transition-all shadow-sm">
                                     <i data-lucide="lock" class="w-4 h-4"></i> Closed
                                 </a>
                             <?php else: ?>
-                                <a href="/SecurePoll/public/polls/show?id=<?php echo $poll['id']; ?>" class="inline-flex shrink-0 items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-bold bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-500/20 hover:bg-indigo-100 dark:hover:bg-indigo-500 hover:text-indigo-800 dark:hover:text-white hover:border-indigo-300 dark:hover:border-indigo-500 transition-all shadow-sm dark:shadow-none hover:shadow-sm dark:hover:shadow-lg dark:hover:shadow-indigo-500/25">
+                                <a href="<?php echo $basePrefix; ?>/polls/show?id=<?php echo $poll['id']; ?>" class="inline-flex shrink-0 items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-bold bg-teal-50 dark:bg-teal-500/10 text-teal-500 dark:text-teal-400 border border-teal-200 dark:border-teal-500/20 hover:bg-teal-100 dark:hover:bg-teal-500 hover:text-teal-700 dark:hover:text-white hover:border-teal-300 dark:hover:border-teal-500 transition-all shadow-sm dark:shadow-none hover:shadow-sm dark:hover:shadow-lg dark:hover:shadow-teal-500/25">
                                     <i data-lucide="vote" class="w-4 h-4"></i> Vote Now
                                 </a>
                             <?php endif; ?>

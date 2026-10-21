@@ -55,9 +55,12 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
             }
         })();
     </script>
+    <meta name="robots" content="noindex, nofollow">
+    <script>
+        window.SecurePollBase = '<?php echo $basePrefix; ?>';
+    </script>
 </head>
 <body class="min-h-full bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased flex flex-col selection:bg-teal-500/20 selection:text-teal-900 dark:selection:text-teal-200 transition-colors duration-200">
-
     <!-- Top Navigation Progress Bar -->
     <div id="securepoll-top-progress" class="fixed top-0 left-0 h-[2px] w-0 bg-teal-600 dark:bg-teal-400 z-[10000] pointer-events-none opacity-0" aria-hidden="true"></div>
 
@@ -88,18 +91,25 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
             <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">SecurePoll</span>
         </a>
 
-        <!-- Theme Switcher -->
-        <div class="relative flex items-center p-0.5 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700/80 w-[96px] h-8 shrink-0">
-            <div id="theme-active-pill" class="absolute top-0.5 bottom-0.5 w-[calc(33.33%-1.33px)] bg-white dark:bg-slate-700 rounded-md shadow-xs border border-slate-200/80 dark:border-slate-600 transition-transform duration-200 ease-out z-0 pointer-events-none"></div>
-            <button type="button" class="theme-btn relative flex-1 flex justify-center items-center h-full text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors z-10" data-theme="light" title="Light Theme" aria-label="Light Theme">
-                <i data-lucide="sun" class="w-3.5 h-3.5"></i>
-            </button>
-            <button type="button" class="theme-btn relative flex-1 flex justify-center items-center h-full text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors z-10" data-theme="system" title="System Theme" aria-label="System Theme">
-                <i data-lucide="monitor" class="w-3.5 h-3.5"></i>
-            </button>
-            <button type="button" class="theme-btn relative flex-1 flex justify-center items-center h-full text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors z-10" data-theme="dark" title="Dark Theme" aria-label="Dark Theme">
-                <i data-lucide="moon" class="w-3.5 h-3.5"></i>
-            </button>
+        <div class="flex items-center gap-3 sm:gap-4">
+            <a href="<?php echo $basePrefix ?: '/'; ?>" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors px-2.5 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/60">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                <span>Home</span>
+            </a>
+
+            <!-- Theme Switcher -->
+            <div class="relative flex items-center p-0.5 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700/80 w-[96px] h-8 shrink-0">
+                <div id="theme-active-pill" class="absolute top-0.5 bottom-0.5 w-[calc(33.33%-1.33px)] bg-white dark:bg-slate-700 rounded-md shadow-xs border border-slate-200/80 dark:border-slate-600 transition-transform duration-200 ease-out z-0 pointer-events-none"></div>
+                <button type="button" class="theme-btn relative flex-1 flex justify-center items-center h-full text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors z-10" data-theme="light" title="Light Theme" aria-label="Light Theme">
+                    <i data-lucide="sun" class="w-3.5 h-3.5"></i>
+                </button>
+                <button type="button" class="theme-btn relative flex-1 flex justify-center items-center h-full text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors z-10" data-theme="system" title="System Theme" aria-label="System Theme">
+                    <i data-lucide="monitor" class="w-3.5 h-3.5"></i>
+                </button>
+                <button type="button" class="theme-btn relative flex-1 flex justify-center items-center h-full text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors z-10" data-theme="dark" title="Dark Theme" aria-label="Dark Theme">
+                    <i data-lucide="moon" class="w-3.5 h-3.5"></i>
+                </button>
+            </div>
         </div>
     </header>
 

@@ -1,4 +1,5 @@
 <?php
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 use app\Helpers\Security;
 $pageTitle = 'Settings - SecurePoll';
 $pageHeader = 'Settings';
@@ -508,7 +509,7 @@ document.getElementById('profileForm')?.addEventListener('submit', async functio
     const formData = new FormData(this);
 
     try {
-        const response = await fetch('/SecurePoll/public/settings/profile', {
+        const response = await fetch((window.SecurePollBase || '') + '/settings/profile', {
             method: 'POST',
             body: formData,
             headers: {
@@ -571,7 +572,7 @@ document.getElementById('passwordForm')?.addEventListener('submit', async functi
     const formData = new FormData(this);
 
     try {
-        const response = await fetch('/SecurePoll/public/settings/password', {
+        const response = await fetch((window.SecurePollBase || '') + '/settings/password', {
             method: 'POST',
             body: formData,
             headers: {
@@ -664,6 +665,7 @@ document.getElementById('emailPreferencesForm')?.addEventListener('submit', func
 </script>
 
 <?php
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 $content = ob_get_clean();
 require_once __DIR__ . '/../layouts/app.php';
 ?>

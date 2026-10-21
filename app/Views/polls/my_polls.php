@@ -1,4 +1,5 @@
 <?php
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 $pageTitle = 'My Polls - SecurePoll';
 $pageHeader = 'My Polls';
 ob_start();
@@ -10,13 +11,14 @@ ob_start();
         <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">View, edit, and analyze the polls you have created.</p>
     </div>
     <div class="flex items-center gap-3">
-        <a href="/SecurePoll/public/polls/create" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white transition-all shadow-sm hover:-translate-y-[1px] active:translate-y-[1px] dark:shadow-lg dark:shadow-indigo-500/25">
+        <a href="<?php echo $basePrefix; ?>/polls/create" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white transition-all shadow-sm hover:-translate-y-[1px] active:translate-y-[1px] dark:shadow-lg dark:shadow-indigo-500/25">
             <i data-lucide="plus" class="w-4 h-4"></i> Create Poll
         </a>
     </div>
 </div>
 
-<?php if (empty($polls)): ?>
+<?php $basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
+if (empty($polls)): ?>
     <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-md dark:shadow-xl overflow-hidden relative min-h-[400px] flex flex-col items-center justify-center p-8 text-center">
         <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-transparent pointer-events-none"></div>
         
@@ -30,11 +32,12 @@ ob_start();
             You haven't created any polls yet. Start your first poll to gather insights and opinions from your audience.
         </p>
         
-        <a href="/SecurePoll/public/polls/create" class="px-6 py-2.5 rounded-xl text-sm font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition-all shadow-sm hover:-translate-y-[1px] active:translate-y-[1px] dark:shadow-lg dark:shadow-indigo-500/25">
+        <a href="<?php echo $basePrefix; ?>/polls/create" class="px-6 py-2.5 rounded-xl text-sm font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition-all shadow-sm hover:-translate-y-[1px] active:translate-y-[1px] dark:shadow-lg dark:shadow-indigo-500/25">
             Create Your First Poll
         </a>
     </div>
-<?php else: ?>
+<?php $basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
+else: ?>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <?php foreach ($polls as $poll): ?>
             <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow dark:shadow-xl overflow-hidden hover:shadow-md dark:hover:shadow-2xl hover:-translate-y-1 hover:border-indigo-200 dark:hover:border-indigo-500/30 transition-all group flex flex-col">
@@ -65,16 +68,18 @@ ob_start();
                 </div>
                 
                 <div class="px-6 py-4 border-t border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-slate-950/50 flex justify-between items-center group-hover:bg-slate-100/50 dark:group-hover:bg-slate-900/80 transition-colors">
-                    <a href="/SecurePoll/public/polls/manage?id=<?php echo $poll['id']; ?>" class="text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors flex items-center gap-1">
+                    <a href="<?php echo $basePrefix; ?>/polls/manage?id=<?php echo $poll['id']; ?>" class="text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors flex items-center gap-1">
                         Manage Poll <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </a>
                 </div>
             </div>
         <?php endforeach; ?>
     </div>
-<?php endif; ?>
+<?php $basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
+endif; ?>
 
 <?php
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 $content = ob_get_clean();
 require_once __DIR__ . '/../layouts/app.php';
 ?>

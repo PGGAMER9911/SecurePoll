@@ -1,4 +1,5 @@
 <?php
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 http_response_code(404);
 $pageTitle = '404 - Page Not Found';
 $pageHeader = '';
@@ -20,13 +21,14 @@ ob_start();
         The page you are looking for might have been removed, had its name changed, or is temporarily unavailable. Let's get you back on track.
     </p>
     
-    <a href="/SecurePoll/public/polls" class="relative overflow-hidden bg-indigo-600 hover:bg-indigo-700 text-slate-900 dark:text-white font-semibold py-3.5 px-8 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 group">
+    <a href="<?php echo $basePrefix; ?>/polls" class="relative overflow-hidden bg-indigo-600 hover:bg-indigo-700 text-slate-900 dark:text-white font-semibold py-3.5 px-8 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 group">
         <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-48 ease"></span>
         <i data-lucide="home" class="w-5 h-5 relative z-10"></i>
         <span class="relative z-10 text-base">Back to Home</span>
     </a>
 </div>
 <?php
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 $content = ob_get_clean();
 require_once __DIR__ . '/../layouts/app.php';
 ?>

@@ -1,4 +1,5 @@
 <?php
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 use app\Helpers\Security;
 
 $pageTitle = 'Vote - ' . htmlspecialchars($poll['title']);
@@ -127,8 +128,8 @@ $totalVotes = array_sum(array_column($options, 'votes'));
                         <h4 class="text-slate-900 dark:text-white font-medium mb-1">Authentication Required</h4>
                         <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">You must be logged in to participate in this poll.</p>
                         <div class="flex items-center justify-center gap-3">
-                            <a href="/SecurePoll/public/login" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white transition-all">Sign In</a>
-                            <a href="/SecurePoll/public/register" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-all">Register</a>
+                            <a href="<?php echo $basePrefix; ?>/login" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white transition-all">Sign In</a>
+                            <a href="<?php echo $basePrefix; ?>/register" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-all">Register</a>
                         </div>
                     </div>
                 <?php else: ?>
@@ -440,7 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const formData = new FormData(form);
             
-            fetch('/SecurePoll/public/polls/vote', {
+            fetch((window.SecurePollBase || '') + '/polls/vote', {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -574,6 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <?php
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 $content = ob_get_clean();
 require_once __DIR__ . '/../layouts/app.php';
 ?>

@@ -1,4 +1,5 @@
 <?php
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 $userTheme = 'system';
 if (\app\Helpers\Session::has('user_id')) {
     $userTheme = \app\Helpers\Session::get('theme');
@@ -23,7 +24,8 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
     <title><?php echo $pageTitle ?? 'Dashboard - SecurePoll'; ?></title>
     <meta name="csrf-token" content="<?php echo \app\Helpers\Security::generateCsrfToken(); ?>">
     
-    <link rel="icon" type="image/png" href="/SecurePoll/public/images/logo-square.png">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/png" href="<?php echo $basePrefix; ?>/images/logo-square.png">
     
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,7 +33,7 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
-    <link href="/SecurePoll/public/css/app.css" rel="stylesheet">
+    <link href="<?php echo $basePrefix; ?>/css/app.css" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -39,11 +41,13 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <script>window.SecurePollBase = '<?php echo $basePrefix; ?>';</script>
+
     <!-- Unified Theme Engine -->
-    <script src="/SecurePoll/public/js/theme.js"></script>
+    <script src="<?php echo $basePrefix; ?>/js/theme.js"></script>
 
     <!-- Unified Loader & Navigation Progress -->
-    <script src="/SecurePoll/public/js/loader.js"></script>
+    <script src="<?php echo $basePrefix; ?>/js/loader.js"></script>
 
     <!-- Immediate Anti-FOUC Theme Script -->
     <script>
@@ -73,19 +77,19 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
     </script>
 </head>
 
-<body class="min-h-full bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased flex flex-col lg:flex-row selection:bg-indigo-500/20 selection:text-indigo-900 dark:selection:text-indigo-200 transition-colors duration-200">
+<body class="min-h-full bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased flex flex-col lg:flex-row selection:bg-teal-500/20 selection:text-teal-900 dark:selection:text-teal-200 transition-colors duration-200">
 
     <!-- Top Navigation Progress Bar -->
-    <div id="securepoll-top-progress" class="fixed top-0 left-0 h-[2px] w-0 bg-indigo-600 dark:bg-indigo-400 z-[10000] pointer-events-none opacity-0" aria-hidden="true"></div>
+    <div id="securepoll-top-progress" class="fixed top-0 left-0 h-[2px] w-0 bg-teal-600 dark:bg-teal-400 z-[10000] pointer-events-none opacity-0" aria-hidden="true"></div>
 
     <!-- Initial Branded Page Loading Screen -->
     <div id="securepoll-page-loader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white dark:bg-slate-950 pointer-events-auto" role="status" aria-live="polite" aria-label="Loading SecurePoll">
         <div class="flex flex-col items-center justify-center gap-4 select-none">
             <!-- Branded Icon with Subtle Spinner Ring -->
             <div class="relative flex items-center justify-center w-14 h-14">
-                <div class="absolute inset-0 rounded-2xl border-2 border-indigo-600/20 dark:border-indigo-400/20"></div>
-                <div class="absolute inset-0 rounded-2xl border-2 border-indigo-600 dark:border-indigo-400 border-t-transparent animate-spin"></div>
-                <img src="/SecurePoll/public/images/logo-square.png" alt="SecurePoll" class="w-9 h-9 rounded-xl object-contain shadow-xs">
+                <div class="absolute inset-0 rounded-2xl border-2 border-teal-600/20 dark:border-teal-400/20"></div>
+                <div class="absolute inset-0 rounded-2xl border-2 border-teal-600 dark:border-teal-400 border-t-transparent animate-spin"></div>
+                <img src="<?php echo $basePrefix; ?>/images/logo-square.png" alt="SecurePoll" class="w-9 h-9 rounded-xl object-contain shadow-xs">
             </div>
             <!-- Accessible Loading Text -->
             <div class="flex flex-col items-center gap-1 text-center">
@@ -125,9 +129,9 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
     <aside id="sidebar" class="fixed z-50 inset-y-0 left-0 w-64 transform -translate-x-full lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 transition-transform lg:transition-all duration-200 ease-in-out flex flex-col bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 shrink-0">
         <!-- Logo Header -->
         <div class="h-16 flex items-center px-4 border-b border-slate-200 dark:border-slate-800 justify-between shrink-0 sidebar-header">
-            <a href="/SecurePoll/public/polls" class="flex items-center gap-3 overflow-hidden sidebar-logo-container group min-w-0">
-                <img src="/SecurePoll/public/images/logo-square.png" alt="SecurePoll" class="w-10 h-10 rounded-xl shrink-0 object-contain shadow-xs">
-                <span class="sidebar-text font-bold text-lg tracking-tight text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate">SecurePoll</span>
+            <a href="<?php echo $basePrefix ?: '/'; ?>" class="flex items-center gap-3 overflow-hidden sidebar-logo-container group min-w-0" title="Return to Homepage">
+                <img src="<?php echo $basePrefix; ?>/images/logo-square.png" alt="SecurePoll" class="w-10 h-10 rounded-xl shrink-0 object-contain shadow-xs">
+                <span class="sidebar-text font-bold text-lg tracking-tight text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors truncate">SecurePoll</span>
             </a>
             <!-- Desktop Collapse Toggle (Header) -->
             <button type="button" aria-label="Toggle sidebar width" class="desktop-collapse-toggle hidden lg:flex items-center justify-center w-8 h-8 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shrink-0">
@@ -145,12 +149,13 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
                 $currentPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
                 
                 $navItems = [
-                    ['url' => '/SecurePoll/public/dashboard', 'icon' => 'layout-dashboard', 'label' => 'Dashboard'],
-                    ['url' => '/SecurePoll/public/polls', 'icon' => 'vote', 'label' => 'Explore Polls'],
-                    ['url' => '/SecurePoll/public/polls/create', 'icon' => 'plus-circle', 'label' => 'Create Poll'],
-                    ['url' => '/SecurePoll/public/polls/my-polls', 'icon' => 'folder-kanban', 'label' => 'My Polls'],
-                    ['url' => '/SecurePoll/public/invitations', 'icon' => 'mail', 'label' => 'Invitations'],
-                    ['url' => '/SecurePoll/public/dashboard/analytics', 'icon' => 'bar-chart-3', 'label' => 'Analytics'],
+                    ['url' => $basePrefix ?: '/', 'icon' => 'home', 'label' => 'Home'],
+                    ['url' => $basePrefix . '/dashboard', 'icon' => 'layout-dashboard', 'label' => 'Dashboard'],
+                    ['url' => $basePrefix . '/polls', 'icon' => 'vote', 'label' => 'Explore Polls'],
+                    ['url' => $basePrefix . '/polls/create', 'icon' => 'plus-circle', 'label' => 'Create Poll'],
+                    ['url' => $basePrefix . '/polls/my-polls', 'icon' => 'folder-kanban', 'label' => 'My Polls'],
+                    ['url' => $basePrefix . '/invitations', 'icon' => 'mail', 'label' => 'Invitations'],
+                    ['url' => $basePrefix . '/dashboard/analytics', 'icon' => 'bar-chart-3', 'label' => 'Analytics'],
                 ];
                 
                 $activeUrl = '';
@@ -167,10 +172,10 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
                 foreach ($navItems as $item) {
                     $isActive = ($item['url'] === $activeUrl);
                     $activeClass = $isActive 
-                        ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300 font-semibold' 
+                        ? 'bg-teal-50 text-teal-700 dark:bg-teal-950/50 dark:text-teal-300 font-semibold' 
                         : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white font-medium';
                     $iconActive = $isActive 
-                        ? 'text-indigo-600 dark:text-indigo-400' 
+                        ? 'text-teal-600 dark:text-teal-400' 
                         : 'text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-200';
 
                     echo sprintf('
@@ -186,11 +191,11 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
                 <p class="px-3 text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider sidebar-text">Preferences</p>
             </div>
             
-            <a href="/SecurePoll/public/notifications" title="Notifications" class="group flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors <?php echo strpos($currentPath, '/SecurePoll/public/notifications') === 0 ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300 font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white font-medium'; ?>">
+            <a href="<?php echo $basePrefix; ?>/notifications" title="Notifications" class="group flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors <?php echo strpos($currentPath, '<?php echo $basePrefix; ?>/notifications') === 0 ? 'bg-teal-50 text-teal-700 dark:bg-teal-950/50 dark:text-teal-300 font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white font-medium'; ?>">
                 <i data-lucide="bell" class="w-4 h-4 shrink-0 text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-200"></i>
                 <span class="sidebar-text truncate">Notifications</span>
             </a>
-            <a href="/SecurePoll/public/settings" title="Settings" class="group flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors <?php echo $currentPath === '/SecurePoll/public/settings' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300 font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white font-medium'; ?>">
+            <a href="<?php echo $basePrefix; ?>/settings" title="Settings" class="group flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors <?php echo $currentPath === '<?php echo $basePrefix; ?>/settings' ? 'bg-teal-50 text-teal-700 dark:bg-teal-950/50 dark:text-teal-300 font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white font-medium'; ?>">
                 <i data-lucide="settings" class="w-4 h-4 shrink-0 text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-200"></i>
                 <span class="sidebar-text truncate">Settings</span>
             </a>
@@ -200,7 +205,7 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
         <div class="sidebar-footer p-3 border-t border-slate-200 dark:border-slate-800 bg-slate-50/75 dark:bg-slate-900/60 shrink-0 space-y-1">
             <?php if (\app\Helpers\Session::get('user_id')): ?>
                 <!-- User Profile Link -->
-                <a href="/SecurePoll/public/profile?id=<?php echo \app\Helpers\Session::get('user_id'); ?>" title="View Profile" class="group flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors text-slate-600 dark:text-slate-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white">
+                <a href="<?php echo $basePrefix; ?>/profile?id=<?php echo \app\Helpers\Session::get('user_id'); ?>" title="View Profile" class="group flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors text-slate-600 dark:text-slate-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white">
                     <div class="w-7 h-7 rounded-full bg-indigo-100 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 flex items-center justify-center font-bold text-[11px] shrink-0">
                         <?php echo strtoupper(substr(\app\Helpers\Session::get('user_name') ?? 'U', 0, 1)); ?>
                     </div>
@@ -211,7 +216,7 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
                 </a>
 
                 <!-- Integrated Logout Action -->
-                <form id="logoutForm" action="/SecurePoll/public/logout" method="POST" class="m-0 w-full">
+                <form id="logoutForm" action="<?php echo $basePrefix; ?>/logout" method="POST" class="m-0 w-full">
                     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(\app\Helpers\Security::generateCsrfToken()); ?>">
                     <button type="submit" id="logoutBtn" title="Sign Out" aria-label="Sign Out" class="group flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm font-medium transition-colors text-slate-600 dark:text-slate-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:text-rose-600 dark:hover:text-rose-400 cursor-pointer">
                         <i data-lucide="log-out" class="w-4 h-4 shrink-0 transition-colors text-slate-400 dark:text-slate-500 group-hover:text-rose-600 dark:group-hover:text-rose-400"></i>
@@ -226,10 +231,10 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
                 </button>
             <?php else: ?>
                 <div class="space-y-1.5">
-                    <a href="/SecurePoll/public/login" class="flex items-center justify-center gap-2 w-full py-2 px-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-xs font-medium">
+                    <a href="<?php echo $basePrefix; ?>/login" class="flex items-center justify-center gap-2 w-full py-2 px-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-xs font-medium">
                         <i data-lucide="log-in" class="w-3.5 h-3.5"></i> <span class="sidebar-text">Sign In</span>
                     </a>
-                    <a href="/SecurePoll/public/register" class="flex items-center justify-center gap-2 w-full py-2 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white transition-colors text-xs font-medium shadow-xs">
+                    <a href="<?php echo $basePrefix; ?>/register" class="flex items-center justify-center gap-2 w-full py-2 px-3 rounded-lg bg-teal-600 hover:bg-teal-500 text-white transition-colors text-xs font-medium shadow-xs">
                         <i data-lucide="user-plus" class="w-3.5 h-3.5"></i> <span class="sidebar-text">Register</span>
                     </a>
                 </div>
@@ -276,13 +281,13 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
                     <div id="notificationsDropdown" class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-white dark:bg-slate-900 rounded-xl shadow-lg border border-slate-200 dark:border-slate-800 overflow-hidden z-50 origin-top-right transition-all">
                         <div class="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-800 bg-slate-50/75 dark:bg-slate-900/60">
                             <h3 class="font-semibold text-slate-900 dark:text-white text-xs uppercase tracking-wider">Notifications</h3>
-                            <button id="markAllReadBtn" type="button" class="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium">Mark all read</button>
+                            <button id="markAllReadBtn" type="button" class="text-xs text-teal-600 dark:text-teal-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium">Mark all read</button>
                         </div>
                         <div id="notificationsList" class="max-h-[60vh] overflow-y-auto custom-scrollbar divide-y divide-slate-100 dark:divide-slate-800/60">
                             <div class="p-6 text-center text-xs text-slate-400">Loading notifications...</div>
                         </div>
                         <div class="border-t border-slate-100 dark:border-slate-800 bg-slate-50/75 dark:bg-slate-900/60">
-                            <a href="/SecurePoll/public/notifications" class="block w-full text-center px-4 py-2.5 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">View all notifications &rarr;</a>
+                            <a href="<?php echo $basePrefix; ?>/notifications" class="block w-full text-center px-4 py-2.5 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">View all notifications &rarr;</a>
                         </div>
                     </div>
                 </div>
@@ -480,7 +485,7 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
                 if (markAllBtn) {
                     markAllBtn.addEventListener('click', (e) => {
                         e.preventDefault();
-                        fetch('/SecurePoll/public/notifications/markAllRead', {
+                        fetch((window.SecurePollBase || '') + '/notifications/markAllRead', {
                             method: 'POST',
                             headers: {'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/x-www-form-urlencoded'},
                             body: 'csrf_token=' + (document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '')
@@ -494,7 +499,7 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
                 }
                 
                 function fetchUnreadCount() {
-                    fetch('/SecurePoll/public/notifications/unreadCount')
+                    fetch((window.SecurePollBase || '') + '/notifications/unreadCount')
                         .then(r => r.json())
                         .then(data => {
                             if (data.success && data.count > 0) {
@@ -508,7 +513,7 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
                 function fetchLatestNotifications() {
                     if (!notifList) return;
                     notifList.innerHTML = '<div class="p-6 text-center text-xs text-slate-400">Loading...</div>';
-                    fetch('/SecurePoll/public/notifications/latest')
+                    fetch((window.SecurePollBase || '') + '/notifications/latest')
                         .then(r => r.json())
                         .then(data => {
                             if (data.success) {
@@ -527,12 +532,12 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
                                     const icon = n.icon || 'bell';
                                     const isUnread = n.is_read == 0;
                                     const bgClass = isUnread ? 'bg-indigo-50/50 dark:bg-indigo-950/20' : '';
-                                    const dot = isUnread ? '<span class="w-2 h-2 rounded-full bg-indigo-600 dark:bg-indigo-400 shrink-0 mt-1.5"></span>' : '';
+                                    const dot = isUnread ? '<span class="w-2 h-2 rounded-full bg-teal-600 dark:bg-teal-400 shrink-0 mt-1.5"></span>' : '';
                                     
                                     let url = '#';
                                     if (n.entity_type === 'poll' && n.entity_id) {
-                                        if (n.action_type === 'view_poll') url = '/SecurePoll/public/polls/show?id=' + n.entity_id;
-                                        if (n.action_type === 'view_invitations') url = '/SecurePoll/public/invitations';
+                                        if (n.action_type === 'view_poll') url = (window.SecurePollBase || '') + '/polls/show?id=' + n.entity_id;
+                                        if (n.action_type === 'view_invitations') url = (window.SecurePollBase || '') + '/invitations';
                                     }
                                     
                                     const d = new Date(n.created_at);
@@ -545,7 +550,7 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
                                     
                                     html += `
                                         <a href="${url}" class="notif-item flex items-start gap-3 p-3.5 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors ${bgClass}" data-id="${n.id}" data-unread="${isUnread}">
-                                            <div class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
+                                            <div class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0 mt-0.5">
                                                 <i data-lucide="${icon}" class="w-4 h-4"></i>
                                             </div>
                                             <div class="flex-1 min-w-0">
@@ -563,7 +568,7 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
                                 document.querySelectorAll('.notif-item').forEach(el => {
                                     el.addEventListener('click', function() {
                                         if (this.dataset.unread === 'true') {
-                                            fetch('/SecurePoll/public/notifications/markRead', {
+                                            fetch((window.SecurePollBase || '') + '/notifications/markRead', {
                                                 method: 'POST',
                                                 headers: {'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/x-www-form-urlencoded'},
                                                 body: 'id=' + this.dataset.id + '&csrf_token=' + (document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '')

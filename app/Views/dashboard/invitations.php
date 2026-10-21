@@ -1,4 +1,5 @@
 <?php
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 use app\Helpers\Security;
 
 $pageTitle = 'Invitations - SecurePoll';
@@ -11,7 +12,8 @@ ob_start();
     <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Manage polls you've been invited to or invitations you've sent.</p>
 </div>
 
-<?php if (empty($invitations)): ?>
+<?php $basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
+if (empty($invitations)): ?>
 <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-md dark:shadow-xl overflow-hidden relative min-h-[400px] flex flex-col items-center justify-center p-8 text-center">
     <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-transparent pointer-events-none"></div>
     
@@ -25,11 +27,12 @@ ob_start();
         You're all caught up! When someone invites you to a private poll, it will appear here.
     </p>
     
-    <a href="/SecurePoll/public/polls" class="px-6 py-2.5 rounded-xl text-sm font-medium bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-white transition-all shadow-sm hover:-translate-y-[1px] active:translate-y-[1px] dark:shadow-sm">
+    <a href="<?php echo $basePrefix; ?>/polls" class="px-6 py-2.5 rounded-xl text-sm font-medium bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-white transition-all shadow-sm hover:-translate-y-[1px] active:translate-y-[1px] dark:shadow-sm">
         Browse Public Polls
     </a>
 </div>
-<?php else: ?>
+<?php $basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
+else: ?>
     <div class="space-y-4">
         <?php foreach ($invitations as $invitation): 
             $statusColor = 'text-slate-600 dark:text-slate-400 bg-slate-100/80 dark:bg-slate-800/80 border-slate-300 dark:border-slate-700';
@@ -57,7 +60,7 @@ ob_start();
                         <button onclick="handleInvitation(<?php echo $invitation['id']; ?>, 'decline', this)" class="flex-1 sm:flex-none px-4 py-2 rounded-xl text-sm font-medium bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all shadow-sm hover:-translate-y-[1px] active:translate-y-[1px] dark:shadow-none">
                             Decline`n                        </button>
                     <?php elseif ($invitation['status'] === 'Accepted'): ?>
-                        <a href="/SecurePoll/public/polls/show?id=<?php echo $invitation['poll_id']; ?>" class="w-full sm:w-auto px-5 py-2 rounded-xl text-sm font-medium bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-sm hover:-translate-y-[1px] active:translate-y-[1px] dark:shadow-lg dark:shadow-indigo-500/20 text-center flex items-center justify-center gap-2">
+                        <a href="<?php echo $basePrefix; ?>/polls/show?id=<?php echo $invitation['poll_id']; ?>" class="w-full sm:w-auto px-5 py-2 rounded-xl text-sm font-medium bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-sm hover:-translate-y-[1px] active:translate-y-[1px] dark:shadow-lg dark:shadow-indigo-500/20 text-center flex items-center justify-center gap-2">
                             View Poll <i data-lucide="arrow-right" class="w-4 h-4"></i>
                         </a>
                     <?php endif; ?>
@@ -65,7 +68,8 @@ ob_start();
             </div>
         <?php endforeach; ?>
     </div>
-<?php endif; ?>
+<?php $basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
+endif; ?>
 
 <input type="hidden" id="csrfToken" value="<?php echo Security::generateCsrfToken(); ?>">
 
@@ -83,7 +87,7 @@ function handleInvitation(id, action, btnElement) {
     formData.append('invitation_id', id);
     formData.append('csrf_token', csrfToken);
 
-    fetch('/SecurePoll/public/invitations/' + action, {
+    fetch((window.SecurePollBase || '') + '/invitations/' + action, {
         method: 'POST',
         body: formData
     })
@@ -110,6 +114,7 @@ function handleInvitation(id, action, btnElement) {
 </script>
 
 <?php
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 $content = ob_get_clean();
 require_once __DIR__ . '/../layouts/app.php';
 ?>

@@ -1,4 +1,5 @@
 <?php
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 use app\Helpers\Security;
 
 $pageTitle = 'Manage Poll - SecurePoll';
@@ -45,7 +46,7 @@ $totalVotes = array_sum(array_column($options, 'votes'));
     </div>
     
     <div class="flex items-center gap-3">
-        <a href="/SecurePoll/public/polls/show?id=<?php echo $poll['id']; ?>" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-medium bg-slate-100/50 dark:bg-slate-800/50 hover:bg-slate-700/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white transition-all shadow-sm">
+        <a href="<?php echo $basePrefix; ?>/polls/show?id=<?php echo $poll['id']; ?>" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-medium bg-slate-100/50 dark:bg-slate-800/50 hover:bg-slate-700/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white transition-all shadow-sm">
             <i data-lucide="external-link" class="w-4 h-4"></i> View Poll
         </a>
         <button onclick="openEditPollModal()" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-medium bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500 hover:text-slate-900 dark:hover:text-white hover:border-indigo-500 hover:shadow-sm dark:shadow-lg hover:shadow-indigo-500/25 transition-all">
@@ -212,7 +213,7 @@ $totalVotes = array_sum(array_column($options, 'votes'));
                     <div class="flex items-center gap-2">
                         <div class="relative flex-1 group">
                             <i data-lucide="link" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500"></i>
-                            <input type="text" id="shareUrl" readonly value="<?php echo "http://" . $_SERVER['HTTP_HOST'] . "/SecurePoll/public/polls/show?id=" . $poll['id']; ?>" 
+                            <input type="text" id="shareUrl" readonly value="<?php echo "http://" . $_SERVER['HTTP_HOST'] . ($basePrefix ? $basePrefix : "") . "/polls/show?id=" . $poll['id']; ?>" 
                                 class="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700/50 rounded-xl pl-9 pr-4 py-2.5 text-sm text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 shadow-inner">
                         </div>
                         <button onclick="copyShareUrl()" class="p-2.5 bg-slate-100/80 dark:bg-slate-800/80 hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white transition-all shadow-sm group relative" title="Copy to clipboard">
@@ -251,7 +252,7 @@ $totalVotes = array_sum(array_column($options, 'votes'));
             <button onclick="document.getElementById('deletePollModal').classList.add('hidden')" class="px-4 py-2 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100/50 dark:bg-slate-800/50 hover:bg-slate-700/50 border border-slate-200 dark:border-slate-700 transition-all">
                 Cancel
             </button>
-            <form action="/SecurePoll/public/polls/delete" method="POST">
+            <form action="<?php echo $basePrefix; ?>/polls/delete" method="POST">
                 <input type="hidden" name="csrf_token" value="<?php echo Security::generateCsrfToken(); ?>">
                 <input type="hidden" name="id" value="<?php echo $poll['id']; ?>">
                 <button type="submit" class="px-4 py-2 rounded-xl text-sm font-medium bg-red-500 text-slate-900 dark:text-white hover:bg-red-600 transition-colors shadow-sm dark:shadow-lg shadow-red-500/25 border border-transparent">
@@ -309,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
         invitedUsersList.innerHTML = `<div class="flex items-center justify-center py-4 text-sm text-slate-500"><i data-lucide="loader-2" class="w-4 h-4 animate-spin mr-2"></i> Loading invitations...</div>`;
         if (window.lucide) window.lucide.createIcons();
         
-        fetch(`/SecurePoll/public/polls/getInvitations?poll_id=${pollId}`)
+        fetch(`${window.SecurePollBase || ""}/polls/getInvitations?poll_id=${pollId}`)
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
@@ -388,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.lucide) window.lucide.createIcons();
 
         searchTimeout = setTimeout(() => {
-            fetch(`/SecurePoll/public/polls/searchUsers?poll_id=${pollId}&q=${encodeURIComponent(query)}`)
+            fetch(`${window.SecurePollBase || ""}/polls/searchUsers?poll_id=${pollId}&q=${encodeURIComponent(query)}`)
                 .then(async res => {
                     const text = await res.text();
                     try {
@@ -487,7 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('email', email);
         formData.append('csrf_token', csrfToken);
 
-        fetch('/SecurePoll/public/polls/inviteUser', {
+        fetch((window.SecurePollBase || '') + '/polls/inviteUser', {
             method: 'POST',
             body: formData
         })
@@ -527,7 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('invitation_id', invitationId);
         formData.append('csrf_token', csrfToken);
 
-        fetch('/SecurePoll/public/polls/revokeInvitation', {
+        fetch((window.SecurePollBase || '') + '/polls/revokeInvitation', {
             method: 'POST',
             body: formData
         })
@@ -578,7 +579,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loadMoreBtn.disabled = true;
         }
 
-        fetch(`/SecurePoll/public/polls/voterActivity?poll_id=${pollId}&page=${page}`)
+        fetch(`${window.SecurePollBase || ""}/polls/voterActivity?poll_id=${pollId}&page=${page}`)
             .then(res => res.json())
             .then(data => {
                 if (!append) activityList.innerHTML = '';
@@ -599,7 +600,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         data.data.forEach(voter => {
                             const isAnonymous = data.is_anonymous;
                             const avatarChar = isAnonymous ? '?' : (voter.name ? voter.name.charAt(0).toUpperCase() : '?');
-                            const profileLink = (isAnonymous || !voter.voter_user_id) ? '' : `href="/SecurePoll/public/profile?id=${voter.voter_user_id}" class="hover:text-indigo-400 transition-colors"`;
+                            const profileLink = (isAnonymous || !voter.voter_user_id) ? '' : `href="<?php echo $basePrefix; ?>/profile?id=${voter.voter_user_id}" class="hover:text-indigo-400 transition-colors"`;
                             const dateObj = new Date(voter.vote_time);
                             const formattedDate = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ' &bull; ' + dateObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
                             
@@ -705,7 +706,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const formData = new FormData(csvInviteForm);
             
-            fetch('/SecurePoll/public/polls/importCsv', {
+            fetch((window.SecurePollBase || '') + '/polls/importCsv', {
                 method: 'POST',
                 body: formData
             })
@@ -1191,7 +1192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const formData = new FormData(editForm);
         
-        fetch('/SecurePoll/public/polls/update', {
+        fetch((window.SecurePollBase || '') + '/polls/update', {
             method: 'POST',
             body: formData
         })
@@ -1228,6 +1229,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <?php
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 $content = ob_get_clean();
 require_once __DIR__ . '/../layouts/app.php';
 ?>

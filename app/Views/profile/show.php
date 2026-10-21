@@ -1,4 +1,5 @@
 <?php
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 $pageTitle = htmlspecialchars($profileUser['name']) . "'s Profile - SecurePoll";
 ob_start();
 ?>
@@ -21,7 +22,7 @@ ob_start();
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-3">
                 <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight text-center sm:text-left"><?php echo htmlspecialchars($profileUser['name']); ?></h1>
                 <?php if (\app\Helpers\Session::get('user_id') == $profileUser['id']): ?>
-                    <a href="/SecurePoll/public/settings" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all self-center sm:self-auto">
+                    <a href="<?php echo $basePrefix; ?>/settings" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all self-center sm:self-auto">
                         <i data-lucide="settings" class="w-4 h-4"></i> Edit Profile
                     </a>
                 <?php endif; ?>
@@ -126,7 +127,7 @@ ob_start();
                                         <?php echo date('M j, Y', strtotime($poll['created_at'])); ?>
                                     </span>
                                 </div>
-                                <a href="/SecurePoll/public/polls/show?id=<?php echo $poll['id']; ?>" class="inline-flex shrink-0 items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-500/20 hover:bg-indigo-500 hover:text-white dark:hover:text-white hover:border-indigo-500 hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-indigo-500/25 transition-all">
+                                <a href="<?php echo $basePrefix; ?>/polls/show?id=<?php echo $poll['id']; ?>" class="inline-flex shrink-0 items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-500/20 hover:bg-indigo-500 hover:text-white dark:hover:text-white hover:border-indigo-500 hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-indigo-500/25 transition-all">
                                     <i data-lucide="vote" class="w-4 h-4"></i> Vote Now
                                 </a>
                             </div>
@@ -138,6 +139,7 @@ ob_start();
     </div>
 </div>
 <?php
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 $content = ob_get_clean();
 require_once __DIR__ . '/../layouts/app.php';
 ?>

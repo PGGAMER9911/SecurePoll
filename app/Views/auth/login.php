@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
             payload.append('email', email);
             payload.append('purpose', 'new_device');
 
-            fetch('/SecurePoll/public/resend-otp', {
+            fetch((window.SecurePollBase || '') + '/resend-otp', {
                 method: 'POST',
                 body: payload
             })
@@ -300,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentTheme = window.SecurePollTheme ? window.SecurePollTheme.getTheme() : (localStorage.getItem('securepoll_theme') || 'system');
         formData.append('theme', currentTheme);
         
-        fetch('/SecurePoll/public/verify-otp', {
+        fetch((window.SecurePollBase || '') + '/verify-otp', {
             method: 'POST',
             body: formData
         })

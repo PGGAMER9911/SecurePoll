@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Contact — SecurePoll';
+$pageDescription = 'Contact the SecurePoll core development team for institutional deployment, vulnerability reporting, and inquiries.';
 $basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
 ob_start();
 ?>
@@ -59,7 +60,7 @@ ob_start();
         <div class="border border-slate-200 dark:border-teal-950/80 rounded-2xl bg-white dark:bg-[#07181b]/70 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
             <div class="flex items-center gap-3.5">
                 <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center shrink-0">
-                    <i data-lucide="github" class="w-5 h-5"></i>
+                    <i data-lucide="code-2" class="w-5 h-5"></i>
                 </div>
                 <div>
                     <h3 class="text-sm font-bold text-slate-900 dark:text-white">Open Source Repository</h3>

@@ -11,6 +11,8 @@ if ($currentPath === '') $currentPath = '/';
 
 $isLoggedIn = \app\Helpers\Session::get('user_id') !== null;
 $dashboardUrl = $isLoggedIn ? ($basePrefix . '/dashboard') : ($basePrefix . '/polls');
+$pageDesc = $pageDescription ?? 'SecurePoll is a modern, privacy-centric polling platform providing salted cryptographic anonymity, multi-tenant organization scopes, and verifiable audit trails.';
+$canonicalUrl = 'https://securepoll.pgdev.in' . ($currentPath === '/' ? '/' : $currentPath);
 ?>
 <!DOCTYPE html>
 <html lang="en" class="<?php echo $userTheme === 'dark' ? 'dark' : ''; ?> h-full scroll-smooth">
@@ -18,7 +20,23 @@ $dashboardUrl = $isLoggedIn ? ($basePrefix . '/dashboard') : ($basePrefix . '/po
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle ?? 'SecurePoll — Privacy-Centric Institutional Voting'; ?></title>
-    <meta name="description" content="SecurePoll is a modern, privacy-centric polling platform providing salted cryptographic anonymity, multi-tenant organization scopes, and verifiable audit trails.">
+    <meta name="description" content="<?php echo htmlspecialchars($pageDesc); ?>">
+    <link rel="canonical" href="<?php echo htmlspecialchars($canonicalUrl); ?>">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:site_name" content="SecurePoll">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="<?php echo htmlspecialchars($pageTitle ?? 'SecurePoll — Privacy-Centric Institutional Voting'); ?>">
+    <meta property="og:description" content="<?php echo htmlspecialchars($pageDesc); ?>">
+    <meta property="og:url" content="<?php echo htmlspecialchars($canonicalUrl); ?>">
+    <meta property="og:image" content="https://securepoll.pgdev.in/images/logo-square.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="<?php echo htmlspecialchars($pageTitle ?? 'SecurePoll — Privacy-Centric Institutional Voting'); ?>">
+    <meta name="twitter:description" content="<?php echo htmlspecialchars($pageDesc); ?>">
+    <meta name="twitter:image" content="https://securepoll.pgdev.in/images/logo-square.png">
+
     <meta name="csrf-token" content="<?php echo \app\Helpers\Security::generateCsrfToken(); ?>">
     <link rel="icon" type="image/png" href="<?php echo $basePrefix; ?>/images/logo-square.png">
     
@@ -35,6 +53,10 @@ $dashboardUrl = $isLoggedIn ? ($basePrefix . '/dashboard') : ($basePrefix . '/po
 
     <!-- Unified Theme Engine -->
     <script src="<?php echo $basePrefix; ?>/js/theme.js"></script>
+
+    <script>
+        window.SecurePollBase = '<?php echo $basePrefix; ?>';
+    </script>
 
     <!-- Immediate Anti-FOUC Theme Script -->
     <script>
@@ -113,17 +135,26 @@ $dashboardUrl = $isLoggedIn ? ($basePrefix . '/dashboard') : ($basePrefix . '/po
                     </button>
                 </div>
 
-                <?php if (!$isLoggedIn): ?>
+                <?php if ($isLoggedIn): ?>
+                    <div class="hidden sm:flex items-center gap-2">
+                        <a href="<?php echo $basePrefix; ?>/dashboard" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-teal-600 hover:bg-teal-500 dark:bg-teal-600 dark:hover:bg-teal-500 transition-all shadow-xs hover:shadow-teal-500/20 active:translate-y-px">
+                            <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i>
+                            <span>Go to Dashboard</span>
+                        </a>
+                        <a href="<?php echo $basePrefix; ?>/logout" class="inline-flex items-center gap-1 text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 px-2 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-colors" title="Sign Out">
+                            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+                            <span>Sign Out</span>
+                        </a>
+                    </div>
+                <?php else: ?>
                     <a href="<?php echo $basePrefix; ?>/login" class="hidden sm:inline-flex text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 px-2 py-1.5 transition-colors">
                         Sign In
                     </a>
+                    <a href="<?php echo $basePrefix; ?>/register" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-teal-600 hover:bg-teal-500 dark:bg-teal-600 dark:hover:bg-teal-500 transition-all shadow-xs hover:shadow-teal-500/20 active:translate-y-px">
+                        <span>Register</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </a>
                 <?php endif; ?>
-
-                <!-- Upper Right Prominent "Go to Dashboard" CTA (visible >= sm) -->
-                <a href="<?php echo $dashboardUrl; ?>" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-teal-600 hover:bg-teal-500 dark:bg-teal-600 dark:hover:bg-teal-500 transition-all shadow-xs hover:shadow-teal-500/20 active:translate-y-px">
-                    <span>Go to Dashboard</span>
-                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                </a>
 
                 <!-- Mobile Menu Button (min-h-[44px] min-w-[44px] touch target) -->
                 <button type="button" id="mobileMenuBtn" class="md:hidden flex items-center justify-center w-11 h-11 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500" aria-label="Toggle Navigation Menu">
@@ -134,18 +165,36 @@ $dashboardUrl = $isLoggedIn ? ($basePrefix . '/dashboard') : ($basePrefix . '/po
 
         <!-- Mobile Dropdown Navigation -->
         <div id="mobileMenu" class="hidden md:hidden border-t border-slate-200 dark:border-teal-950/80 bg-white/95 dark:bg-[#071416]/95 backdrop-blur-md px-4 py-4 space-y-2">
-            <!-- Mobile Dashboard CTA -->
-            <a href="<?php echo $dashboardUrl; ?>" class="flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-teal-600 hover:bg-teal-500 shadow-xs mb-3 min-h-[44px]">
-                <span>Go to Dashboard</span>
-                <i data-lucide="arrow-right" class="w-4 h-4"></i>
-            </a>
+            <?php if ($isLoggedIn): ?>
+                <a href="<?php echo $basePrefix; ?>/dashboard" class="flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-teal-600 hover:bg-teal-500 shadow-xs mb-3 min-h-[44px]">
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                        <span>Go to Dashboard</span>
+                    </span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            <?php else: ?>
+                <a href="<?php echo $basePrefix; ?>/polls" class="flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-teal-600 hover:bg-teal-500 shadow-xs mb-3 min-h-[44px]">
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="vote" class="w-4 h-4"></i>
+                        <span>Explore Active Polls</span>
+                    </span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            <?php endif; ?>
 
             <a href="<?php echo $basePrefix ?: '/'; ?>" class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium min-h-[44px] <?php echo $currentPath === '/' ? 'text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 font-semibold' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'; ?>">Home</a>
             <a href="<?php echo $basePrefix; ?>/about" class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium min-h-[44px] <?php echo $currentPath === '/about' ? 'text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 font-semibold' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'; ?>">About</a>
             <a href="<?php echo $basePrefix; ?>/docs" class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium min-h-[44px] <?php echo in_array($currentPath, ['/docs', '/documentation'], true) ? 'text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 font-semibold' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'; ?>">Documentation</a>
             <a href="<?php echo $basePrefix; ?>/pricing" class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium min-h-[44px] <?php echo $currentPath === '/pricing' ? 'text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 font-semibold' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'; ?>">Pricing</a>
             <a href="<?php echo $basePrefix; ?>/contact" class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium min-h-[44px] <?php echo $currentPath === '/contact' ? 'text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 font-semibold' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'; ?>">Contact</a>
-            <?php if (!$isLoggedIn): ?>
+
+            <?php if ($isLoggedIn): ?>
+                <div class="pt-3 border-t border-slate-200 dark:border-teal-950/80 flex items-center justify-between gap-3">
+                    <a href="<?php echo $basePrefix; ?>/dashboard" class="flex-1 text-center py-2.5 rounded-xl border border-teal-600/40 text-sm font-medium text-teal-600 dark:text-teal-400 min-h-[44px] flex items-center justify-center">Dashboard</a>
+                    <a href="<?php echo $basePrefix; ?>/logout" class="flex-1 text-center py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-sm font-medium text-rose-600 dark:text-rose-400 min-h-[44px] flex items-center justify-center">Sign Out</a>
+                </div>
+            <?php else: ?>
                 <div class="pt-3 border-t border-slate-200 dark:border-teal-950/80 flex items-center justify-between gap-3">
                     <a href="<?php echo $basePrefix; ?>/login" class="flex-1 text-center py-2.5 rounded-xl border border-slate-200 dark:border-teal-900/60 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-500 min-h-[44px] flex items-center justify-center">Sign In</a>
                     <a href="<?php echo $basePrefix; ?>/register" class="flex-1 text-center py-2.5 rounded-xl bg-teal-600 text-sm font-medium text-white hover:bg-teal-500 min-h-[44px] flex items-center justify-center">Register</a>
@@ -215,7 +264,7 @@ $dashboardUrl = $isLoggedIn ? ($basePrefix . '/dashboard') : ($basePrefix . '/po
                 </div>
                 <div class="flex items-center gap-4">
                     <a href="https://github.com/PGGAMER9911/SecurePoll" target="_blank" rel="noopener noreferrer" class="hover:text-slate-700 dark:hover:text-slate-300 transition-colors flex items-center gap-1.5">
-                        <i data-lucide="github" class="w-4 h-4"></i>
+                        <i data-lucide="code-2" class="w-4 h-4"></i>
                         <span>GitHub Repository</span>
                     </a>
                 </div>
@@ -236,6 +285,11 @@ $dashboardUrl = $isLoggedIn ? ($basePrefix . '/dashboard') : ($basePrefix . '/po
             mobileMenuBtn.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
+        }
+
+        // Auto initialize unified theme engine
+        if (window.SecurePollTheme) {
+            window.SecurePollTheme.init('<?php echo $userTheme; ?>');
         }
     </script>
 </body>

@@ -21,7 +21,7 @@ ob_start();
                     <a href="#what-is-securepoll" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">1. Architecture & Principles</a>
                     <a href="#getting-started" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">2. Getting Started</a>
                     <a href="#creating-a-poll" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">3. Poll Creation & Parameters</a>
-                    <a href="#balloting-types" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">4. Balloting Modalities</a>
+                    <a href="#polling-types" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">4. Polling Modalities</a>
                     <a href="#visibility-models" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">5. Visibility & Access Models</a>
                     <a href="#scheduling-quorums" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">6. Lifecycle & Quorums</a>
                     <a href="#cryptographic-privacy" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">7. Cryptographic Anonymity</a>
@@ -47,8 +47,8 @@ ob_start();
                     <a href="#creating-a-poll" class="block py-1.5 pl-3 -ml-px border-l-2 border-transparent text-slate-600 dark:text-slate-400 hover:border-teal-500 hover:text-teal-600 dark:hover:text-teal-300 font-medium transition-colors">
                         3. Poll Creation & Parameters
                     </a>
-                    <a href="#balloting-types" class="block py-1.5 pl-3 -ml-px border-l-2 border-transparent text-slate-600 dark:text-slate-400 hover:border-teal-500 hover:text-teal-600 dark:hover:text-teal-300 font-medium transition-colors">
-                        4. Balloting Modalities
+                    <a href="#polling-types" class="block py-1.5 pl-3 -ml-px border-l-2 border-transparent text-slate-600 dark:text-slate-400 hover:border-teal-500 hover:text-teal-600 dark:hover:text-teal-300 font-medium transition-colors">
+                        4. Polling Modalities
                     </a>
                     <a href="#visibility-models" class="block py-1.5 pl-3 -ml-px border-l-2 border-transparent text-slate-600 dark:text-slate-400 hover:border-teal-500 hover:text-teal-600 dark:hover:text-teal-300 font-medium transition-colors">
                         5. Visibility & Access Models
@@ -80,7 +80,7 @@ ob_start();
                         <span>contact@pgdev.in</span>
                     </a>
                     <a href="https://github.com/PGGAMER9911/SecurePoll/issues" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
-                        <i data-lucide="github" class="w-3.5 h-3.5 shrink-0"></i>
+                        <i data-lucide="code-2" class="w-3.5 h-3.5 shrink-0"></i>
                         <span>GitHub Issue Tracker</span>
                     </a>
                 </div>
@@ -134,7 +134,7 @@ ob_start();
                     <div>
                         <dt class="font-bold text-slate-900 dark:text-white text-sm">Scoped Multi-Tenant Governance</dt>
                         <dd class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed mt-0.5">
-                            Ballots can be partitioned by college, department, or cohort rosters with single-use cryptographic token validation.
+                            Polls can be partitioned by college, department, or cohort rosters with single-use cryptographic token validation.
                         </dd>
                     </div>
                     <div>
@@ -199,7 +199,7 @@ ob_start();
                     </h2>
                 </div>
                 <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
-                    Authenticated creators can deploy ballots via <code class="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">/polls/create</code>. Each ballot configuration supports specific rules:
+                    Authenticated creators can deploy polls via <code class="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">/polls/create</code>. Each ballot configuration supports specific rules:
                 </p>
 
                 <!-- Parameter Table -->
@@ -216,7 +216,7 @@ ob_start();
                             <tr>
                                 <td class="p-3 sm:p-4 font-mono font-semibold text-slate-900 dark:text-white text-xs">title</td>
                                 <td class="p-3 sm:p-4 text-xs font-mono text-teal-600 dark:text-teal-400">String (required)</td>
-                                <td class="p-3 sm:p-4">The core resolution, candidate ballot question, or voting prompt. Max 255 characters.</td>
+                                <td class="p-3 sm:p-4">The core resolution, candidate poll question, or voting prompt. Max 255 characters.</td>
                             </tr>
                             <tr>
                                 <td class="p-3 sm:p-4 font-mono font-semibold text-slate-900 dark:text-white text-xs">description</td>
@@ -243,12 +243,12 @@ ob_start();
                 </div>
             </section>
 
-            <!-- 4. Balloting Modalities -->
-            <section id="balloting-types" class="scroll-mt-24 space-y-5">
+            <!-- 4. Polling Modalities -->
+            <section id="polling-types" class="scroll-mt-24 space-y-5">
                 <div class="flex items-baseline gap-3">
                     <span class="text-xs font-mono font-bold text-teal-600 dark:text-teal-400">04</span>
                     <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
-                        Supported Balloting Modalities
+                        Supported Polling Modalities
                     </h2>
                 </div>
                 <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
@@ -332,11 +332,11 @@ ob_start();
                 <div class="flex items-baseline gap-3">
                     <span class="text-xs font-mono font-bold text-teal-600 dark:text-teal-400">06</span>
                     <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
-                        Ballot Lifecycle, Scheduling & Quorum Limits
+                        Poll Lifecycle, Scheduling & Quorum Limits
                     </h2>
                 </div>
                 <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
-                    Ballots transition through distinct lifecycle states based on scheduled timeframes and voter turnout caps:
+                    Polls transition through distinct lifecycle states based on scheduled timeframes and voter turnout caps:
                 </p>
 
                 <div class="space-y-3 pt-2 text-xs sm:text-sm">
@@ -372,7 +372,7 @@ ob_start();
                     </h2>
                 </div>
                 <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
-                    SecurePoll avoids recording voter identity alongside ballot selections. When an anonymous ballot is cast, the application executes a mathematical isolation routine:
+                    SecurePoll avoids recording voter identity alongside vote selections. When an anonymous ballot is cast, the application executes a mathematical isolation routine:
                 </p>
 
                 <!-- Technical Code Block -->

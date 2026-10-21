@@ -7,6 +7,13 @@
     let currentPreference = 'system';
     let saveRequestId = 0;
 
+    function getBasePrefix() {
+        if (typeof window.SecurePollBase !== 'undefined') {
+            return window.SecurePollBase;
+        }
+        return window.location.pathname.startsWith('/SecurePoll/public') ? '/SecurePoll/public' : '';
+    }
+
     function getCsrfToken() {
         return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     }
@@ -14,10 +21,13 @@
     function applyDomTheme(preference) {
         if (preference === 'dark') {
             document.documentElement.classList.add('dark');
+            document.documentElement.setAttribute('data-theme', 'dark');
         } else if (preference === 'light') {
             document.documentElement.classList.remove('dark');
+            document.documentElement.setAttribute('data-theme', 'light');
         } else {
             // 'system' mode: follow operating system preference
+            document.documentElement.setAttribute('data-theme', 'system');
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 document.documentElement.classList.add('dark');
             } else {
@@ -34,6 +44,20 @@
                 pill.style.transform = `translateX(${index * 100}%)`;
             });
         }
+
+        // Update ARIA pressed state for accessible screen reader feedback
+        document.querySelectorAll('.theme-btn').forEach(btn => {
+            const btnTheme = btn.getAttribute('data-theme');
+            const isSelected = (btnTheme === preference);
+            btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+            if (isSelected) {
+                btn.classList.add('text-teal-600', 'dark:text-teal-300');
+                btn.classList.remove('text-slate-500');
+            } else {
+                btn.classList.remove('text-teal-600', 'dark:text-teal-300');
+                btn.classList.add('text-slate-500');
+            }
+        });
     }
 
     function updateSettingsCards(preference) {
@@ -47,13 +71,15 @@
             const label = card.querySelector('.theme-label');
             const desc = card.querySelector('.theme-desc');
 
+            card.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+
             if (isActive) {
-                card.className = 'settings-theme-btn flex-1 flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 transition-all border-indigo-500 bg-indigo-50 dark:bg-indigo-500/10 shadow-sm dark:shadow-none';
-                if (icon) icon.className = 'w-5 h-5 theme-icon text-indigo-600 dark:text-indigo-400';
-                if (label) label.className = 'font-bold theme-label text-indigo-900 dark:text-indigo-300';
-                if (desc) desc.className = 'text-xs theme-desc text-indigo-700 dark:text-indigo-400/80';
+                card.className = 'settings-theme-btn flex-1 flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 transition-all border-teal-600 bg-teal-50 dark:bg-teal-500/10 shadow-xs dark:shadow-none';
+                if (icon) icon.className = 'w-5 h-5 theme-icon text-teal-600 dark:text-teal-400';
+                if (label) label.className = 'font-bold theme-label text-teal-900 dark:text-teal-300';
+                if (desc) desc.className = 'text-xs theme-desc text-teal-700 dark:text-teal-400/80';
             } else {
-                card.className = 'settings-theme-btn flex-1 flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 transition-all border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 hover:border-slate-300 dark:hover:border-slate-600 hover:shadow-sm dark:hover:shadow-none';
+                card.className = 'settings-theme-btn flex-1 flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 transition-all border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 hover:border-slate-300 dark:hover:border-slate-600 hover:shadow-xs dark:hover:shadow-none';
                 if (icon) icon.className = 'w-5 h-5 theme-icon text-slate-500 dark:text-slate-400';
                 if (label) label.className = 'font-bold theme-label text-slate-700 dark:text-slate-300';
                 if (desc) desc.className = 'text-xs theme-desc text-slate-500 dark:text-slate-500';
@@ -70,7 +96,7 @@
         const reqId = ++saveRequestId;
         const csrf = getCsrfToken();
 
-        fetch('/SecurePoll/public/settings/theme', {
+        fetch(getBasePrefix() + '/settings/theme', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -86,14 +112,13 @@
             return response.json();
         })
         .then(data => {
-            if (reqId !== saveRequestId) return; // Stale request superseded by newer click
+            if (reqId !== saveRequestId) return;
             if (!data.success) {
-                console.error('Failed to persist theme setting:', data.message);
+                // Not authenticated or settings unavailable - client state remains authoritative
             }
         })
         .catch(err => {
-            if (reqId !== saveRequestId) return;
-            console.error('Error persisting theme setting:', err);
+            // Network failure or unauthenticated - client state remains intact
         });
     }
 
@@ -106,7 +131,7 @@
         applyDomTheme(newTheme);
         updateControls(newTheme);
 
-        // 2. Client persistence (localStorage & Cookie)
+        // 2. Client persistence (localStorage & Cookie for server anti-FOUC)
         try {
             localStorage.setItem('securepoll_theme', newTheme);
         } catch(e) {}
@@ -160,13 +185,22 @@
             };
         });
 
+        // Bind settings theme cards if present
+        document.querySelectorAll('.settings-theme-btn').forEach(btn => {
+            btn.onclick = function(e) {
+                e.preventDefault();
+                const themeVal = this.getAttribute('data-settings-theme');
+                if (themeVal) setTheme(themeVal);
+            };
+        });
+
         // Initialize pill and cards after layout settles
         setTimeout(() => {
             const themePills = document.querySelectorAll('#theme-active-pill');
             themePills.forEach(pill => pill.style.transition = 'none');
             updateControls(preference);
             setTimeout(() => {
-                themePills.forEach(pill => pill.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)');
+                themePills.forEach(pill => pill.style.transition = 'transform 0.25s cubic-bezier(0.4, 0, 0.2, 1)');
             }, 50);
         }, 50);
     }
@@ -194,6 +228,15 @@
             document.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: e.newValue } }));
         }
     });
+
+    // Auto-initialize on DOM ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            init();
+        });
+    } else {
+        init();
+    }
 
     // Expose API
     window.SecurePollTheme = {

@@ -1,8 +1,11 @@
-<?php $pageTitle = 'Notifications'; ?>
-<?php ob_start(); ?>
+<?php $basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
+$pageTitle = 'Notifications'; ?>
+<?php $basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
+ob_start(); ?>
 
 <?php
-    $totalCount = count($notifications);
+    $basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
+$totalCount = count($notifications);
     $allCount = \app\Models\Notification::class ? (new \app\Models\Notification())->getForUser(\app\Helpers\Session::get('user_id'), 1000, 0, 'all') : [];
     $totalAllCount = count($allCount);
     
@@ -21,7 +24,7 @@
         </div>
         
         <div class="flex flex-wrap items-center gap-3 shrink-0">
-            <a href="/SecurePoll/public/settings/notifications" class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <a href="<?php echo $basePrefix; ?>/settings/notifications" class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 <i data-lucide="settings" class="w-4 h-4"></i> Settings
             </a>
             <button onclick="markAllAsReadPage(this)" <?= !$hasUnread ? 'disabled' : '' ?> class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed">
@@ -151,7 +154,7 @@
 
 <script>
     function markRead(id) {
-        fetch('/SecurePoll/public/notifications/markRead', {
+        fetch((window.SecurePollBase || '') + '/notifications/markRead', {
             method: 'POST',
             headers: {'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/x-www-form-urlencoded'},
             body: 'id=' + id + '&csrf_token=<?= $_SESSION['csrf_token'] ?? '' ?>'
@@ -191,7 +194,7 @@
             if (window.lucide) window.lucide.createIcons();
         }
 
-        fetch('/SecurePoll/public/notifications/markAllRead', {
+        fetch((window.SecurePollBase || '') + '/notifications/markAllRead', {
             method: 'POST',
             headers: {'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/x-www-form-urlencoded'},
             body: 'csrf_token=<?= $_SESSION['csrf_token'] ?? '' ?>'
@@ -224,7 +227,7 @@
                 if (window.lucide) window.lucide.createIcons();
             }
 
-            fetch('/SecurePoll/public/notifications/clearAll', {
+            fetch((window.SecurePollBase || '') + '/notifications/clearAll', {
                 method: 'POST',
                 headers: {'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/x-www-form-urlencoded'},
                 body: 'csrf_token=<?= $_SESSION['csrf_token'] ?? '' ?>'
@@ -248,7 +251,7 @@
     }
 
     function deleteNotification(id) {
-        fetch('/SecurePoll/public/notifications/delete', {
+        fetch((window.SecurePollBase || '') + '/notifications/delete', {
             method: 'POST',
             headers: {'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/x-www-form-urlencoded'},
             body: 'id=' + id + '&csrf_token=<?= $_SESSION['csrf_token'] ?? '' ?>'
@@ -269,6 +272,7 @@
 </script>
 
 <?php 
+$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
 $content = ob_get_clean(); 
 require_once __DIR__ . '/../layouts/app.php'; 
 ?>

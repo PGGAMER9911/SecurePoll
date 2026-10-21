@@ -97,10 +97,10 @@ $dashboardUrl = $isLoggedIn ? ($basePrefix . '/dashboard') : ($basePrefix . '/po
                 </a>
             </nav>
 
-            <!-- Right Controls: Theme Switcher + Dashboard CTA -->
-            <div class="flex items-center gap-3">
+            <!-- Right Controls: Theme Switcher + Dashboard CTA + Mobile Toggle -->
+            <div class="flex items-center gap-2 sm:gap-3">
                 <!-- Theme Switcher -->
-                <div class="relative flex items-center p-0.5 bg-slate-100 dark:bg-slate-900/90 rounded-lg border border-slate-200 dark:border-teal-950 w-[88px] h-7 shrink-0">
+                <div class="relative flex items-center p-0.5 bg-slate-100 dark:bg-slate-900/90 rounded-lg border border-slate-200 dark:border-teal-950 w-[84px] sm:w-[88px] h-7 shrink-0">
                     <div id="theme-active-pill" class="absolute top-0.5 bottom-0.5 w-[calc(33.33%-1.33px)] bg-white dark:bg-teal-900/50 rounded shadow-xs border border-slate-200/80 dark:border-teal-700/50 transition-transform duration-200 ease-out z-0 pointer-events-none"></div>
                     <button type="button" class="theme-btn relative flex-1 flex justify-center items-center h-full text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors z-10" data-theme="light" title="Light Theme" aria-label="Light Theme">
                         <i data-lucide="sun" class="w-3.5 h-3.5"></i>
@@ -119,30 +119,36 @@ $dashboardUrl = $isLoggedIn ? ($basePrefix . '/dashboard') : ($basePrefix . '/po
                     </a>
                 <?php endif; ?>
 
-                <!-- Upper Right Prominent "Go to Dashboard" CTA -->
-                <a href="<?php echo $dashboardUrl; ?>" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-teal-600 hover:bg-teal-500 dark:bg-teal-600 dark:hover:bg-teal-500 transition-all shadow-xs hover:shadow-teal-500/20 active:translate-y-px">
+                <!-- Upper Right Prominent "Go to Dashboard" CTA (visible >= sm) -->
+                <a href="<?php echo $dashboardUrl; ?>" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-teal-600 hover:bg-teal-500 dark:bg-teal-600 dark:hover:bg-teal-500 transition-all shadow-xs hover:shadow-teal-500/20 active:translate-y-px">
                     <span>Go to Dashboard</span>
                     <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                 </a>
 
-                <!-- Mobile Menu Button -->
-                <button type="button" id="mobileMenuBtn" class="md:hidden p-1.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white rounded-lg focus:outline-none" aria-label="Toggle Navigation Menu">
+                <!-- Mobile Menu Button (min-h-[44px] min-w-[44px] touch target) -->
+                <button type="button" id="mobileMenuBtn" class="md:hidden flex items-center justify-center w-11 h-11 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500" aria-label="Toggle Navigation Menu">
                     <i data-lucide="menu" class="w-5 h-5"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Dropdown Navigation -->
-        <div id="mobileMenu" class="hidden md:hidden border-t border-slate-200 dark:border-teal-950/80 bg-white/95 dark:bg-[#071416]/95 backdrop-blur-md px-4 py-3 space-y-1">
-            <a href="<?php echo $basePrefix ?: '/'; ?>" class="block px-3 py-2 rounded-lg text-sm font-medium <?php echo $currentPath === '/' ? 'text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'; ?>">Home</a>
-            <a href="<?php echo $basePrefix; ?>/about" class="block px-3 py-2 rounded-lg text-sm font-medium <?php echo $currentPath === '/about' ? 'text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'; ?>">About</a>
-            <a href="<?php echo $basePrefix; ?>/docs" class="block px-3 py-2 rounded-lg text-sm font-medium <?php echo in_array($currentPath, ['/docs', '/documentation'], true) ? 'text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'; ?>">Documentation</a>
-            <a href="<?php echo $basePrefix; ?>/pricing" class="block px-3 py-2 rounded-lg text-sm font-medium <?php echo $currentPath === '/pricing' ? 'text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'; ?>">Pricing</a>
-            <a href="<?php echo $basePrefix; ?>/contact" class="block px-3 py-2 rounded-lg text-sm font-medium <?php echo $currentPath === '/contact' ? 'text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'; ?>">Contact</a>
+        <div id="mobileMenu" class="hidden md:hidden border-t border-slate-200 dark:border-teal-950/80 bg-white/95 dark:bg-[#071416]/95 backdrop-blur-md px-4 py-4 space-y-2">
+            <!-- Mobile Dashboard CTA -->
+            <a href="<?php echo $dashboardUrl; ?>" class="flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-teal-600 hover:bg-teal-500 shadow-xs mb-3 min-h-[44px]">
+                <span>Go to Dashboard</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+
+            <a href="<?php echo $basePrefix ?: '/'; ?>" class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium min-h-[44px] <?php echo $currentPath === '/' ? 'text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 font-semibold' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'; ?>">Home</a>
+            <a href="<?php echo $basePrefix; ?>/about" class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium min-h-[44px] <?php echo $currentPath === '/about' ? 'text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 font-semibold' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'; ?>">About</a>
+            <a href="<?php echo $basePrefix; ?>/docs" class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium min-h-[44px] <?php echo in_array($currentPath, ['/docs', '/documentation'], true) ? 'text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 font-semibold' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'; ?>">Documentation</a>
+            <a href="<?php echo $basePrefix; ?>/pricing" class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium min-h-[44px] <?php echo $currentPath === '/pricing' ? 'text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 font-semibold' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'; ?>">Pricing</a>
+            <a href="<?php echo $basePrefix; ?>/contact" class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium min-h-[44px] <?php echo $currentPath === '/contact' ? 'text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 font-semibold' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50'; ?>">Contact</a>
             <?php if (!$isLoggedIn): ?>
-                <div class="pt-2 border-t border-slate-200 dark:border-teal-950/80 flex items-center justify-between">
-                    <a href="<?php echo $basePrefix; ?>/login" class="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-500 py-1.5">Sign In</a>
-                    <a href="<?php echo $basePrefix; ?>/register" class="text-sm font-medium text-teal-600 dark:text-teal-400 py-1.5">Create Account</a>
+                <div class="pt-3 border-t border-slate-200 dark:border-teal-950/80 flex items-center justify-between gap-3">
+                    <a href="<?php echo $basePrefix; ?>/login" class="flex-1 text-center py-2.5 rounded-xl border border-slate-200 dark:border-teal-900/60 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-500 min-h-[44px] flex items-center justify-center">Sign In</a>
+                    <a href="<?php echo $basePrefix; ?>/register" class="flex-1 text-center py-2.5 rounded-xl bg-teal-600 text-sm font-medium text-white hover:bg-teal-500 min-h-[44px] flex items-center justify-center">Register</a>
                 </div>
             <?php endif; ?>
         </div>

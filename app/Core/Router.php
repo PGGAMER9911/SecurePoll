@@ -14,6 +14,9 @@ class Router {
 
     public static function dispatch($url) {
         $method = $_SERVER['REQUEST_METHOD'];
+        if ($method === 'HEAD') {
+            $method = 'GET';
+        }
         $url = rtrim($url, '/');
         if (empty($url)) {
             $url = '/';

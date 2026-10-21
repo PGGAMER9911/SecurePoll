@@ -2,6 +2,7 @@
 use app\Helpers\Security;
 
 $pageTitle = 'Login - SecurePoll';
+$basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
 ob_start();
 ?>
 
@@ -26,29 +27,29 @@ ob_start();
                     <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Email address</label>
                     <div class="relative group">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <i data-lucide="mail" class="w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-indigo-500 dark:group-focus-within:text-indigo-400 transition-colors"></i>
+                            <i data-lucide="mail" class="w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-teal-500 dark:group-focus-within:text-teal-400 transition-colors"></i>
                         </div>
                         <input type="email" name="email" id="email" required placeholder="name@company.com" 
-                            class="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700/50 rounded-xl pl-11 pr-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-inner">
+                            class="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700/50 rounded-xl pl-11 pr-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-inner">
                     </div>
                 </div>
                 
                 <div class="space-y-1.5">
                     <div class="flex items-center justify-between">
                         <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Password</label>
-                        <a href="/SecurePoll/public/forgot-password" class="text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors">Forgot password?</a>
+                        <a href="<?php echo $basePrefix; ?>/forgot-password" class="text-xs font-medium text-teal-600 dark:text-teal-400 hover:text-teal-500 dark:hover:text-teal-300 transition-colors">Forgot password?</a>
                     </div>
                     <div class="relative group">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <i data-lucide="lock" class="w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-indigo-500 dark:group-focus-within:text-indigo-400 transition-colors"></i>
+                            <i data-lucide="lock" class="w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-teal-500 dark:group-focus-within:text-teal-400 transition-colors"></i>
                         </div>
                         <input type="password" name="password" required placeholder="••••••••" 
-                            class="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700/50 rounded-xl pl-11 pr-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-inner">
+                            class="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700/50 rounded-xl pl-11 pr-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-inner">
                     </div>
                 </div>
                 
                 <button type="submit" id="submitBtn" 
-                    class="w-full relative overflow-hidden bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 disabled:opacity-50 disabled:cursor-not-allowed group">
+                    class="w-full relative overflow-hidden bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-teal-500/20 hover:shadow-teal-500/25 disabled:opacity-50 disabled:cursor-not-allowed group">
 
                     <span id="btnText" class="relative z-10">Sign In</span>
                     <i data-lucide="loader-2" id="spinner" class="w-5 h-5 animate-spin hidden relative z-10"></i>
@@ -101,7 +102,7 @@ ob_start();
         <div class="bg-slate-50/80 dark:bg-slate-900/80 border-t border-slate-200 dark:border-slate-700/50 px-8 py-5 text-center">
             <p class="text-sm text-slate-500 dark:text-slate-400">
                 Don't have an account? 
-                <a href="/SecurePoll/public/register" class="font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors">Sign up</a>
+                <a href="<?php echo $basePrefix; ?>/register" class="font-medium text-teal-600 dark:text-teal-400 hover:text-teal-500 dark:hover:text-teal-300 transition-colors">Sign up</a>
             </p>
         </div>
     </div>
@@ -238,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) {}
         formData.append('language', navigator.language || navigator.userLanguage || '');
 
-        fetch('/SecurePoll/public/login', {
+        fetch('<?php echo $basePrefix; ?>/login', {
             method: 'POST',
             body: formData
         })

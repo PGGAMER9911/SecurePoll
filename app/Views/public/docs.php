@@ -7,8 +7,32 @@ ob_start();
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
     <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
 
-        <!-- Sticky Table of Contents Sidebar -->
-        <aside class="w-full lg:w-64 shrink-0 lg:sticky lg:top-24 space-y-8" aria-label="Table of contents">
+        <!-- Mobile Collapsible Table of Contents (< lg) -->
+        <div class="w-full lg:hidden mb-4">
+            <details class="border border-slate-200 dark:border-teal-900/60 rounded-xl p-4 bg-white dark:bg-[#07181b] shadow-xs group">
+                <summary class="flex items-center justify-between cursor-pointer list-none text-xs font-bold tracking-wider uppercase text-teal-700 dark:text-teal-300">
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="list" class="w-4 h-4"></i>
+                        <span>Manual Quick Jump (9 Sections)</span>
+                    </span>
+                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-200 group-open:rotate-180"></i>
+                </summary>
+                <nav class="mt-3 pt-3 border-t border-slate-100 dark:border-teal-950/80 space-y-2 text-xs">
+                    <a href="#what-is-securepoll" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">1. Architecture & Principles</a>
+                    <a href="#getting-started" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">2. Getting Started</a>
+                    <a href="#creating-a-poll" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">3. Poll Creation & Parameters</a>
+                    <a href="#balloting-types" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">4. Balloting Modalities</a>
+                    <a href="#visibility-models" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">5. Visibility & Access Models</a>
+                    <a href="#scheduling-quorums" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">6. Lifecycle & Quorums</a>
+                    <a href="#cryptographic-privacy" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">7. Cryptographic Anonymity</a>
+                    <a href="#managing-sharing" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">8. Administration & Rosters</a>
+                    <a href="#troubleshooting" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">9. Diagnostics & Recovery</a>
+                </nav>
+            </details>
+        </div>
+
+        <!-- Sticky Table of Contents Sidebar (Desktop >= lg) -->
+        <aside class="hidden lg:block w-64 shrink-0 sticky top-24 space-y-8" aria-label="Table of contents">
             <div>
                 <p class="text-xs font-bold tracking-widest text-teal-600 dark:text-teal-400 uppercase mb-3">
                     Manual Outline

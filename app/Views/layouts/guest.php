@@ -1,5 +1,6 @@
 <?php
 $userTheme = \app\Helpers\Session::get('theme') ?? ($_COOKIE['securepoll_theme'] ?? 'system');
+$basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
 if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
     $userTheme = 'system';
 }
@@ -11,7 +12,7 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle ?? 'SecurePoll'; ?></title>
     <meta name="csrf-token" content="<?php echo \app\Helpers\Security::generateCsrfToken(); ?>">
-    <link rel="icon" type="image/png" href="/SecurePoll/public/images/logo-square.png">
+    <link rel="icon" type="image/png" href="<?php echo $basePrefix; ?>/images/logo-square.png">
     
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,16 +20,16 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
-    <link href="/SecurePoll/public/css/app.css" rel="stylesheet">
+    <link href="<?php echo $basePrefix; ?>/css/app.css" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Unified Theme Engine -->
-    <script src="/SecurePoll/public/js/theme.js"></script>
+    <script src="<?php echo $basePrefix; ?>/js/theme.js"></script>
 
     <!-- Unified Loader & Navigation Progress -->
-    <script src="/SecurePoll/public/js/loader.js"></script>
+    <script src="<?php echo $basePrefix; ?>/js/loader.js"></script>
 
     <!-- Immediate Anti-FOUC Theme Script -->
     <script>
@@ -55,19 +56,19 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
         })();
     </script>
 </head>
-<body class="min-h-full bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased flex flex-col selection:bg-indigo-500/20 selection:text-indigo-900 dark:selection:text-indigo-200 transition-colors duration-200">
+<body class="min-h-full bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased flex flex-col selection:bg-teal-500/20 selection:text-teal-900 dark:selection:text-teal-200 transition-colors duration-200">
 
     <!-- Top Navigation Progress Bar -->
-    <div id="securepoll-top-progress" class="fixed top-0 left-0 h-[2px] w-0 bg-indigo-600 dark:bg-indigo-400 z-[10000] pointer-events-none opacity-0" aria-hidden="true"></div>
+    <div id="securepoll-top-progress" class="fixed top-0 left-0 h-[2px] w-0 bg-teal-600 dark:bg-teal-400 z-[10000] pointer-events-none opacity-0" aria-hidden="true"></div>
 
     <!-- Initial Branded Page Loading Screen -->
     <div id="securepoll-page-loader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white dark:bg-slate-950 pointer-events-auto" role="status" aria-live="polite" aria-label="Loading SecurePoll">
         <div class="flex flex-col items-center justify-center gap-4 select-none">
             <!-- Branded Icon with Subtle Spinner Ring -->
             <div class="relative flex items-center justify-center w-14 h-14">
-                <div class="absolute inset-0 rounded-2xl border-2 border-indigo-600/20 dark:border-indigo-400/20"></div>
-                <div class="absolute inset-0 rounded-2xl border-2 border-indigo-600 dark:border-indigo-400 border-t-transparent animate-spin"></div>
-                <img src="/SecurePoll/public/images/logo-square.png" alt="SecurePoll" class="w-9 h-9 rounded-xl object-contain shadow-xs">
+                <div class="absolute inset-0 rounded-2xl border-2 border-teal-600/20 dark:border-teal-400/20"></div>
+                <div class="absolute inset-0 rounded-2xl border-2 border-teal-600 dark:border-teal-400 border-t-transparent animate-spin"></div>
+                <img src="<?php echo $basePrefix; ?>/images/logo-square.png" alt="SecurePoll" class="w-9 h-9 rounded-xl object-contain shadow-xs">
             </div>
             <!-- Accessible Loading Text -->
             <div class="flex flex-col items-center gap-1 text-center">
@@ -82,9 +83,9 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
 
     <!-- Guest Header -->
     <header class="h-16 shrink-0 flex items-center justify-between px-4 sm:px-8 border-b border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md">
-        <a href="/SecurePoll/public/" class="flex items-center gap-3 group">
-            <img src="/SecurePoll/public/images/logo-square.png" alt="SecurePoll" class="w-10 h-10 rounded-xl shrink-0 object-contain shadow-xs">
-            <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">SecurePoll</span>
+        <a href="<?php echo $basePrefix ?: '/'; ?>" class="flex items-center gap-3 group">
+            <img src="<?php echo $basePrefix; ?>/images/logo-square.png" alt="SecurePoll" class="w-10 h-10 rounded-xl shrink-0 object-contain shadow-xs">
+            <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">SecurePoll</span>
         </a>
 
         <!-- Theme Switcher -->

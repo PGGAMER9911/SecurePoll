@@ -2,6 +2,7 @@
 use app\Helpers\Security;
 
 $pageTitle = 'Register - SecurePoll';
+$basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
 ob_start();
 ?>
 
@@ -25,12 +26,12 @@ ob_start();
                 <div class="space-y-3 mb-6">
                     <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Account Type</label>
                     <div class="grid grid-cols-2 gap-3">
-                        <label class="relative flex items-center p-3 cursor-pointer rounded-xl border border-slate-200 dark:border-slate-700/50 bg-slate-50 dark:bg-slate-900/60 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all has-[:checked]:bg-indigo-50/50 dark:has-[:checked]:bg-indigo-500/10 has-[:checked]:border-indigo-300 dark:has-[:checked]:border-indigo-500/40">
+                        <label class="relative flex items-center p-3 cursor-pointer rounded-xl border border-slate-200 dark:border-slate-700/50 bg-slate-50 dark:bg-slate-900/60 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all has-[:checked]:bg-teal-50/50 dark:has-[:checked]:bg-teal-500/10 has-[:checked]:border-teal-300 dark:has-[:checked]:border-teal-500/40">
                             <input type="radio" name="account_type" value="personal" class="peer sr-only" checked>
-                            <div class="w-4 h-4 rounded-full border border-slate-400 dark:border-slate-600 peer-checked:border-indigo-600 dark:peer-checked:border-indigo-500 mr-3 flex items-center justify-center">
-                                <div class="w-2 h-2 rounded-full bg-indigo-600 dark:bg-indigo-500 scale-0 peer-checked:scale-100 transition-transform"></div>
+                            <div class="w-4 h-4 rounded-full border border-slate-400 dark:border-slate-600 peer-checked:border-teal-600 dark:peer-checked:border-teal-500 mr-3 flex items-center justify-center">
+                                <div class="w-2 h-2 rounded-full bg-teal-600 dark:bg-teal-500 scale-0 peer-checked:scale-100 transition-transform"></div>
                             </div>
-                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300 peer-checked:text-indigo-900 dark:peer-checked:text-indigo-100">Personal</span>
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300 peer-checked:text-teal-900 dark:peer-checked:text-teal-100">Personal</span>
                         </label>
                         <div id="orgAccountOption" role="button" aria-disabled="true" tabindex="0" title="Organization accounts are coming soon." class="relative flex items-center p-3 rounded-xl border border-slate-200/80 dark:border-slate-700/50 bg-slate-50/50 dark:bg-slate-900/40 opacity-60 cursor-not-allowed select-none transition-all">
                             <input type="radio" name="account_type" value="organization" id="account_type_org" class="peer sr-only" disabled aria-disabled="true" tabindex="-1">
@@ -48,10 +49,10 @@ ob_start();
                         <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Organization Type</label>
                         <div class="relative group">
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <i data-lucide="graduation-cap" class="w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-indigo-500 dark:group-focus-within:text-indigo-400 transition-colors"></i>
+                                <i data-lucide="graduation-cap" class="w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-teal-500 dark:group-focus-within:text-teal-400 transition-colors"></i>
                             </div>
                             <select name="org_type" id="org_type" 
-                                class="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700/50 rounded-xl pl-11 pr-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-inner appearance-none">
+                                class="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700/50 rounded-xl pl-11 pr-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-inner appearance-none">
                                 <option value="">Select a type...</option>
                                 <option value="college">College / University</option>
                                 <option value="school">School</option>
@@ -68,10 +69,10 @@ ob_start();
                         <label id="orgNameLabel" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Organization Name</label>
                         <div class="relative group">
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <i data-lucide="building" class="w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-indigo-500 dark:group-focus-within:text-indigo-400 transition-colors"></i>
+                                <i data-lucide="building" class="w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-teal-500 dark:group-focus-within:text-teal-400 transition-colors"></i>
                             </div>
                             <input type="text" name="org_name" id="org_name" placeholder="Enter organization name" 
-                                class="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700/50 rounded-xl pl-11 pr-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-inner">
+                                class="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700/50 rounded-xl pl-11 pr-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-inner">
                         </div>
                     </div>
                     <hr class="border-slate-200 dark:border-slate-700/50">
@@ -82,10 +83,10 @@ ob_start();
                     <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" id="nameLabel">Full Name</label>
                     <div class="relative group">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <i data-lucide="user" class="w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-indigo-500 dark:group-focus-within:text-indigo-400 transition-colors"></i>
+                            <i data-lucide="user" class="w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-teal-500 dark:group-focus-within:text-teal-400 transition-colors"></i>
                         </div>
                         <input type="text" name="name" required placeholder="John Doe" 
-                            class="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700/50 rounded-xl pl-11 pr-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-inner">
+                            class="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700/50 rounded-xl pl-11 pr-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-inner">
                     </div>
                 </div>
                 
@@ -93,10 +94,10 @@ ob_start();
                     <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" id="emailLabel">Email address</label>
                     <div class="relative group">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <i data-lucide="mail" class="w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-indigo-500 dark:group-focus-within:text-indigo-400 transition-colors"></i>
+                            <i data-lucide="mail" class="w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-teal-500 dark:group-focus-within:text-teal-400 transition-colors"></i>
                         </div>
                         <input type="email" name="email" id="email" required placeholder="name@company.com" 
-                            class="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700/50 rounded-xl pl-11 pr-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-inner">
+                            class="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700/50 rounded-xl pl-11 pr-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-inner">
                     </div>
                 </div>
                 
@@ -104,16 +105,16 @@ ob_start();
                     <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Password</label>
                     <div class="relative group">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <i data-lucide="lock" class="w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-indigo-500 dark:group-focus-within:text-indigo-400 transition-colors"></i>
+                            <i data-lucide="lock" class="w-5 h-5 text-slate-400 dark:text-slate-500 group-focus-within:text-teal-500 dark:group-focus-within:text-teal-400 transition-colors"></i>
                         </div>
                         <input type="password" name="password" required placeholder="••••••••" minlength="8"
-                            class="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700/50 rounded-xl pl-11 pr-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-inner">
+                            class="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700/50 rounded-xl pl-11 pr-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-inner">
                     </div>
                     <p class="text-xs text-slate-500 mt-2 ml-1">Must be at least 8 characters long</p>
                 </div>
                 
                 <button type="submit" id="submitBtn" 
-                    class="w-full relative overflow-hidden bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 disabled:opacity-50 disabled:cursor-not-allowed group">
+                    class="w-full relative overflow-hidden bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-teal-500/20 hover:shadow-teal-500/25 disabled:opacity-50 disabled:cursor-not-allowed group">
 
                     <span id="btnText" class="relative z-10">Sign Up</span>
                     <i data-lucide="loader-2" id="spinner" class="w-5 h-5 animate-spin hidden relative z-10"></i>
@@ -165,7 +166,7 @@ ob_start();
         <div class="bg-slate-50/80 dark:bg-slate-900/80 border-t border-slate-200 dark:border-slate-700/50 px-8 py-5 text-center">
             <p class="text-sm text-slate-500 dark:text-slate-400">
                 Already have an account? 
-                <a href="/SecurePoll/public/login" class="font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors">Sign in</a>
+                <a href="<?php echo $basePrefix; ?>/login" class="font-medium text-teal-600 dark:text-teal-400 hover:text-teal-500 dark:hover:text-teal-300 transition-colors">Sign in</a>
             </p>
         </div>
     </div>
@@ -323,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) {}
         formData.append('language', navigator.language || navigator.userLanguage || '');
 
-        fetch('/SecurePoll/public/register', {
+        fetch('<?php echo $basePrefix; ?>/register', {
             method: 'POST',
             body: formData
         })

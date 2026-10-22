@@ -78,22 +78,30 @@ ob_start();
                         <h3 class="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">2. Voting Type</h3>
                     </div>
                     
-                    <!-- compact and horizontal row -->
-                    <div class="flex flex-wrap sm:flex-nowrap gap-3">
-                        <label class="flex-1 min-w-[100px] relative flex flex-col p-3 cursor-pointer rounded-xl border border-indigo-500 bg-indigo-50 dark:bg-indigo-500/10 transition-all text-center group type-option" data-type="Custom">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <label class="relative flex flex-col p-4 cursor-pointer rounded-xl border-2 border-teal-600 dark:border-teal-500 bg-teal-50/70 dark:bg-teal-950/40 text-center group type-option transition-all shadow-xs" data-type="Custom">
                             <input type="radio" name="voting_type" value="Custom" class="sr-only" checked>
-                            <i data-lucide="list-checks" class="w-5 h-5 text-indigo-400 mx-auto mb-1 type-icon"></i>
-                            <span class="text-sm font-medium text-slate-900 dark:text-white type-title">Custom Options</span>
+                            <div class="flex items-center justify-center gap-2 mb-1">
+                                <i data-lucide="list-checks" class="w-4 h-4 text-teal-600 dark:text-teal-400 type-icon"></i>
+                                <span class="text-sm font-bold text-slate-900 dark:text-white type-title">Custom Options</span>
+                            </div>
+                            <span class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Single or multi-choice candidates</span>
                         </label>
-                        <label class="flex-1 min-w-[100px] relative flex flex-col p-3 cursor-pointer rounded-xl border border-slate-200 dark:border-slate-700/50 bg-white dark:bg-slate-950/50 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all text-center group type-option" data-type="Yes/No">
+                        <label class="relative flex flex-col p-4 cursor-pointer rounded-xl border border-slate-200 dark:border-teal-950/80 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-800/60 text-center group type-option transition-all shadow-xs" data-type="Yes/No">
                             <input type="radio" name="voting_type" value="Yes/No" class="sr-only">
-                            <i data-lucide="thumbs-up" class="w-5 h-5 text-slate-500 dark:text-slate-400 group-hover:text-emerald-400 mx-auto mb-1 transition-colors type-icon"></i>
-                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-600 dark:group-hover:text-white transition-colors type-title">Yes / No</span>
+                            <div class="flex items-center justify-center gap-2 mb-1">
+                                <i data-lucide="thumbs-up" class="w-4 h-4 text-slate-500 dark:text-slate-400 group-hover:text-teal-500 type-icon"></i>
+                                <span class="text-sm font-bold text-slate-700 dark:text-slate-300 group-hover:text-teal-600 dark:group-hover:text-teal-400 type-title">Yes / No</span>
+                            </div>
+                            <span class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Parliamentary motions & binary votes</span>
                         </label>
-                        <label class="flex-1 min-w-[100px] relative flex flex-col p-3 cursor-pointer rounded-xl border border-slate-200 dark:border-slate-700/50 bg-white dark:bg-slate-950/50 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all text-center group type-option" data-type="Rating">
+                        <label class="relative flex flex-col p-4 cursor-pointer rounded-xl border border-slate-200 dark:border-teal-950/80 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-800/60 text-center group type-option transition-all shadow-xs" data-type="Rating">
                             <input type="radio" name="voting_type" value="Rating" class="sr-only">
-                            <i data-lucide="star" class="w-5 h-5 text-slate-500 dark:text-slate-400 group-hover:text-amber-400 mx-auto mb-1 transition-colors type-icon"></i>
-                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-600 dark:group-hover:text-white transition-colors type-title">Rating</span>
+                            <div class="flex items-center justify-center gap-2 mb-1">
+                                <i data-lucide="star" class="w-4 h-4 text-slate-500 dark:text-slate-400 group-hover:text-amber-500 type-icon"></i>
+                                <span class="text-sm font-bold text-slate-700 dark:text-slate-300 group-hover:text-teal-600 dark:group-hover:text-teal-400 type-title">Rating Scale</span>
+                            </div>
+                            <span class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Evaluations from 1 to 5 stars</span>
                         </label>
                     </div>
                 </div>
@@ -294,11 +302,10 @@ ob_start();
                     </div>
                 </div>
                 
-                <div class="pt-8 border-t border-slate-200 dark:border-white/5 flex justify-end">
-                    <button type="submit" id="submitBtn" class="w-full sm:w-auto relative overflow-hidden bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm hover:-translate-y-[1px] active:translate-y-[1px] font-semibold py-3 px-8 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 disabled:opacity-50 disabled:cursor-not-allowed group whitespace-nowrap min-w-[160px]">
-                        <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-48 ease"></span>
-                        <span id="btnText" class="relative z-10 text-base">Launch Poll</span>
-                        <i data-lucide="loader-2" id="spinner" class="w-5 h-5 animate-spin hidden relative z-10"></i>
+                <div class="pt-8 border-t border-slate-200 dark:border-teal-950/80 flex justify-end">
+                    <button type="submit" id="submitBtn" class="w-full sm:w-auto px-8 py-3 rounded-xl text-sm font-semibold text-white bg-teal-600 hover:bg-teal-500 transition-colors shadow-xs flex items-center justify-center gap-2">
+                        <span id="btnText">Launch Poll</span>
+                        <i data-lucide="loader-2" id="spinner" class="w-4 h-4 animate-spin hidden"></i>
                     </button>
                 </div>
             </form>
@@ -397,28 +404,28 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (radio.value === selectedType) {
                 // OPTION Selected
-                opt.classList.remove('border-slate-200', 'dark:border-slate-700/50', 'bg-white', 'dark:bg-slate-950/50', 'hover:bg-slate-50', 'dark:hover:bg-slate-800/80');
-                opt.classList.add('border-indigo-500', 'bg-indigo-50', 'dark:bg-indigo-500/10');
+                opt.classList.remove('border-slate-200', 'dark:border-teal-950/80', 'bg-white', 'dark:bg-slate-900/50', 'hover:bg-slate-50', 'dark:hover:bg-slate-800/60');
+                opt.classList.add('border-2', 'border-teal-600', 'dark:border-teal-500', 'bg-teal-50/70', 'dark:bg-teal-950/40');
                 
                 // ICON Selected
                 icon.classList.remove('text-slate-500', 'dark:text-slate-400');
-                icon.classList.add('text-indigo-600', 'dark:text-indigo-400');
+                icon.classList.add('text-teal-600', 'dark:text-teal-400');
                 
                 // TITLE Selected
-                title.classList.remove('text-slate-700', 'dark:text-slate-300', 'group-hover:text-indigo-600', 'dark:group-hover:text-white');
-                title.classList.add('text-indigo-700', 'dark:text-white');
+                title.classList.remove('text-slate-700', 'dark:text-slate-300', 'group-hover:text-teal-600', 'dark:group-hover:text-teal-400');
+                title.classList.add('text-teal-950', 'dark:text-white', 'font-bold');
             } else {
                 // OPTION Unselected
-                opt.classList.remove('border-indigo-500', 'bg-indigo-50', 'dark:bg-indigo-500/10');
-                opt.classList.add('border-slate-200', 'dark:border-slate-700/50', 'bg-white', 'dark:bg-slate-950/50', 'hover:bg-slate-50', 'dark:hover:bg-slate-800/80');
+                opt.classList.remove('border-2', 'border-teal-600', 'dark:border-teal-500', 'bg-teal-50/70', 'dark:bg-teal-950/40');
+                opt.classList.add('border', 'border-slate-200', 'dark:border-teal-950/80', 'bg-white', 'dark:bg-slate-900/50', 'hover:bg-slate-50', 'dark:hover:bg-slate-800/60');
                 
                 // ICON Unselected
-                icon.classList.remove('text-indigo-600', 'dark:text-indigo-400');
+                icon.classList.remove('text-teal-600', 'dark:text-teal-400');
                 icon.classList.add('text-slate-500', 'dark:text-slate-400');
                 
                 // TITLE Unselected
-                title.classList.remove('text-indigo-700', 'dark:text-white');
-                title.classList.add('text-slate-700', 'dark:text-slate-300', 'group-hover:text-indigo-600', 'dark:group-hover:text-white');
+                title.classList.remove('text-teal-950', 'dark:text-white', 'font-bold');
+                title.classList.add('text-slate-700', 'dark:text-slate-300', 'group-hover:text-teal-600', 'dark:group-hover:text-teal-400');
             }
         });
         

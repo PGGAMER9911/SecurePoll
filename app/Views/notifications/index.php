@@ -78,26 +78,26 @@ $totalCount = count($notifications);
                         $isUnread = $n['is_read'] == 0;
                         
                         $bgClass = $isUnread 
-                            ? 'bg-indigo-50/50 dark:bg-slate-800' 
-                            : 'bg-white dark:bg-slate-900';
+                            ? 'bg-teal-500/5 dark:bg-teal-950/30' 
+                            : 'bg-white dark:bg-[#07181b]/80';
                             
                         $borderClass = $isUnread 
-                            ? 'border-indigo-200 dark:border-indigo-500/30' 
-                            : 'border-slate-200 dark:border-white/5';
+                            ? 'border-teal-500/30 dark:border-teal-500/40' 
+                            : 'border-slate-200 dark:border-teal-950/80';
                             
                         $textStrong = $isUnread ? 'text-slate-900 dark:text-white font-semibold' : 'text-slate-700 dark:text-slate-300 font-medium';
                         $textMuted = $isUnread ? 'text-slate-600 dark:text-slate-400' : 'text-slate-500 dark:text-slate-500';
-                        $iconClass = $isUnread ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/40' : 'text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800';
+                        $iconClass = $isUnread ? 'text-teal-600 dark:text-teal-400 bg-teal-500/10' : 'text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800';
                         
                         $url = '#';
                         if ($n['entity_type'] === 'poll' && $n['entity_id']) {
-                            if ($n['action_type'] === 'view_poll') $url = '/SecurePoll/public/polls/show?id=' . $n['entity_id'];
-                            if ($n['action_type'] === 'view_invitations') $url = '/SecurePoll/public/invitations';
+                            if ($n['action_type'] === 'view_poll') $url = $basePrefix . '/polls/show?id=' . $n['entity_id'];
+                            if ($n['action_type'] === 'view_invitations') $url = $basePrefix . '/invitations';
                         }
                     ?>
-                    <div class="group relative rounded-xl border <?= $borderClass ?> <?= $bgClass ?> hover:border-slate-300 dark:hover:border-slate-600 transition-colors flex items-stretch" id="notif-row-<?= $n['id'] ?>">
+                    <div class="group relative rounded-xl border <?= $borderClass ?> <?= $bgClass ?> hover:border-slate-300 dark:hover:border-slate-600 transition-colors flex items-stretch shadow-xs" id="notif-row-<?= $n['id'] ?>">
                         <!-- Clickable Area -->
-                        <a href="<?= $url ?>" onclick="markRead(<?= $n['id'] ?>)" class="flex-1 flex items-start gap-4 p-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-l-xl">
+                        <a href="<?= $url ?>" onclick="markRead(<?= $n['id'] ?>)" class="flex-1 flex items-start gap-4 p-4 focus:outline-none focus:ring-2 focus:ring-teal-500 rounded-l-xl">
                             
                             <!-- Icon -->
                             <div class="shrink-0 flex items-center justify-center w-10 h-10 rounded-lg <?= $iconClass ?>">

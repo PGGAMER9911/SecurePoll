@@ -45,19 +45,18 @@ ob_start();
         </div>
     </div>
 
-    <!-- Future Updates Placeholder -->
-    <div class="bg-white dark:bg-slate-900/60 backdrop-blur-xl border border-slate-200 dark:border-white/5 rounded-xl shadow-sm dark:shadow-xl overflow-hidden p-6 relative flex flex-col items-center justify-center text-center h-full min-h-[350px]">
-        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-emerald-500/5 pointer-events-none"></div>
-        <div class="relative z-10 w-20 h-20 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 backdrop-blur-md flex items-center justify-center mb-6 border border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-xl">
-            <div class="absolute inset-0 bg-indigo-500/20 blur-xl animate-pulse"></div>
-            <i data-lucide="lock" class="w-10 h-10 text-indigo-400 relative z-10"></i>
+    <!-- Future Updates Module -->
+    <div class="bg-white dark:bg-[#07181b]/80 border border-slate-200 dark:border-teal-950/80 rounded-2xl p-6 relative flex flex-col items-center justify-center text-center h-full min-h-[350px] shadow-xs">
+        <div class="w-16 h-16 rounded-2xl bg-teal-500/10 border border-teal-500/20 text-teal-600 dark:text-teal-400 flex items-center justify-center mb-5 shadow-xs">
+            <i data-lucide="lock" class="w-8 h-8"></i>
         </div>
-        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 relative z-10">Advanced Analytics Locked</h3>
-        <p class="text-slate-500 dark:text-slate-400 max-w-sm mx-auto mb-6 relative z-10 text-sm">
-            Demographics, voting heatmaps, and deep voter insights are rolling out in Phase 4 of SecurePoll Enterprise.
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Voter Velocity & Cohort Analytics</h3>
+        <p class="text-slate-500 dark:text-slate-400 max-w-sm mx-auto mb-6 text-xs sm:text-sm leading-relaxed">
+            Detailed turnout velocity graphs, department participation rates, and exportable audit logs are currently in scheduled development.
         </p>
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-medium relative z-10">
-            <i data-lucide="clock" class="w-3.5 h-3.5"></i> Coming Soon
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-700 dark:text-teal-300 text-xs font-semibold">
+            <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+            <span>Coming Soon</span>
         </div>
     </div>
 </div>
@@ -66,10 +65,10 @@ ob_start();
 document.addEventListener('DOMContentLoaded', function() {
     const ctx = document.getElementById('engagementChart').getContext('2d');
     
-    // Create gradient
+    // Create teal gradient
     const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, 'rgba(99, 102, 241, 0.8)'); // indigo-500
-    gradient.addColorStop(1, 'rgba(99, 102, 241, 0.2)');
+    gradient.addColorStop(0, 'rgba(13, 148, 136, 0.8)'); // teal-600
+    gradient.addColorStop(1, 'rgba(13, 148, 136, 0.1)');
     
     const chartData = {
         labels: <?php echo $pollTitles; ?>,
@@ -77,12 +76,12 @@ document.addEventListener('DOMContentLoaded', function() {
             label: 'Total Votes',
             data: <?php echo $pollVotes; ?>,
             backgroundColor: gradient,
-            borderColor: '#6366f1',
+            borderColor: '#0d9488',
             borderWidth: 2,
             borderRadius: 6,
             borderSkipped: false,
-            hoverBackgroundColor: '#818cf8',
-            hoverBorderColor: '#e0e7ff'
+            hoverBackgroundColor: '#14b8a6',
+            hoverBorderColor: '#2dd4bf'
         }]
     };
 

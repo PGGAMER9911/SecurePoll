@@ -144,8 +144,12 @@ $totalVotes = array_sum(array_column($options, 'votes'));
                     <?php endif; ?>
 
                     <?php if ($poll['voting_type'] === 'Rating'): ?>
-                        <div class="p-6 rounded-xl border border-slate-200 dark:border-slate-700/50 bg-slate-50 dark:bg-slate-950/50 text-center">
-                            <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 font-medium">Select your rating:</p>
+                        <div class="p-6 rounded-2xl border border-slate-200 dark:border-teal-950/80 bg-slate-50/50 dark:bg-[#07181b]/50 text-center">
+                            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 text-[11px] font-semibold mb-3">
+                                <i data-lucide="star" class="w-3.5 h-3.5"></i>
+                                <span>Rating Scale Ballot</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-4 font-medium">Select your rating score from 1 to 5 stars:</p>
                             
                             <!-- Hidden input to store the selected option_id -->
                             <input type="hidden" name="option_id" id="ratingHiddenInput" required>
@@ -158,34 +162,43 @@ $totalVotes = array_sum(array_column($options, 'votes'));
                             <p id="ratingFeedbackText" class="text-lg font-bold text-amber-500 mt-2 h-7"></p>
                         </div>
                     <?php else: ?>
+                        <!-- Explicit Voting Rule Instruction Notice -->
+                        <div class="p-3 rounded-xl bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200 dark:border-teal-950/80 text-xs text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                            <i data-lucide="<?php echo $poll['voting_type'] === 'Multiple' ? 'check-square' : 'disc'; ?>" class="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0"></i>
+                            <span>
+                                <?php if ($poll['voting_type'] === 'Multiple'): ?>
+                                    <strong>Multiple Choice:</strong> Select one or more options that reflect your vote.
+                                <?php else: ?>
+                                    <strong>Single Choice:</strong> Select exactly one preferred option to cast your ballot.
+                                <?php endif; ?>
+                            </span>
+                        </div>
+
                         <div class="space-y-3">
                             <?php foreach ($options as $option): ?>
-                                <label class="relative flex items-center p-4 cursor-pointer rounded-xl border border-slate-200 dark:border-slate-700/50 bg-slate-50 dark:bg-slate-900/60 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all custom-label group/item has-[:checked]:bg-indigo-50/50 dark:has-[:checked]:bg-indigo-500/10 has-[:checked]:hover:bg-indigo-100/50 dark:has-[:checked]:hover:bg-indigo-500/20 has-[:checked]:border-indigo-300 dark:has-[:checked]:border-indigo-500/40 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-indigo-500 has-[:focus-visible]:ring-offset-2 dark:has-[:focus-visible]:ring-offset-slate-900">
+                                <label class="relative flex items-center p-4 cursor-pointer rounded-xl border border-slate-200 dark:border-teal-950/80 bg-white dark:bg-[#07181b]/70 hover:bg-slate-50 dark:hover:bg-teal-950/20 transition-all custom-label group/item has-[:checked]:bg-teal-500/10 has-[:checked]:border-teal-500 dark:has-[:checked]:border-teal-500/60 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-teal-500 has-[:focus-visible]:ring-offset-2 dark:has-[:focus-visible]:ring-offset-slate-900 shadow-xs">
                                     <?php if ($poll['voting_type'] === 'Multiple'): ?>
                                         <input type="checkbox" name="options[]" value="<?php echo $option['id']; ?>" class="peer sr-only custom-input">
-                                        <div class="checkbox-outer w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-400 dark:border-slate-600 peer-checked:bg-indigo-600 peer-checked:border-indigo-600 dark:peer-checked:bg-indigo-500 dark:peer-checked:border-indigo-500 mr-4 flex items-center justify-center transition-colors shadow-inner group-hover/item:border-slate-500 dark:group-hover/item:border-slate-400 peer-checked:group-hover/item:border-indigo-600 dark:peer-checked:group-hover/item:border-indigo-500">
-                                            <i data-lucide="check" class="w-3 h-3 text-white opacity-0 group-has-[:checked]/item:opacity-100 transition-opacity checkbox-icon"></i>
+                                        <div class="checkbox-outer w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 peer-checked:bg-teal-600 peer-checked:border-teal-600 mr-4 flex items-center justify-center transition-colors shadow-xs group-hover/item:border-teal-500">
+                                            <i data-lucide="check" class="w-3.5 h-3.5 text-white opacity-0 group-has-[:checked]/item:opacity-100 transition-opacity checkbox-icon"></i>
                                         </div>
                                     <?php else: ?>
                                         <input type="radio" name="option_id" value="<?php echo $option['id']; ?>" class="peer sr-only custom-input" required>
-                                        <div class="radio-outer w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-400 dark:border-slate-600 peer-checked:border-indigo-600 dark:peer-checked:border-indigo-500 mr-4 flex items-center justify-center transition-all shadow-inner group-hover/item:border-slate-500 dark:group-hover/item:border-slate-400 peer-checked:group-hover/item:border-indigo-600 dark:peer-checked:group-hover/item:border-indigo-500">
-                                            <div class="radio-inner w-2.5 h-2.5 rounded-full bg-indigo-600 dark:bg-indigo-500 transition-transform scale-0 group-has-[:checked]/item:scale-100" style="box-shadow: 0 0 8px rgba(99,102,241,0.5);"></div>
+                                        <div class="radio-outer w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 peer-checked:border-teal-600 mr-4 flex items-center justify-center transition-all shadow-xs group-hover/item:border-teal-500">
+                                            <div class="radio-inner w-2.5 h-2.5 rounded-full bg-teal-600 transition-transform scale-0 group-has-[:checked]/item:scale-100"></div>
                                         </div>
                                     <?php endif; ?>
-                                    <span class="font-medium text-slate-700 dark:text-slate-300 transition-colors label-text peer-checked:text-indigo-950 dark:peer-checked:text-white">
+                                    <span class="font-medium text-slate-800 dark:text-slate-200 transition-colors label-text group-has-[:checked]/item:text-teal-950 dark:group-has-[:checked]/item:text-white group-has-[:checked]/item:font-semibold">
                                         <?php echo htmlspecialchars($option['option_text']); ?>
                                     </span>
-                                    <!-- Subtle glow border on checked -->
-                                    <div class="absolute inset-0 border-2 border-indigo-500 opacity-0 rounded-xl transition-opacity pointer-events-none label-glow peer-checked:opacity-100"></div>
                                 </label>
                             <?php endforeach; ?>
                         </div>
                     <?php endif; ?>
 
-                    <button type="submit" id="submitBtn" class="w-full relative overflow-hidden bg-indigo-600 hover:bg-indigo-700 text-slate-900 dark:text-white font-semibold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-sm dark:shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 disabled:opacity-50 disabled:cursor-not-allowed group">
-                        <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-96 ease"></span>
-                        <span id="btnText" class="relative z-10 text-base">Submit Vote</span>
-                        <i data-lucide="loader-2" id="spinner" class="w-5 h-5 animate-spin hidden relative z-10"></i>
+                    <button type="submit" id="submitBtn" class="w-full relative bg-teal-600 hover:bg-teal-500 text-white font-semibold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-xs hover:shadow-teal-500/20 disabled:opacity-50 disabled:cursor-not-allowed group">
+                        <span id="btnText" class="text-base font-semibold">Submit Verified Ballot</span>
+                        <i data-lucide="loader-2" id="spinner" class="w-5 h-5 animate-spin hidden"></i>
                     </button>
                 </form>
                 <?php endif; ?>

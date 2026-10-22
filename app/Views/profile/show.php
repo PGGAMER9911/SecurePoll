@@ -5,20 +5,16 @@ ob_start();
 ?>
 <div class="max-w-7xl mx-auto space-y-8">
     <!-- Profile Header - Compact and Themed -->
-    <div class="bg-white dark:bg-slate-900/60 backdrop-blur-xl border border-slate-200 dark:border-white/5 rounded-xl p-6 sm:p-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 shadow dark:shadow-2xl relative overflow-hidden">
-        <!-- Subtle Pattern Background -->
-        <div class="absolute inset-0 opacity-50 dark:opacity-10 pointer-events-none bg-[radial-gradient(circle_at_2px_2px,theme(colors.slate.300)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_2px_2px,white_1px,transparent_0)]" style="background-size: 24px 24px;"></div>
-        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-blue-500/5 dark:from-indigo-500/10 dark:to-blue-500/5 pointer-events-none"></div>
-        
+    <div class="bg-white dark:bg-[#07181b]/80 border border-slate-200 dark:border-teal-950/80 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 shadow-xs relative overflow-hidden">
         <div class="relative shrink-0">
-            <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-gradient-to-br from-indigo-500 to-blue-600 p-[2px] shadow-lg shadow-indigo-500/30">
-                <div class="w-full h-full bg-white dark:bg-slate-900 rounded-[14px] flex items-center justify-center">
-                    <span class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white"><?php echo strtoupper(substr($profileUser['name'], 0, 1)); ?></span>
+            <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-teal-500/10 border border-teal-500/20 p-[2px] shadow-xs">
+                <div class="w-full h-full bg-slate-50 dark:bg-slate-900 rounded-[14px] flex items-center justify-center">
+                    <span class="text-3xl sm:text-4xl font-extrabold text-teal-700 dark:text-teal-300"><?php echo strtoupper(substr($profileUser['name'], 0, 1)); ?></span>
                 </div>
             </div>
         </div>
         
-        <div class="relative flex-1 text-left z-10 pt-2 w-full">
+        <div class="relative flex-1 text-left z-10 pt-1 w-full">
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-3">
                 <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight text-center sm:text-left"><?php echo htmlspecialchars($profileUser['name']); ?></h1>
                 <?php if (\app\Helpers\Session::get('user_id') == $profileUser['id']): ?>

@@ -11,7 +11,7 @@ if ($currentPath === '') $currentPath = '/';
 
 $isLoggedIn = \app\Helpers\Session::get('user_id') !== null;
 $dashboardUrl = $isLoggedIn ? ($basePrefix . '/dashboard') : ($basePrefix . '/polls');
-$pageDesc = $pageDescription ?? 'SecurePoll is a modern, privacy-centric polling platform providing salted cryptographic anonymity, multi-tenant organization scopes, and verifiable audit trails.';
+$pageDesc = $pageDescription ?? 'SecurePoll is a place to ask everyday questions, compare opinions, and run polls with friends, gamers, and small communities.';
 $canonicalUrl = 'https://securepoll.pgdev.in' . ($currentPath === '/' ? '/' : $currentPath);
 ?>
 <!DOCTYPE html>
@@ -19,21 +19,21 @@ $canonicalUrl = 'https://securepoll.pgdev.in' . ($currentPath === '/' ? '/' : $c
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $pageTitle ?? 'SecurePoll — Privacy-Centric Institutional Voting'; ?></title>
+    <title><?php echo $pageTitle ?? 'SecurePoll — Small questions. Different perspectives.'; ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($pageDesc); ?>">
     <link rel="canonical" href="<?php echo htmlspecialchars($canonicalUrl); ?>">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:site_name" content="SecurePoll">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="<?php echo htmlspecialchars($pageTitle ?? 'SecurePoll — Privacy-Centric Institutional Voting'); ?>">
+    <meta property="og:title" content="<?php echo htmlspecialchars($pageTitle ?? 'SecurePoll — Small questions. Different perspectives.'); ?>">
     <meta property="og:description" content="<?php echo htmlspecialchars($pageDesc); ?>">
     <meta property="og:url" content="<?php echo htmlspecialchars($canonicalUrl); ?>">
     <meta property="og:image" content="https://securepoll.pgdev.in/images/logo-square.png">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="<?php echo htmlspecialchars($pageTitle ?? 'SecurePoll — Privacy-Centric Institutional Voting'); ?>">
+    <meta name="twitter:title" content="<?php echo htmlspecialchars($pageTitle ?? 'SecurePoll — Small questions. Different perspectives.'); ?>">
     <meta name="twitter:description" content="<?php echo htmlspecialchars($pageDesc); ?>">
     <meta name="twitter:image" content="https://securepoll.pgdev.in/images/logo-square.png">
 
@@ -46,7 +46,7 @@ $canonicalUrl = 'https://securepoll.pgdev.in' . ($currentPath === '/' ? '/' : $c
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
-    <link href="<?php echo $basePrefix; ?>/css/app.css" rel="stylesheet">
+    <link href="<?php echo $basePrefix; ?>/css/app.css?v=<?php echo file_exists(__DIR__ . '/../../../public/css/app.css') ? filemtime(__DIR__ . '/../../../public/css/app.css') : '1.0'; ?>" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -204,7 +204,7 @@ $canonicalUrl = 'https://securepoll.pgdev.in' . ($currentPath === '/' ? '/' : $c
     </header>
 
     <!-- Main Page Content -->
-    <main class="flex-1">
+    <main class="flex-1 w-full min-w-0">
         <?php echo $content ?? ''; ?>
     </main>
 
@@ -220,7 +220,7 @@ $canonicalUrl = 'https://securepoll.pgdev.in' . ($currentPath === '/' ? '/' : $c
                         <span class="font-bold text-base tracking-tight text-slate-900 dark:text-white">SecurePoll</span>
                     </div>
                     <p class="text-xs text-slate-500 dark:text-slate-400 max-w-sm leading-relaxed">
-                        Privacy-centric, cryptographically audited digital polling platform for institutions, student unions, and democratic communities.
+                        An early-stage polling platform for everyday questions, friendly debates, and community feedback. Built with privacy in mind and improving step by step.
                     </p>
                     <div class="pt-1">
                         <a href="mailto:contact@pgdev.in" class="inline-flex items-center gap-1.5 text-xs text-teal-600 dark:text-teal-400 hover:underline">

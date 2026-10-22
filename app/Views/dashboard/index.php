@@ -26,12 +26,12 @@ $avgVotes = ($totalPolls ?? 0) > 0 ? round(($totalVotesCast ?? 0) / $totalPolls,
 <div class="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
     <div>
         <div class="flex items-center gap-2 mb-1">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400">Institutional Governance</span>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400">Community Polls</span>
             <span class="text-slate-300 dark:text-slate-700">&bull;</span>
-            <span class="text-xs text-slate-500 dark:text-slate-400">Voter Console</span>
+            <span class="text-xs text-slate-500 dark:text-slate-400">Personal Workspace</span>
         </div>
-        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Overview & Election Control</h2>
-        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">Manage your active ballots, monitor turnout tallies, and review invitations.</p>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Polls & Activity Overview</h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">Manage your polls, track participation responses, and review invitations.</p>
     </div>
     <div class="flex items-center gap-3 shrink-0">
         <a href="<?php echo $basePrefix; ?>/polls/create" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-teal-600 hover:bg-teal-500 dark:bg-teal-600 dark:hover:bg-teal-500 text-white transition-all shadow-xs">
@@ -44,11 +44,11 @@ $avgVotes = ($totalPolls ?? 0) > 0 ? round(($totalVotesCast ?? 0) / $totalPolls,
 <!-- Real, Task-Oriented Key Metrics (No Fake Trends or Fabricated Storage) -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
     
-    <!-- Metric 1: Total Created Ballots -->
+    <!-- Metric 1: Total Created Polls -->
     <div class="bg-white dark:bg-[#07181b]/80 border border-slate-200 dark:border-teal-950/80 rounded-2xl p-5 shadow-xs">
         <div class="flex items-start justify-between">
             <div>
-                <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Ballots Created</p>
+                <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Polls Created</p>
                 <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1"><?php echo $totalPolls ?? 0; ?></h3>
             </div>
             <div class="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20 flex items-center justify-center shrink-0">
@@ -66,7 +66,7 @@ $avgVotes = ($totalPolls ?? 0) > 0 ? round(($totalVotesCast ?? 0) / $totalPolls,
         </div>
     </div>
 
-    <!-- Metric 2: Total Ballots Cast Across Polls -->
+    <!-- Metric 2: Total Votes Cast Across Polls -->
     <div class="bg-white dark:bg-[#07181b]/80 border border-slate-200 dark:border-teal-950/80 rounded-2xl p-5 shadow-xs">
         <div class="flex items-start justify-between">
             <div>
@@ -79,15 +79,15 @@ $avgVotes = ($totalPolls ?? 0) > 0 ? round(($totalVotesCast ?? 0) / $totalPolls,
         </div>
         <div class="mt-4 pt-3 border-t border-slate-100 dark:border-teal-950/60 flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
             <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-500"></i>
-            <span>Salted cryptographic hashes</span>
+            <span>Salted vote hashes</span>
         </div>
     </div>
 
-    <!-- Metric 3: Average Turnout Velocity -->
+    <!-- Metric 3: Average Turnout -->
     <div class="bg-white dark:bg-[#07181b]/80 border border-slate-200 dark:border-teal-950/80 rounded-2xl p-5 shadow-xs">
         <div class="flex items-start justify-between">
             <div>
-                <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Average Turnout</p>
+                <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Average Responses</p>
                 <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1"><?php echo $avgVotes; ?></h3>
             </div>
             <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center justify-center shrink-0">
@@ -95,7 +95,7 @@ $avgVotes = ($totalPolls ?? 0) > 0 ? round(($totalVotesCast ?? 0) / $totalPolls,
             </div>
         </div>
         <div class="mt-4 pt-3 border-t border-slate-100 dark:border-teal-950/60 flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
-            <span>Votes per ballot average</span>
+            <span>Votes per poll average</span>
         </div>
     </div>
 
@@ -103,8 +103,8 @@ $avgVotes = ($totalPolls ?? 0) > 0 ? round(($totalVotesCast ?? 0) / $totalPolls,
     <div class="bg-white dark:bg-[#07181b]/80 border border-slate-200 dark:border-teal-950/80 rounded-2xl p-5 shadow-xs">
         <div class="flex items-start justify-between">
             <div>
-                <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Device Trust</p>
-                <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-1">Verified Session</h3>
+                <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Session Security</p>
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-1">Verified Login</h3>
             </div>
             <div class="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20 flex items-center justify-center shrink-0">
                 <i data-lucide="shield" class="w-5 h-5"></i>
@@ -112,7 +112,7 @@ $avgVotes = ($totalPolls ?? 0) > 0 ? round(($totalVotesCast ?? 0) / $totalPolls,
         </div>
         <div class="mt-4 pt-3 border-t border-slate-100 dark:border-teal-950/60 flex items-center gap-1.5 text-xs text-teal-600 dark:text-teal-400 font-medium">
             <i data-lucide="lock" class="w-3.5 h-3.5"></i>
-            <span>Entropy token active</span>
+            <span>Active authenticated session</span>
         </div>
     </div>
 
@@ -121,19 +121,19 @@ $avgVotes = ($totalPolls ?? 0) > 0 ? round(($totalVotesCast ?? 0) / $totalPolls,
 <!-- Main Content Area -->
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
     
-    <!-- Left 8 Columns: Recent Ballots Activity -->
+    <!-- Left 8 Columns: Recent Polls Activity -->
     <div class="lg:col-span-8">
         <div class="bg-white dark:bg-[#07181b]/80 border border-slate-200 dark:border-teal-950/80 rounded-2xl shadow-xs overflow-hidden">
             <div class="p-5 sm:p-6 border-b border-slate-200 dark:border-teal-950/80 flex items-center justify-between">
                 <div>
                     <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
                         <i data-lucide="list" class="w-4 h-4 text-teal-500"></i>
-                        <span>Recent Ballots</span>
+                        <span>Recent Polls</span>
                     </h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Your most recently created elections and resolution votes</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Polls you have recently created and shared</p>
                 </div>
                 <a href="<?php echo $basePrefix; ?>/polls/my-polls" class="text-xs font-semibold text-teal-600 dark:text-teal-400 hover:underline">
-                    View All Ballots &rarr;
+                    View All Polls &rarr;
                 </a>
             </div>
             
@@ -144,7 +144,7 @@ $avgVotes = ($totalPolls ?? 0) > 0 ? round(($totalVotesCast ?? 0) / $totalPolls,
                     </div>
                     <h4 class="text-sm font-bold text-slate-900 dark:text-white mb-1">No polls created yet</h4>
                     <p class="text-xs text-slate-500 dark:text-slate-400 max-w-sm mb-4">
-                        Launch your first ballot to collect verified, cryptographically decoupled votes from your organization or community.
+                        Create your first poll to collect opinions and feedback from friends, gamers, or your community.
                     </p>
                     <a href="<?php echo $basePrefix; ?>/polls/create" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-teal-600 hover:bg-teal-500 transition-colors shadow-xs">
                         <i data-lucide="plus" class="w-3.5 h-3.5"></i>
@@ -181,7 +181,7 @@ $avgVotes = ($totalPolls ?? 0) > 0 ? round(($totalVotesCast ?? 0) / $totalPolls,
                             </div>
                             
                             <div class="flex items-center gap-2 shrink-0">
-                                <a href="<?php echo $basePrefix; ?>/polls/show?id=<?php echo $poll['id']; ?>" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" title="View Ballot" aria-label="View Ballot">
+                                <a href="<?php echo $basePrefix; ?>/polls/show?id=<?php echo $poll['id']; ?>" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" title="View Poll" aria-label="View Poll">
                                     <i data-lucide="external-link" class="w-4 h-4"></i>
                                 </a>
                                 <a href="<?php echo $basePrefix; ?>/polls/manage?id=<?php echo $poll['id']; ?>" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
@@ -240,10 +240,10 @@ $avgVotes = ($totalPolls ?? 0) > 0 ? round(($totalVotesCast ?? 0) / $totalPolls,
         <div class="border border-teal-500/20 bg-teal-500/5 dark:bg-teal-950/30 rounded-2xl p-5 text-xs space-y-2">
             <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-white">
                 <i data-lucide="shield-check" class="w-4 h-4 text-teal-500"></i>
-                <span>Cryptographic Isolation</span>
+                <span>Privacy & Salted Hashes</span>
             </div>
             <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                Votes cast on SecurePoll are salted with SHA-256 HMAC tokens. Even system administrators cannot reverse hashes to link individual voter accounts with cast options.
+                When creating an anonymous poll, votes are stored with salted hash tokens rather than direct user IDs to help keep individual responses private.
             </p>
         </div>
 

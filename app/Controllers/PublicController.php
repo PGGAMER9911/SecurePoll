@@ -43,7 +43,7 @@ class PublicController extends Controller {
         $featuredPolls = array_slice($featuredPolls, 0, 6);
 
         return $this->view('public/home', [
-            'pageTitle' => 'SecurePoll — Privacy-Centric Institutional Voting',
+            'pageTitle' => 'SecurePoll — Small questions. Different perspectives.',
             'polls' => $featuredPolls,
             'isLoggedIn' => (bool)Session::get('user_id'),
             'userName' => Session::get('user_name') ?? ''
@@ -62,26 +62,26 @@ class PublicController extends Controller {
             [
                 'name' => 'Parth Gamit',
                 'handle' => 'PGGAMER9911',
-                'role' => 'Lead Backend & Security Architect',
+                'role' => 'Lead Developer & Backend Architecture',
                 'badge' => 'Core Creator',
                 'avatar' => 'https://github.com/PGGAMER9911.png',
                 'fallback_avatar' => $basePrefix . '/images/logo-square.png',
                 'github' => 'https://github.com/PGGAMER9911',
                 'repo' => 'https://github.com/PGGAMER9911/SecurePoll',
                 'email' => 'gamitparth04@gmail.com',
-                'bio' => 'Original creator and backend architect of SecurePoll. Engineered the PHP MVC core, salted cryptographic voter hash architecture (voter_hash), multi-tenant organization engine, audit trails, and device trust verification systems.'
+                'bio' => 'Original creator and backend developer of SecurePoll. Built the PHP MVC architecture, routing, MySQL schemas, poll lifecycle handling, privacy hash tokens, and session management.'
             ],
             [
-                'name' => 'UI / Frontend Contributor',
-                'handle' => 'SecurePoll Designer',
-                'role' => 'UI/UX & Frontend Design Contributor',
-                'badge' => 'Design & Systems',
-                'avatar' => $basePrefix . '/images/avatar-designer.png',
-                'fallback_avatar' => $basePrefix . '/images/avatar-designer.png',
-                'github' => 'https://github.com/PGGAMER9911/SecurePoll',
+                'name' => 'Akshay',
+                'handle' => 'parmarakshay652-ux',
+                'role' => 'UI/UX Contributor',
+                'badge' => 'Contributor',
+                'avatar' => 'https://github.com/parmarakshay652-ux.png',
+                'fallback_avatar' => $basePrefix . '/images/akshay-avatar.png',
+                'github' => 'https://github.com/parmarakshay652-ux',
                 'repo' => 'https://github.com/PGGAMER9911/SecurePoll',
                 'email' => 'contact@pgdev.in',
-                'bio' => 'Collaborator responsible for SecurePoll\'s frontend design system migration to Tailwind CSS, responsive accessible interface cards, dark teal visual direction, and the client-side theme engine.'
+                'bio' => 'Aspiring web developer learning and building web projects. Contributed to SecurePoll\'s UI/UX styling, responsive layout refinements, color schemes, and theme consistency.'
             ]
         ];
 

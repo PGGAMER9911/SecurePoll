@@ -33,7 +33,7 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
-    <link href="<?php echo $basePrefix; ?>/css/app.css" rel="stylesheet">
+    <link href="<?php echo $basePrefix; ?>/css/app.css?v=<?php echo file_exists(__DIR__ . '/../../../public/css/app.css') ? filemtime(__DIR__ . '/../../../public/css/app.css') : '1.0'; ?>" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -191,11 +191,11 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
                 <p class="px-3 text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider sidebar-text">Preferences</p>
             </div>
             
-            <a href="<?php echo $basePrefix; ?>/notifications" title="Notifications" class="group flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors <?php echo strpos($currentPath, '<?php echo $basePrefix; ?>/notifications') === 0 ? 'bg-teal-50 text-teal-700 dark:bg-teal-950/50 dark:text-teal-300 font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white font-medium'; ?>">
+            <a href="<?php echo $basePrefix; ?>/notifications" title="Notifications" class="group flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors <?php echo strpos($currentPath, $basePrefix . '/notifications') === 0 ? 'bg-teal-50 text-teal-700 dark:bg-teal-950/50 dark:text-teal-300 font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white font-medium'; ?>">
                 <i data-lucide="bell" class="w-4 h-4 shrink-0 text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-200"></i>
                 <span class="sidebar-text truncate">Notifications</span>
             </a>
-            <a href="<?php echo $basePrefix; ?>/settings" title="Settings" class="group flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors <?php echo $currentPath === '<?php echo $basePrefix; ?>/settings' ? 'bg-teal-50 text-teal-700 dark:bg-teal-950/50 dark:text-teal-300 font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white font-medium'; ?>">
+            <a href="<?php echo $basePrefix; ?>/settings" title="Settings" class="group flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors <?php echo $currentPath === ($basePrefix . '/settings') ? 'bg-teal-50 text-teal-700 dark:bg-teal-950/50 dark:text-teal-300 font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white font-medium'; ?>">
                 <i data-lucide="settings" class="w-4 h-4 shrink-0 text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-200"></i>
                 <span class="sidebar-text truncate">Settings</span>
             </a>
@@ -211,7 +211,7 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
                     </div>
                     <div class="overflow-hidden sidebar-text min-w-0 flex-1">
                         <p class="text-xs font-semibold text-slate-900 dark:text-white truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"><?php echo htmlspecialchars(\app\Helpers\Session::get('user_name') ?? 'User'); ?></p>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate"><?php echo htmlspecialchars(\app\Helpers\Session::get('user_email') ?? ''); ?></p>
+                        <!--email_off--><p class="text-[11px] text-slate-500 dark:text-slate-400 truncate"><?php echo htmlspecialchars(\app\Helpers\Session::get('user_email') ?? ''); ?></p><!--/email_off-->
                     </div>
                 </a>
 

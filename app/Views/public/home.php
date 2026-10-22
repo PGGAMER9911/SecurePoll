@@ -1,8 +1,8 @@
 <?php
 use app\Services\PollService;
 
-$pageTitle = 'SecurePoll — Privacy-Centric Institutional Voting';
-$pageDescription = 'Privacy-first online polling platform for universities, student councils, and organizations with cryptographic voter privacy and verifiable audit trails.';
+$pageTitle = 'SecurePoll — Small questions. Different perspectives.';
+$pageDescription = 'SecurePoll is a place to ask everyday questions, compare opinions, and run polls with friends, gamers, and small communities. We\'re starting small, learning from real use, and improving step by step.';
 $basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
 $featuredPoll = !empty($polls) ? $polls[0] : null;
 $secondaryPolls = !empty($polls) ? array_slice($polls, 1) : [];
@@ -10,10 +10,8 @@ $secondaryPolls = !empty($polls) ? array_slice($polls, 1) : [];
 ob_start();
 ?>
 
-<!-- Asymmetric Democratic Station Hero -->
+<!-- Grounded Hero Section -->
 <section class="relative overflow-hidden border-b border-slate-200/80 dark:border-teal-950/80 bg-white/40 dark:bg-[#071416]">
-
-
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-24">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
@@ -23,61 +21,61 @@ ob_start();
                 <!-- Category Tag -->
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-semibold bg-teal-500/10 text-teal-800 dark:text-teal-300 border border-teal-500/20">
                     <span class="w-2 h-2 rounded-full bg-teal-500"></span>
-                    <span>Archival Integrity &bull; Institutional Polling</span>
+                    <span>Early Access &bull; Community Polls</span>
                 </div>
 
-                <!-- Primary Asymmetric Heading -->
-                <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12]">
-                    Privacy-first voting for universities, councils, and institutions.
+                <!-- Primary Heading -->
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15]">
+                    Small questions.<br class="hidden sm:inline"> Different perspectives.
                 </h1>
 
-                <!-- Architectural Description -->
+                <!-- Supporting Description -->
                 <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl font-normal">
-                    SecurePoll decouples voter identity from cast votes using one-way salted hashes (<code class="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 border border-slate-200 dark:border-teal-800/40">voter_hash</code>) and hardware device trust. Engineered for campus networks, academic departments, and communities requiring verifiable democracy without surveillance.
+                    SecurePoll is a place to ask everyday questions, compare opinions, and run polls with friends, gamers, and small communities. We're starting small, learning from real use, and improving step by step.
                 </p>
 
                 <!-- Action Button Group -->
                 <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     <a href="#polls" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-teal-600 hover:bg-teal-500 transition-all shadow-xs hover:shadow-teal-500/20 min-h-[44px]">
                         <i data-lucide="vote" class="w-4 h-4"></i>
-                        <span>Browse Live Polls</span>
+                        <span>Explore Polls</span>
                     </a>
                     
                     <a href="<?php echo $isLoggedIn ? ($basePrefix . '/polls/create') : ($basePrefix . '/login'); ?>" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900/80 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-teal-900/60 transition-colors min-h-[44px]">
                         <i data-lucide="plus-circle" class="w-4 h-4 text-teal-600 dark:text-teal-400"></i>
-                        <span><?php echo $isLoggedIn ? 'Create a Poll' : 'Sign In to Author Poll'; ?></span>
+                        <span><?php echo $isLoggedIn ? 'Create a Poll' : 'Sign In to Create a Poll'; ?></span>
                     </a>
                 </div>
 
-                <!-- Live Architectural Metrics Strip -->
+                <!-- Everyday Use Case Highlights Strip -->
                 <div class="pt-6 border-t border-slate-200/80 dark:border-teal-950/80 grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div class="space-y-1">
                         <div class="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-slate-200">
-                            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-teal-500 shrink-0"></i>
-                            <span>Zero Deanonymization</span>
+                            <i data-lucide="gamepad-2" class="w-3.5 h-3.5 text-teal-500 shrink-0"></i>
+                            <span>Everyday Topics</span>
                         </div>
                         <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-normal">
-                            Salted HMAC isolates voter accounts from cast choices.
+                            Gaming debates, project comparisons, and friendly feedback.
                         </p>
                     </div>
 
                     <div class="space-y-1">
                         <div class="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-slate-200">
-                            <i data-lucide="cpu" class="w-3.5 h-3.5 text-teal-500 shrink-0"></i>
-                            <span>Device Trust</span>
+                            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-teal-500 shrink-0"></i>
+                            <span>Simple & Private</span>
                         </div>
                         <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-normal">
-                            Multi-vote prevention across shared campus Wi-Fi & proxies.
+                            Salted hashes help protect individual choices in anonymous polls.
                         </p>
                     </div>
 
                     <div class="space-y-1">
                         <div class="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-slate-200">
                             <i data-lucide="layers" class="w-3.5 h-3.5 text-teal-500 shrink-0"></i>
-                            <span>Multi-Type Polls</span>
+                            <span>Multiple Formats</span>
                         </div>
                         <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-normal">
-                            Single, Multiple, Yes/No, and 1&ndash;5 Rating options.
+                            Custom choices, Yes/No questions, and 1&ndash;5 star ratings.
                         </p>
                     </div>
                 </div>
@@ -93,11 +91,11 @@ ob_start();
                         <div class="flex items-center gap-2">
                             <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
                             <span class="text-xs font-bold tracking-wider uppercase text-slate-900 dark:text-slate-200">
-                                <?php echo $featuredPoll ? 'Live Spotlight Poll' : 'Voting Station Ready'; ?>
+                                <?php echo $featuredPoll ? 'Featured Community Poll' : 'Ready for New Polls'; ?>
                             </span>
                         </div>
                         <span class="text-[11px] font-mono text-slate-400 dark:text-slate-500">
-                            <?php echo $featuredPoll ? ('ID #' . (int)$featuredPoll['id']) : 'STATION: IDLE'; ?>
+                            <?php echo $featuredPoll ? ('ID #' . (int)$featuredPoll['id']) : 'STATION: READY'; ?>
                         </span>
                     </div>
 
@@ -132,26 +130,26 @@ ob_start();
                                 </p>
                             <?php else: ?>
                                 <p class="text-xs text-slate-400 dark:text-slate-500 italic">
-                                    Active public election open for verifiable voter participation.
+                                    Active public poll open for community voting.
                                 </p>
                             <?php endif; ?>
 
                             <!-- Telemetry & Verification Box -->
                             <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-teal-950/80 space-y-1.5 text-xs">
                                 <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[11px]">
-                                    <span>Author</span>
+                                    <span>Created By</span>
                                     <span class="font-medium text-slate-900 dark:text-slate-200 truncate max-w-[160px]">
-                                        <?php echo htmlspecialchars($featuredPoll['creator_name'] ?? 'Community Organizer'); ?>
+                                        <?php echo htmlspecialchars($featuredPoll['creator_name'] ?? 'Community Member'); ?>
                                     </span>
                                 </div>
                                 <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[11px]">
-                                    <span>Audit Integrity</span>
-                                    <span class="font-mono text-teal-600 dark:text-teal-400">voter_hash active</span>
+                                    <span>Privacy Mode</span>
+                                    <span class="font-mono text-teal-600 dark:text-teal-400">Salted hash active</span>
                                 </div>
                             </div>
 
                             <a href="<?php echo $basePrefix; ?>/polls/show?id=<?php echo (int)$featuredPoll['id']; ?>" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-teal-600 hover:bg-teal-500 transition-colors shadow-xs min-h-[44px]">
-                                <span><?php echo ($spotlightLifecycle === 'Closed') ? 'View Tabulation Results' : 'Cast Cryptographic Vote'; ?></span>
+                                <span><?php echo ($spotlightLifecycle === 'Closed') ? 'View Results' : 'Vote in Poll'; ?></span>
                                 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                             </a>
                         </div>
@@ -160,21 +158,21 @@ ob_start();
                         <div class="space-y-4">
                             <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-teal-950/80 space-y-2 text-xs">
                                 <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[11px]">
-                                    <span>Station Status</span>
-                                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">Online & Listening</span>
+                                    <span>Poll Status</span>
+                                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">Online</span>
                                 </div>
                                 <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[11px]">
-                                    <span>Voter Privacy</span>
-                                    <span class="font-mono text-teal-600 dark:text-teal-400">HMAC-SHA256 Active</span>
+                                    <span>Vote Privacy</span>
+                                    <span class="font-mono text-teal-600 dark:text-teal-400">Salted Hashes Supported</span>
                                 </div>
                                 <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[11px]">
-                                    <span>Device Trust</span>
-                                    <span class="text-slate-700 dark:text-slate-300">Entropy Signature Engine</span>
+                                    <span>Device Token</span>
+                                    <span class="text-slate-700 dark:text-slate-300">Duplicate Check Ready</span>
                                 </div>
                             </div>
 
                             <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                                No public ballots are currently active. You can create an institutional election or private department poll right now.
+                                No public polls are currently active. You can create a poll to ask a question right now.
                             </p>
 
                             <a href="<?php echo $basePrefix; ?>/polls/create" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-teal-600 hover:bg-teal-500 transition-colors shadow-xs min-h-[44px]">
@@ -198,13 +196,13 @@ ob_start();
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
             <div>
                 <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider block mb-1">
-                    Democratic Participation
+                    Community Activity
                 </span>
                 <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
                     Active Public Polls
                 </h2>
                 <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-                    Elections and votes currently open to the public with verified audit tracking.
+                    Questions and polls currently open for public viewing and voting.
                 </p>
             </div>
             <div>
@@ -223,11 +221,11 @@ ob_start();
                 </div>
                 <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1.5">No Active Public Polls</h3>
                 <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
-                    All previous public votes have concluded. Log in to launch the next community poll.
+                    There are no open public polls right now. Sign in to start the first conversation.
                 </p>
                 <a href="<?php echo $basePrefix; ?>/polls/create" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-teal-600 hover:bg-teal-500 transition-all shadow-xs min-h-[44px]">
                     <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-                    <span>Create a Public Poll</span>
+                    <span>Create a Poll</span>
                 </a>
             </div>
         <?php else: ?>
@@ -275,7 +273,7 @@ ob_start();
                                 </p>
                             <?php else: ?>
                                 <p class="text-xs text-slate-400 dark:text-slate-500 italic mb-4">
-                                    Community poll open for verifiable public participation.
+                                    Community poll open for public responses.
                                 </p>
                             <?php endif; ?>
                         </div>
@@ -284,7 +282,7 @@ ob_start();
                         <div class="pt-4 border-t border-slate-100 dark:border-teal-950/80 flex items-center justify-between gap-2">
                             <div class="text-[11px] text-slate-400 dark:text-slate-500 flex items-center gap-1 truncate max-w-[140px]">
                                 <i data-lucide="user" class="w-3.5 h-3.5 shrink-0"></i>
-                                <span class="truncate"><?php echo htmlspecialchars($poll['creator_name'] ?? 'Community Creator'); ?></span>
+                                <span class="truncate"><?php echo htmlspecialchars($poll['creator_name'] ?? 'Community Member'); ?></span>
                             </div>
                             
                             <a href="<?php echo $basePrefix; ?>/polls/show?id=<?php echo (int)$poll['id']; ?>" class="inline-flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-semibold text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 hover:bg-teal-100 dark:hover:bg-teal-900/60 border border-teal-200 dark:border-teal-800/40 transition-colors shrink-0 min-h-[44px]">
@@ -300,91 +298,87 @@ ob_start();
     </div>
 </section>
 
-<!-- Architectural Integrity & System Tenets (Asymmetric Layout) -->
+<!-- What People Ask: Everyday Scenarios & Honest Vision -->
 <section class="py-16 md:py-24 border-b border-slate-200/80 dark:border-teal-950/80 bg-white/40 dark:bg-[#061214]/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
             
-            <!-- Left Column: Problem Narrative (5 cols) -->
+            <!-- Left Column: Story & Vision (5 cols) -->
             <div class="lg:col-span-5 space-y-6">
                 <div>
                     <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider block mb-2">
-                        Engineering Rationale
+                        Everyday Use Cases
                     </span>
                     <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight leading-snug">
-                        Why Informal Survey Forms Fail in Institutional Elections
+                        Built for Questions Big and Small
                     </h2>
                 </div>
 
                 <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                    Most web polling tools either link voter account identities directly to their ballot responses or rely on raw IP address blocking. On university dorms, shared eduroam Wi-Fi, and institutional proxy gateways, IP-based deduplication immediately collapses.
+                    SecurePoll is designed for anyone who wants to run a quick poll, collect honest feedback, and see what people really think without intrusive trackers or complicated setups.
                 </p>
 
                 <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                    SecurePoll was engineered from first principles to resolve this tension: delivering <strong class="text-slate-900 dark:text-white font-semibold">absolute cryptographic voter anonymity</strong> while enforcing <strong class="text-slate-900 dark:text-white font-semibold">strict one-person-one-vote rules</strong>.
+                    We're starting with everyday polls and small communities. If the project proves useful and receives meaningful feedback, we may explore additional features for larger groups in the future.
                 </p>
 
                 <div class="pt-2">
                     <a href="<?php echo $basePrefix; ?>/about" class="inline-flex items-center gap-1.5 text-xs font-semibold text-teal-700 dark:text-teal-400 hover:underline">
-                        <span>Read our architectural philosophy</span>
+                        <span>Read about the project and creators</span>
                         <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                     </a>
                 </div>
             </div>
 
-            <!-- Right Column: 4 Verification Tenets (7 cols) -->
+            <!-- Right Column: Real-World Scenarios (7 cols) -->
             <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
-                <!-- Tenet 1: Salted voter_hash -->
                 <div class="p-5 rounded-xl border border-slate-200 dark:border-teal-950/80 bg-white dark:bg-[#07181b]/80 space-y-2.5">
                     <div class="flex items-center gap-2.5">
                         <div class="w-8 h-8 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0">
-                            <i data-lucide="fingerprint" class="w-4 h-4"></i>
+                            <i data-lucide="gamepad-2" class="w-4 h-4"></i>
                         </div>
-                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Decoupled Hash Anonymity</h3>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Gaming & Hobbies</h3>
                     </div>
                     <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Votes are logged with a one-way salted SHA-256 <code class="font-mono text-[11px] px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-teal-700 dark:text-teal-300">voter_hash</code>. Neither database dumps nor server logs can correlate a user account to their ballot choice.
+                        "Which game should our squad play tonight?" or "Which setup would you choose?" Compare favorites and settle debates easily.
                     </p>
                 </div>
 
-                <!-- Tenet 2: Device Trust Anchoring -->
                 <div class="p-5 rounded-xl border border-slate-200 dark:border-teal-950/80 bg-white dark:bg-[#07181b]/80 space-y-2.5">
                     <div class="flex items-center gap-2.5">
                         <div class="w-8 h-8 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0">
-                            <i data-lucide="shield" class="w-4 h-4"></i>
+                            <i data-lucide="sparkles" class="w-4 h-4"></i>
                         </div>
-                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Device Trust Engine</h3>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Projects & Ideas</h3>
                     </div>
                     <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Prevents duplicate vote manipulation on shared campus networks using client entropy tokens and signed browser identifiers without requiring intrusive personal tracking.
+                        "Whose prototype looks better?" or "Which idea should we build next?" Get quick feedback from friends and fellow creators.
                     </p>
                 </div>
 
-                <!-- Tenet 3: Flexible Polling Rules -->
                 <div class="p-5 rounded-xl border border-slate-200 dark:border-teal-950/80 bg-white dark:bg-[#07181b]/80 space-y-2.5">
                     <div class="flex items-center gap-2.5">
                         <div class="w-8 h-8 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0">
-                            <i data-lucide="sliders" class="w-4 h-4"></i>
+                            <i data-lucide="message-circle" class="w-4 h-4"></i>
                         </div>
-                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Governed Polling Modes</h3>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Everyday Situations</h3>
                     </div>
                     <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Native support for single-choice, multiple-choice, binary Yes/No, and 1&ndash;5 star rating scales. Quorum thresholds and automatic expiration enforce voting lifecycle.
+                        "This happened today. Was I in the wrong?" or "What would you do here?" Ask opinions and hear different perspectives.
                     </p>
                 </div>
 
-                <!-- Tenet 4: Tamper-Evident Audit Trail -->
                 <div class="p-5 rounded-xl border border-slate-200 dark:border-teal-950/80 bg-white dark:bg-[#07181b]/80 space-y-2.5">
                     <div class="flex items-center gap-2.5">
                         <div class="w-8 h-8 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0">
-                            <i data-lucide="file-check-2" class="w-4 h-4"></i>
+                            <i data-lucide="users" class="w-4 h-4"></i>
                         </div>
-                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Immutable Audit Trail</h3>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Small Groups & Clubs</h3>
                     </div>
                     <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Administrative edits, option updates, and roster modifications are committed to immutable audit logs with timestamping and actor records.
+                        Run simple group votes, decide meetup times, or vote on group choices without cumbersome spreadsheet forms.
                     </p>
                 </div>
 
@@ -395,21 +389,21 @@ ob_start();
     </div>
 </section>
 
-<!-- Source-Available Non-Commercial Notice -->
+<!-- Source-Available Note -->
 <section class="py-12 bg-teal-500/5 dark:bg-teal-950/20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div class="space-y-1">
             <div class="flex items-center gap-2">
                 <i data-lucide="scale" class="w-4 h-4 text-teal-500"></i>
-                <h4 class="text-sm font-bold text-slate-900 dark:text-white">Source-Available & Attribution Governed</h4>
+                <h4 class="text-sm font-bold text-slate-900 dark:text-white">Source-Available Project</h4>
             </div>
             <p class="text-xs text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
-                SecurePoll is published under a source-available license. Free for universities, student unions, academic research, and non-commercial democracy.
+                SecurePoll is an independent project with source code on GitHub. Free to explore, use, and share feedback while we learn and build.
             </p>
         </div>
         <div class="flex items-center gap-3 shrink-0">
             <a href="<?php echo $basePrefix; ?>/pricing" class="inline-flex items-center gap-1.5 text-xs font-semibold text-teal-700 dark:text-teal-300 hover:underline">
-                <span>Licensing Details</span>
+                <span>Early Access Details</span>
                 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
             </a>
         </div>

@@ -68,20 +68,14 @@ class PollController extends Controller {
     }
 
     public function myPolls() {
-        if (!Session::get('user_id')) {
-            Session::setFlash('error', 'You must be logged in to view your polls.');
-            return $this->redirect('/login');
-        }
+        $this->requireAuth();
         $userId = Session::get('user_id');
         $polls = $this->pollModel->getByCreator($userId);
         return $this->view('polls/my_polls', ['polls' => $polls]);
     }
 
     public function create() {
-        if (!Session::get('user_id')) {
-            Session::setFlash('error', 'You must be logged in to create a poll.');
-            return $this->redirect('/login');
-        }
+        $this->requireAuth();
         return $this->view('polls/create');
     }
 

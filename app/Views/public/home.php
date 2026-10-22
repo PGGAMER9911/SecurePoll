@@ -3,7 +3,7 @@ use app\Services\PollService;
 
 $pageTitle = 'SecurePoll — Small questions. Different perspectives.';
 $pageDescription = 'SecurePoll is a place to ask everyday questions, compare opinions, and run polls with friends, gamers, and small communities. We\'re starting small, learning from real use, and improving step by step.';
-$basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
+$basePrefix = $basePrefix ?? \app\Helpers\Url::base();
 $featuredPoll = !empty($polls) ? $polls[0] : null;
 $secondaryPolls = !empty($polls) ? array_slice($polls, 1) : [];
 

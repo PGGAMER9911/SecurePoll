@@ -1,5 +1,5 @@
 <?php
-$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
+$basePrefix = $basePrefix ?? \app\Helpers\Url::base();
 use app\Helpers\Security;
 $pageTitle = 'Settings - SecurePoll';
 $pageHeader = 'Settings';
@@ -665,7 +665,7 @@ document.getElementById('emailPreferencesForm')?.addEventListener('submit', func
 </script>
 
 <?php
-$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
+$basePrefix = $basePrefix ?? \app\Helpers\Url::base();
 $content = ob_get_clean();
 require_once __DIR__ . '/../layouts/app.php';
 ?>

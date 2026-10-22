@@ -4,7 +4,7 @@ if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
     $userTheme = 'system';
 }
 
-$basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
+$basePrefix = \app\Helpers\Url::base();
 $currentPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
 $currentPath = str_replace('/SecurePoll/public', '', $currentPath);
 if ($currentPath === '') $currentPath = '/';
@@ -141,10 +141,13 @@ $canonicalUrl = 'https://securepoll.pgdev.in' . ($currentPath === '/' ? '/' : $c
                             <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i>
                             <span>Go to Dashboard</span>
                         </a>
-                        <a href="<?php echo $basePrefix; ?>/logout" class="inline-flex items-center gap-1 text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 px-2 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-colors" title="Sign Out">
-                            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
-                            <span>Sign Out</span>
-                        </a>
+                        <form action="<?php echo $basePrefix; ?>/logout" method="POST" class="inline m-0">
+                            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(\app\Helpers\Security::generateCsrfToken()); ?>">
+                            <button type="submit" class="inline-flex items-center gap-1 text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 px-2 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-colors cursor-pointer" title="Sign Out">
+                                <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+                                <span>Sign Out</span>
+                            </button>
+                        </form>
                     </div>
                 <?php else: ?>
                     <a href="<?php echo $basePrefix; ?>/login" class="hidden sm:inline-flex text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 px-2 py-1.5 transition-colors">
@@ -192,7 +195,10 @@ $canonicalUrl = 'https://securepoll.pgdev.in' . ($currentPath === '/' ? '/' : $c
             <?php if ($isLoggedIn): ?>
                 <div class="pt-3 border-t border-slate-200 dark:border-teal-950/80 flex items-center justify-between gap-3">
                     <a href="<?php echo $basePrefix; ?>/dashboard" class="flex-1 text-center py-2.5 rounded-xl border border-teal-600/40 text-sm font-medium text-teal-600 dark:text-teal-400 min-h-[44px] flex items-center justify-center">Dashboard</a>
-                    <a href="<?php echo $basePrefix; ?>/logout" class="flex-1 text-center py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-sm font-medium text-rose-600 dark:text-rose-400 min-h-[44px] flex items-center justify-center">Sign Out</a>
+                    <form action="<?php echo $basePrefix; ?>/logout" method="POST" class="flex-1 m-0">
+                        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(\app\Helpers\Security::generateCsrfToken()); ?>">
+                        <button type="submit" class="w-full text-center py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-sm font-medium text-rose-600 dark:text-rose-400 min-h-[44px] flex items-center justify-center cursor-pointer">Sign Out</button>
+                    </form>
                 </div>
             <?php else: ?>
                 <div class="pt-3 border-t border-slate-200 dark:border-teal-950/80 flex items-center justify-between gap-3">

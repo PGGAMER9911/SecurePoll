@@ -1,6 +1,6 @@
 <?php
 $userTheme = \app\Helpers\Session::get('theme') ?? ($_COOKIE['securepoll_theme'] ?? 'system');
-$basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
+$basePrefix = \app\Helpers\Url::base();
 if (!in_array($userTheme, ['dark', 'light', 'system'], true)) {
     $userTheme = 'system';
 }

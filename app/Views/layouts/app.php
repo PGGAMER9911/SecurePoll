@@ -1,5 +1,5 @@
 <?php
-$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
+$basePrefix = $basePrefix ?? \app\Helpers\Url::base();
 $userTheme = 'system';
 if (\app\Helpers\Session::has('user_id')) {
     $userTheme = \app\Helpers\Session::get('theme');

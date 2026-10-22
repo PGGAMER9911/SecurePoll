@@ -1,5 +1,5 @@
 <?php
-$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
+$basePrefix = $basePrefix ?? \app\Helpers\Url::base();
 $pageTitle = 'Dashboard - SecurePoll';
 $pageHeader = 'Dashboard Overview';
 ob_start();

@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'About SecurePoll — The Project Story & Creators';
 $pageDescription = 'The story behind SecurePoll: an early-stage polling project built for everyday questions, friendly debates, and honest community feedback.';
-$basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
+$basePrefix = $basePrefix ?? \app\Helpers\Url::base();
 ob_start();
 ?>
 

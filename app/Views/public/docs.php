@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Documentation — SecurePoll Guide & Development Journey';
 $pageDescription = 'Documentation for SecurePoll: how to create and vote in polls, privacy mechanisms, and the real development journey, challenges, and solutions.';
-$basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
+$basePrefix = $basePrefix ?? \app\Helpers\Url::base();
 ob_start();
 ?>
 

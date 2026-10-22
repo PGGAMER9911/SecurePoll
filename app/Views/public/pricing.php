@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Early Access & Availability — SecurePoll';
 $pageDescription = 'SecurePoll is currently free during early access while we develop the project and learn from real community use.';
-$basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
+$basePrefix = $basePrefix ?? \app\Helpers\Url::base();
 ob_start();
 ?>
 

@@ -1,7 +1,7 @@
 <?php
 use app\Helpers\Session;
 
-$basePrefix = $basePrefix ?? (strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '');
+$basePrefix = $basePrefix ?? \app\Helpers\Url::base();
 $pageTitle = 'Polls - SecurePoll';
 $pageHeader = 'Active Polls';
 ob_start();

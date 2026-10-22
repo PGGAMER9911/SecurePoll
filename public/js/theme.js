@@ -11,6 +11,9 @@
         if (typeof window.SecurePollBase !== 'undefined') {
             return window.SecurePollBase;
         }
+        if (window.location.hostname && window.location.hostname.includes('securepoll.pgdev.in')) {
+            return '';
+        }
         return window.location.pathname.startsWith('/SecurePoll/public') ? '/SecurePoll/public' : '';
     }
 

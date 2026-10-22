@@ -17,7 +17,7 @@ class AuthController extends Controller {
     public function showLogin() {
         \app\Helpers\Session::init();
         if (\app\Helpers\Session::get('user_id')) {
-            return $this->redirect('/polls');
+            return $this->redirect('/dashboard');
         }
         return $this->view('auth/login');
     }
@@ -25,7 +25,7 @@ class AuthController extends Controller {
     public function showRegister() {
         \app\Helpers\Session::init();
         if (\app\Helpers\Session::get('user_id')) {
-            return $this->redirect('/polls');
+            return $this->redirect('/dashboard');
         }
         return $this->view('auth/register');
     }
@@ -100,6 +100,16 @@ class AuthController extends Controller {
                 'fingerprint_id' => $result['fingerprint_id'] ?? null,
                 'expires_at' => time() + 600
             ]);
+        } elseif (!empty($result['success'])) {
+            $intendedUrl = \app\Helpers\Session::get('intended_url');
+            \app\Helpers\Session::remove('intended_url');
+            $redirectDest = '/dashboard';
+            if ($intendedUrl && is_string($intendedUrl)) {
+                if (strpos($intendedUrl, '/') === 0 && strpos($intendedUrl, '//') !== 0 && strpos($intendedUrl, '/\\') !== 0) {
+                    $redirectDest = $intendedUrl;
+                }
+            }
+            $result['redirect'] = $redirectDest;
         }
 
         return $this->json($result, $result['success'] ? 200 : 401);
@@ -124,6 +134,9 @@ class AuthController extends Controller {
         
         if ($purpose === 'registration') {
             $result = $this->authService->verifyRegistrationOtp($email, $otp);
+            if (!empty($result['success'])) {
+                $result['redirect'] = '/login';
+            }
         } else if ($purpose === 'new_device') {
             \app\Helpers\Session::init();
             $pending = \app\Helpers\Session::get('pending_device_verification');
@@ -134,6 +147,15 @@ class AuthController extends Controller {
             $result = $this->authService->verifyDeviceOtp($email, $otp, $fingerprintId, $_SERVER['REMOTE_ADDR'], $clientTheme);
             if (!empty($result['success'])) {
                 \app\Helpers\Session::remove('pending_device_verification');
+                $intendedUrl = \app\Helpers\Session::get('intended_url');
+                \app\Helpers\Session::remove('intended_url');
+                $redirectDest = '/dashboard';
+                if ($intendedUrl && is_string($intendedUrl)) {
+                    if (strpos($intendedUrl, '/') === 0 && strpos($intendedUrl, '//') !== 0 && strpos($intendedUrl, '/\\') !== 0) {
+                        $redirectDest = $intendedUrl;
+                    }
+                }
+                $result['redirect'] = $redirectDest;
             }
         } else if ($purpose === 'password_reset') {
             $result = $this->authService->verifyPasswordResetOtp($email, $otp);
@@ -181,7 +203,7 @@ class AuthController extends Controller {
     public function showForgotPassword() {
         \app\Helpers\Session::init();
         if (\app\Helpers\Session::get('user_id')) {
-            return $this->redirect('/polls');
+            return $this->redirect('/dashboard');
         }
         return $this->view('auth/forgot_password');
     }
@@ -189,7 +211,7 @@ class AuthController extends Controller {
     public function showResetPassword() {
         \app\Helpers\Session::init();
         if (\app\Helpers\Session::get('user_id')) {
-            return $this->redirect('/polls');
+            return $this->redirect('/dashboard');
         }
 
         $rawToken = Security::sanitize($_GET['token'] ?? '');

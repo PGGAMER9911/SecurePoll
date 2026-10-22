@@ -25,6 +25,16 @@ Router::post('/verify-otp', [AuthController::class, 'verifyOtp']);
 Router::post('/verifyOtp', [AuthController::class, 'verifyOtp']);
 Router::post('/resend-otp', [AuthController::class, 'resendOtp']);
 Router::post('/logout', [AuthController::class, 'logout']);
+Router::get('/logout', function() {
+    \app\Helpers\Session::init();
+    $prefix = \app\Helpers\Url::base();
+    if (!\app\Helpers\Session::get('user_id')) {
+        header('Location: ' . ($prefix ? $prefix . '/login' : '/login'));
+        exit;
+    }
+    header('Location: ' . ($prefix ?: '/'));
+    exit;
+});
 Router::get('/forgot-password', [AuthController::class, 'showForgotPassword']);
 Router::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 Router::get('/reset-password', [AuthController::class, 'showResetPassword']);
@@ -83,6 +93,20 @@ Router::post('/notifications/markAllRead', [NotificationController::class, 'mark
 Router::post('/notifications/delete', [NotificationController::class, 'delete']);
 Router::post('/notifications/clearAll', [NotificationController::class, 'clearAll']);
 
-$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$url = str_replace('/SecurePoll/public', '', $url);
+$rawPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+if (strpos($rawPath, '/SecurePoll/public') === 0) {
+    $canonical = substr($rawPath, strlen('/SecurePoll/public')) ?: '/';
+    $qs = $_SERVER['QUERY_STRING'] ?? '';
+    if (!empty($qs)) {
+        $canonical .= '?' . $qs;
+    }
+    $host = $_SERVER['HTTP_HOST'] ?? '';
+    if (strpos($host, 'securepoll.pgdev.in') !== false) {
+        header("Location: $canonical", true, 301);
+        exit;
+    }
+    $url = substr($rawPath, strlen('/SecurePoll/public')) ?: '/';
+} else {
+    $url = $rawPath;
+}
 Router::dispatch($url);

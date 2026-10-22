@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Contact — SecurePoll';
 $pageDescription = 'Contact the SecurePoll core development team for institutional deployment, vulnerability reporting, and inquiries.';
-$basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
+$basePrefix = $basePrefix ?? \app\Helpers\Url::base();
 ob_start();
 ?>
 

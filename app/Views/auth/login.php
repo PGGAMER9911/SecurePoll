@@ -2,7 +2,7 @@
 use app\Helpers\Security;
 
 $pageTitle = 'Login - SecurePoll';
-$basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
+$basePrefix = \app\Helpers\Url::base();
 ob_start();
 ?>
 
@@ -269,7 +269,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 showAlert('Login successful! Redirecting...', true);
                 setTimeout(() => {
-                    window.location.href = '/SecurePoll/public/polls';
+                    const dest = data.redirect || '/dashboard';
+                    window.location.href = (window.SecurePollBase || '') + dest;
                 }, 1000);
             } else {
                 showAlert(data.message);
@@ -316,7 +317,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 showAlert('Login successful! Redirecting...', true);
                 setTimeout(() => {
-                    window.location.href = '/SecurePoll/public/polls';
+                    const dest = data.redirect || '/dashboard';
+                    window.location.href = (window.SecurePollBase || '') + dest;
                 }, 1000);
             } else {
                 showAlert(data.message);

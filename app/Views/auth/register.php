@@ -2,7 +2,7 @@
 use app\Helpers\Security;
 
 $pageTitle = 'Register - SecurePoll';
-$basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
+$basePrefix = \app\Helpers\Url::base();
 ob_start();
 ?>
 
@@ -376,9 +376,10 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         .then(data => {
             if (data.success) {
-                showAlert('Registration successful! Redirecting...', true);
+                showAlert('Email verified successfully! Redirecting to sign in...', true);
                 setTimeout(() => {
-                    window.location.href = '/SecurePoll/public/polls';
+                    const dest = data.redirect || '/login';
+                    window.location.href = (window.SecurePollBase || '') + dest;
                 }, 1000);
             } else {
                 showAlert(data.message);

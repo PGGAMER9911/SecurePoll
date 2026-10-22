@@ -2,7 +2,7 @@
 use app\Helpers\Security;
 
 $pageTitle = 'Reset Password - SecurePoll';
-$basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
+$basePrefix = \app\Helpers\Url::base();
 ob_start();
 ?>
 

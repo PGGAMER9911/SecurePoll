@@ -13,6 +13,17 @@ class Controller {
         $this->preventCaching();
         \app\Helpers\Session::init();
         if (!\app\Helpers\Session::get('user_id')) {
+            $reqMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+            if ($reqMethod === 'GET') {
+                $rawUri = $_SERVER['REQUEST_URI'] ?? '/dashboard';
+                $parsedPath = parse_url($rawUri, PHP_URL_PATH);
+                $cleanPath = str_replace('/SecurePoll/public', '', $parsedPath);
+                if (!in_array($cleanPath, ['/login', '/logout', '/register', '/verify-otp', '/resend-otp'], true)) {
+                    $qs = parse_url($rawUri, PHP_URL_QUERY);
+                    $fullTarget = $cleanPath . ($qs ? '?' . $qs : '');
+                    \app\Helpers\Session::set('intended_url', $fullTarget);
+                }
+            }
             \app\Helpers\Session::setFlash('error', 'You must be logged in to access this page.');
             $this->redirect('/login');
         }
@@ -34,7 +45,7 @@ class Controller {
     }
 
     protected function view($view, $data = []) {
-        $basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
+        $basePrefix = \app\Helpers\Url::base();
         if (!isset($data['basePrefix'])) {
             $data['basePrefix'] = $basePrefix;
         }
@@ -55,8 +66,10 @@ class Controller {
     }
 
     protected function redirect($url) {
-        $basePrefix = strpos($_SERVER['REQUEST_URI'] ?? '', '/SecurePoll/public') !== false ? '/SecurePoll/public' : '';
-        header('Location: ' . $basePrefix . $url);
+        $basePrefix = \app\Helpers\Url::base();
+        // If url already starts with basePrefix, don't duplicate it
+        $target = ($basePrefix !== '' && strpos($url, $basePrefix) === 0) ? $url : ($basePrefix . '/' . ltrim($url, '/'));
+        header('Location: ' . $target);
         exit;
     }
 }
